@@ -108,43 +108,13 @@ checksum = "86fdf8605db99b54d3cd748a44c6d04df638eb5dafb219b135d0149bd0db01f6"
 
 [[package]]
 name = "ark-bls12-377"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb00293ba84f51ce3bd026bd0de55899c4e68f0a39a5728cebae3a73ffdc0a4f"
-dependencies = [
- "ark-ec 0.4.2",
- "ark-ff 0.4.2",
- "ark-std 0.4.0",
-]
-
-[[package]]
-name = "ark-bls12-377"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfedac3173d12820a5e0d6cd4de31b49719a74f4a41dc09b6652d0276a3b2cd4"
 dependencies = [
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-std 0.5.0",
-]
-
-[[package]]
-name = "ark-crypto-primitives"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f3a13b34da09176a8baba701233fdffbaa7c1b1192ce031a3da4e55ce1f1a56"
-dependencies = [
- "ark-ec 0.4.2",
- "ark-ff 0.4.2",
- "ark-relations 0.4.0",
- "ark-serialize 0.4.2",
- "ark-snark 0.4.0",
- "ark-std 0.4.0",
- "blake2 0.10.6",
- "derivative",
- "digest 0.10.7",
- "rayon",
- "sha2 0.10.8",
+ "ark-ec",
+ "ark-ff",
+ "ark-std",
 ]
 
 [[package]]
@@ -155,12 +125,12 @@ checksum = "1e0c292754729c8a190e50414fd1a37093c786c709899f29c9f7daccecfa855e"
 dependencies = [
  "ahash",
  "ark-crypto-primitives-macros",
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
- "ark-std 0.5.0",
+ "ark-ec",
+ "ark-ff",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
+ "ark-std",
  "blake2 0.10.6",
  "derivative",
  "digest 0.10.7",
@@ -185,29 +155,11 @@ dependencies = [
 name = "ark-dh-commitments"
 version = "0.4.0"
 dependencies = [
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
+ "ark-ec",
+ "ark-ff",
  "ark-inner-products",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
-]
-
-[[package]]
-name = "ark-ec"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "defd9a439d56ac24968cca0571f598a61bc8c55f71d50a89cda591cb750670ba"
-dependencies = [
- "ark-ff 0.4.2",
- "ark-poly 0.4.2",
- "ark-serialize 0.4.2",
- "ark-std 0.4.0",
- "derivative",
- "hashbrown 0.13.2",
- "itertools 0.10.5",
- "num-traits",
- "rayon",
- "zeroize",
+ "ark-serialize",
+ "ark-std",
 ]
 
 [[package]]
@@ -217,10 +169,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "43d68f2d516162846c1238e755a7c4d131b892b70cc70c471a8e3ca3ed818fce"
 dependencies = [
  "ahash",
- "ark-ff 0.5.0",
- "ark-poly 0.5.0",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-ff",
+ "ark-poly",
+ "ark-serialize",
+ "ark-std",
  "educe",
  "fnv",
  "hashbrown 0.15.0",
@@ -234,47 +186,14 @@ dependencies = [
 
 [[package]]
 name = "ark-ed-on-bls12-377"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b10d901b9ac4b38f9c32beacedfadcdd64e46f8d7f8e88c1ae1060022cf6f6c6"
-dependencies = [
- "ark-bls12-377 0.4.0",
- "ark-ec 0.4.2",
- "ark-ff 0.4.2",
- "ark-std 0.4.0",
-]
-
-[[package]]
-name = "ark-ed-on-bls12-377"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebbf817b2db27d2787009b2ff76304a5b90b4b01bb16aa8351701fd40f5f37b2"
 dependencies = [
- "ark-bls12-377 0.5.0",
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-std 0.5.0",
-]
-
-[[package]]
-name = "ark-ff"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec847af850f44ad29048935519032c33da8aa03340876d351dfab5660d2966ba"
-dependencies = [
- "ark-ff-asm 0.4.2",
- "ark-ff-macros 0.4.2",
- "ark-serialize 0.4.2",
- "ark-std 0.4.0",
- "derivative",
- "digest 0.10.7",
- "itertools 0.10.5",
- "num-bigint",
- "num-traits",
- "paste",
- "rayon",
- "rustc_version",
- "zeroize",
+ "ark-bls12-377",
+ "ark-ec",
+ "ark-ff",
+ "ark-std",
 ]
 
 [[package]]
@@ -283,10 +202,10 @@ version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a177aba0ed1e0fbb62aa9f6d0502e9b46dad8c2eab04c14258a1212d2557ea70"
 dependencies = [
- "ark-ff-asm 0.5.0",
- "ark-ff-macros 0.5.0",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-ff-asm",
+ "ark-ff-macros",
+ "ark-serialize",
+ "ark-std",
  "arrayvec 0.7.6",
  "digest 0.10.7",
  "educe",
@@ -300,35 +219,12 @@ dependencies = [
 
 [[package]]
 name = "ark-ff-asm"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ed4aa4fe255d0bc6d79373f7e31d2ea147bcf486cba1be5ba7ea85abdb92348"
-dependencies = [
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "ark-ff-asm"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "62945a2f7e6de02a31fe400aa489f0e0f5b2502e69f95f853adb82a96c7a6b60"
 dependencies = [
  "quote",
  "syn 2.0.87",
-]
-
-[[package]]
-name = "ark-ff-macros"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7abe79b0e4288889c4574159ab790824d0033b9fdcb2a112a3182fac2e514565"
-dependencies = [
- "num-bigint",
- "num-traits",
- "proc-macro2 1.0.86",
- "quote",
- "syn 1.0.109",
 ]
 
 [[package]]
@@ -346,33 +242,17 @@ dependencies = [
 
 [[package]]
 name = "ark-groth16"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "20ceafa83848c3e390f1cbf124bc3193b3e639b3f02009e0e290809a501b95fc"
-dependencies = [
- "ark-crypto-primitives 0.4.0",
- "ark-ec 0.4.2",
- "ark-ff 0.4.2",
- "ark-poly 0.4.2",
- "ark-relations 0.4.0",
- "ark-serialize 0.4.2",
- "ark-std 0.4.0",
- "rayon",
-]
-
-[[package]]
-name = "ark-groth16"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "88f1d0f3a534bb54188b8dcc104307db6c56cdae574ddc3212aec0625740fc7e"
 dependencies = [
- "ark-crypto-primitives 0.5.0",
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-poly 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-crypto-primitives",
+ "ark-ec",
+ "ark-ff",
+ "ark-poly",
+ "ark-relations",
+ "ark-serialize",
+ "ark-std",
  "rayon",
 ]
 
@@ -380,10 +260,10 @@ dependencies = [
 name = "ark-inner-products"
 version = "0.4.0"
 dependencies = [
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-ec",
+ "ark-ff",
+ "ark-serialize",
+ "ark-std",
  "rayon",
  "serde",
 ]
@@ -393,13 +273,13 @@ name = "ark-ip-proofs"
 version = "0.4.0"
 dependencies = [
  "ark-dh-commitments",
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
+ "ark-ec",
+ "ark-ff",
+ "ark-groth16",
  "ark-inner-products",
- "ark-poly 0.5.0",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-poly",
+ "ark-serialize",
+ "ark-std",
  "digest 0.9.0",
  "itertools 0.12.1",
  "num-traits",
@@ -409,28 +289,14 @@ dependencies = [
 
 [[package]]
 name = "ark-poly"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d320bfc44ee185d899ccbadfa8bc31aab923ce1558716e1997a1e74057fe86bf"
-dependencies = [
- "ark-ff 0.4.2",
- "ark-serialize 0.4.2",
- "ark-std 0.4.0",
- "derivative",
- "hashbrown 0.13.2",
- "rayon",
-]
-
-[[package]]
-name = "ark-poly"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "579305839da207f02b89cd1679e50e67b4331e2f9294a57693e5051b7703fe27"
 dependencies = [
  "ahash",
- "ark-ff 0.5.0",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-ff",
+ "ark-serialize",
+ "ark-std",
  "educe",
  "fnv",
  "hashbrown 0.15.0",
@@ -439,31 +305,14 @@ dependencies = [
 
 [[package]]
 name = "ark-r1cs-std"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de1d1472e5cb020cb3405ce2567c91c8d43f21b674aef37b0202f5c3304761db"
-dependencies = [
- "ark-ec 0.4.2",
- "ark-ff 0.4.2",
- "ark-relations 0.4.0",
- "ark-std 0.4.0",
- "derivative",
- "num-bigint",
- "num-integer",
- "num-traits",
- "tracing",
-]
-
-[[package]]
-name = "ark-r1cs-std"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "941551ef1df4c7a401de7068758db6503598e6f01850bdb2cfdb614a1f9dbea1"
 dependencies = [
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-relations 0.5.1",
- "ark-std 0.5.0",
+ "ark-ec",
+ "ark-ff",
+ "ark-relations",
+ "ark-std",
  "educe",
  "num-bigint",
  "num-integer",
@@ -473,38 +322,14 @@ dependencies = [
 
 [[package]]
 name = "ark-relations"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "00796b6efc05a3f48225e59cb6a2cda78881e7c390872d5786aaf112f31fb4f0"
-dependencies = [
- "ark-ff 0.4.2",
- "ark-std 0.4.0",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "ark-relations"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec46ddc93e7af44bcab5230937635b06fb5744464dd6a7e7b083e80ebd274384"
 dependencies = [
- "ark-ff 0.5.0",
- "ark-std 0.5.0",
+ "ark-ff",
+ "ark-std",
  "tracing",
  "tracing-subscriber",
-]
-
-[[package]]
-name = "ark-serialize"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "adb7b85a02b83d2f22f89bd5cac66c9c89474240cb6207cb1efc16d098e822a5"
-dependencies = [
- "ark-serialize-derive 0.4.2",
- "ark-std 0.4.0",
- "digest 0.10.7",
- "num-bigint",
 ]
 
 [[package]]
@@ -513,23 +338,12 @@ version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f4d068aaf107ebcd7dfb52bc748f8030e0fc930ac8e360146ca54c1203088f7"
 dependencies = [
- "ark-serialize-derive 0.5.0",
- "ark-std 0.5.0",
+ "ark-serialize-derive",
+ "ark-std",
  "arrayvec 0.7.6",
  "digest 0.10.7",
  "num-bigint",
  "rayon",
-]
-
-[[package]]
-name = "ark-serialize-derive"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae3281bc6d0fd7e549af32b52511e1302185bd688fd3359fa36423346ff682ea"
-dependencies = [
- "proc-macro2 1.0.86",
- "quote",
- "syn 1.0.109",
 ]
 
 [[package]]
@@ -545,37 +359,14 @@ dependencies = [
 
 [[package]]
 name = "ark-snark"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "84d3cc6833a335bb8a600241889ead68ee89a3cf8448081fb7694c0fe503da63"
-dependencies = [
- "ark-ff 0.4.2",
- "ark-relations 0.4.0",
- "ark-serialize 0.4.2",
- "ark-std 0.4.0",
-]
-
-[[package]]
-name = "ark-snark"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d368e2848c2d4c129ce7679a7d0d2d612b6a274d3ea6a13bad4445d61b381b88"
 dependencies = [
- "ark-ff 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
-]
-
-[[package]]
-name = "ark-std"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "94893f1e0c6eeab764ade8dc4c0db24caf4fe7cbbaafc0eba0a9030f447b5185"
-dependencies = [
- "num-traits",
- "rand",
- "rayon",
+ "ark-ff",
+ "ark-relations",
+ "ark-serialize",
+ "ark-std",
 ]
 
 [[package]]
@@ -1130,19 +921,18 @@ dependencies = [
 [[package]]
 name = "decaf377"
 version = "0.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2097c5f69d06259112bea2024ddc41095c5001b503448f84ac169efc7cc8fd75"
+source = "git+https://github.com/mizufinance/decaf377?branch=main#738110e39c389a218b356aeb8725c4542ac11dc6"
 dependencies = [
- "ark-bls12-377 0.4.0",
- "ark-ec 0.4.2",
- "ark-ed-on-bls12-377 0.4.0",
- "ark-ff 0.4.2",
- "ark-groth16 0.4.0",
- "ark-r1cs-std 0.4.0",
- "ark-relations 0.4.0",
- "ark-serialize 0.4.2",
- "ark-snark 0.4.0",
- "ark-std 0.4.0",
+ "ark-bls12-377",
+ "ark-ec",
+ "ark-ed-on-bls12-377",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
+ "ark-std",
  "cfg-if",
  "hashbrown 0.14.5",
  "hex",
@@ -1157,8 +947,8 @@ dependencies = [
 name = "decaf377-fmd"
 version = "2.1.0"
 dependencies = [
- "ark-ff 0.5.0",
- "ark-serialize 0.5.0",
+ "ark-ff",
+ "ark-serialize",
  "bitvec",
  "blake2b_simd 1.0.2",
  "decaf377",
@@ -1170,7 +960,7 @@ dependencies = [
 name = "decaf377-ka"
 version = "2.1.0"
 dependencies = [
- "ark-ff 0.5.0",
+ "ark-ff",
  "decaf377",
  "hex",
  "rand_core",
@@ -1182,11 +972,10 @@ dependencies = [
 [[package]]
 name = "decaf377-rdsa"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "437967a34e0699b50b986a72ce6c4e2e5930bde85ec8f3749701f7e50d6d32b0"
+source = "git+https://github.com/mizufinance/decaf377-rdsa?branch=main#504c04391d871bad8c667a475983696cd24d2cee"
 dependencies = [
- "ark-ff 0.4.2",
- "ark-serialize 0.4.2",
+ "ark-ff",
+ "ark-serialize",
  "blake2b_simd 0.5.11",
  "decaf377",
  "digest 0.9.0",
@@ -2783,11 +2572,11 @@ name = "penumbra-sdk-asset"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-ff",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-std",
  "base64 0.21.7",
  "bech32",
  "blake2b_simd 1.0.2",
@@ -2822,7 +2611,7 @@ name = "penumbra-sdk-compact-block"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
+ "ark-ff",
  "async-trait",
  "blake2b_simd 1.0.2",
  "bytes",
@@ -2852,12 +2641,12 @@ version = "2.1.0"
 dependencies = [
  "aes-gcm",
  "anyhow",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
  "async-trait",
  "base64 0.21.7",
  "bincode",
@@ -2888,7 +2677,7 @@ name = "penumbra-sdk-fee"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
+ "ark-ff",
  "async-trait",
  "blake2b_simd 1.0.2",
  "bytes",
@@ -2911,12 +2700,12 @@ name = "penumbra-sdk-governance"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
  "async-stream",
  "async-trait",
  "base64 0.21.7",
@@ -2960,7 +2749,7 @@ name = "penumbra-sdk-ibc"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
+ "ark-ff",
  "async-trait",
  "base64 0.21.7",
  "blake2b_simd 1.0.2",
@@ -2996,11 +2785,11 @@ version = "2.1.0"
 dependencies = [
  "aes",
  "anyhow",
- "ark-ff 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-std 0.5.0",
+ "ark-ff",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-std",
  "base64 0.21.7",
  "bech32",
  "bip32",
@@ -3038,13 +2827,13 @@ name = "penumbra-sdk-num"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
- "ark-std 0.5.0",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
+ "ark-std",
  "base64 0.21.7",
  "bech32",
  "blake2b_simd 1.0.2",
@@ -3073,10 +2862,10 @@ name = "penumbra-sdk-proof-aggregation"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-groth16 0.5.0",
+ "ark-groth16",
  "ark-inner-products",
  "ark-ip-proofs",
- "ark-serialize 0.5.0",
+ "ark-serialize",
  "bincode",
  "blake2 0.9.2",
  "decaf377",
@@ -3097,14 +2886,14 @@ name = "penumbra-sdk-proof-params"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
- "ark-std 0.5.0",
+ "ark-ec",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
+ "ark-std",
  "bech32",
  "decaf377",
  "hex",
@@ -3150,10 +2939,10 @@ name = "penumbra-sdk-sct"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
+ "ark-ff",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
  "async-trait",
  "bincode",
  "blake2b_simd 1.0.2",
@@ -3183,13 +2972,13 @@ name = "penumbra-sdk-shielded-pool"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ec 0.5.0",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
+ "ark-ec",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
  "async-stream",
  "async-trait",
  "base64 0.21.7",
@@ -3237,11 +3026,11 @@ dependencies = [
 name = "penumbra-sdk-tct"
 version = "2.1.0"
 dependencies = [
- "ark-ed-on-bls12-377 0.5.0",
- "ark-ff 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
+ "ark-ed-on-bls12-377",
+ "ark-ff",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
  "async-trait",
  "blake2b_simd 1.0.2",
  "decaf377",
@@ -3266,8 +3055,8 @@ name = "penumbra-sdk-transaction"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
- "ark-serialize 0.5.0",
+ "ark-ff",
+ "ark-serialize",
  "base64 0.21.7",
  "bech32",
  "blake2b_simd 1.0.2",
@@ -3328,12 +3117,12 @@ name = "penumbra-sdk-validator"
 version = "2.1.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.5.0",
- "ark-groth16 0.5.0",
- "ark-r1cs-std 0.5.0",
- "ark-relations 0.5.1",
- "ark-serialize 0.5.0",
- "ark-snark 0.5.1",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
  "base64 0.21.7",
  "bech32",
  "bitvec",
@@ -3368,7 +3157,7 @@ name = "penumbra-wasm"
 version = "2.0.0"
 dependencies = [
  "anyhow",
- "ark-ff 0.4.2",
+ "ark-ff",
  "base64 0.22.1",
  "bincode",
  "console_error_panic_hook",
@@ -3376,8 +3165,10 @@ dependencies = [
  "hex",
  "ibc-types 0.16.0",
  "indexed_db_futures",
+ "js-sys",
  "penumbra-sdk-asset",
  "penumbra-sdk-compact-block",
+ "penumbra-sdk-compliance",
  "penumbra-sdk-fee",
  "penumbra-sdk-governance",
  "penumbra-sdk-keys",
@@ -3485,8 +3276,7 @@ checksum = "cc9c68a3f6da06753e9335d63e27f6b9754dd1920d941135b7ea8224f141adb2"
 [[package]]
 name = "poseidon-parameters"
 version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f6df50e93cde74d26eb66c9674fccde32172e915a420fe2a73fda39ab377f709"
+source = "git+https://github.com/mizufinance/poseidon377?branch=main#72e3d94d4c90befa1cdbd4dbb4e3da461f9639ee"
 dependencies = [
  "decaf377",
 ]
@@ -3494,13 +3284,12 @@ dependencies = [
 [[package]]
 name = "poseidon-permutation"
 version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03c4e1e8d622017ece288f1a1b06f0bfeaacaa4166fa155a91103317299452e2"
+source = "git+https://github.com/mizufinance/poseidon377?branch=main#72e3d94d4c90befa1cdbd4dbb4e3da461f9639ee"
 dependencies = [
- "ark-ff 0.4.2",
- "ark-r1cs-std 0.4.0",
- "ark-relations 0.4.0",
- "ark-std 0.4.0",
+ "ark-ff",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-std",
  "decaf377",
  "poseidon-parameters",
 ]
@@ -3508,17 +3297,16 @@ dependencies = [
 [[package]]
 name = "poseidon377"
 version = "1.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae0544874afdaf74b69efc90795c66ea7a494faeb2981a0585d46c757ee2fa94"
+source = "git+https://github.com/mizufinance/poseidon377?branch=main#72e3d94d4c90befa1cdbd4dbb4e3da461f9639ee"
 dependencies = [
- "ark-ec 0.4.2",
- "ark-ff 0.4.2",
- "ark-groth16 0.4.0",
- "ark-r1cs-std 0.4.0",
- "ark-relations 0.4.0",
- "ark-serialize 0.4.2",
- "ark-snark 0.4.0",
- "ark-std 0.4.0",
+ "ark-ec",
+ "ark-ff",
+ "ark-groth16",
+ "ark-r1cs-std",
+ "ark-relations",
+ "ark-serialize",
+ "ark-snark",
+ "ark-std",
  "decaf377",
  "poseidon-parameters",
  "poseidon-permutation",
@@ -3778,15 +3566,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e75f6a532d0fd9f7f13144f392b6ad56a32696bfcd9c78f797f16bbb6f072d6"
 
 [[package]]
-name = "rustc_version"
-version = "0.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cfcb3a22ef46e85b45de6ee7e79d063319ebb6594faafcf1c225ea92ab6e9b92"
-dependencies = [
- "semver",
-]
-
-[[package]]
 name = "rustix"
 version = "0.38.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3885,12 +3664,6 @@ dependencies = [
  "subtle",
  "zeroize",
 ]
-
-[[package]]
-name = "semver"
-version = "1.0.23"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61697e0a1c7e512e84a621326239844a24d8207b4669b41bc18b32ea5cbf988b"
 
 [[package]]
 name = "serde"

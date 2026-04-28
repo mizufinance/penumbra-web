@@ -1,8 +1,8 @@
 # Penumbra Web
 
-The [Penumbra](https://penumbra.zone/) monorepo for all things web.
+The Mizufinance Penumbra monorepo for all things web.
 
-![ci status](https://github.com/mizufinance/penumbra/actions/workflows/turbo-ci.yml/badge.svg?branch=main)
+![ci status](https://github.com/mizufinance/penumbra-web/actions/workflows/turbo-ci.yml/badge.svg?branch=main)
 
 This is a monolithic repository of Penumbra web code, a monorepo. Multiple apps,
 internal packages, and published packages are developed in this repository, to
@@ -70,8 +70,8 @@ Make sure you have the following tools installed:
 #### Install all workspace dependencies:
 
 ```sh
-git clone https://github.com/mizufinance/penumbra
-cd web
+git clone https://github.com/mizufinance/penumbra-web
+cd penumbra-web
 pnpm install
 ```
 
@@ -103,5 +103,4 @@ Minifront and Veil will hot-reload.
 ## Security
 
 If you believe you've found a security-related issue with Penumbra,
-please disclose responsibly by contacting the Penumbra Labs team at
-security@penumbralabs.xyz.
+please disclose responsibly through Mizufinance's normal security channel.

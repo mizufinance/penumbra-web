@@ -11,22 +11,22 @@ default = ["console_error_panic_hook"]
 mock-database = []
 
 [dependencies]
-penumbra-asset = { path = "../../../../crates/core/asset", package = "penumbra-sdk-asset" }
-penumbra-compact-block = { path = "../../../../crates/core/component/compact-block", package = "penumbra-sdk-compact-block", default-features = false }
-penumbra-compliance = { path = "../../../../crates/core/component/compliance", package = "penumbra-sdk-compliance", default-features = false }
-penumbra-fee = { path = "../../../../crates/core/component/fee", package = "penumbra-sdk-fee", default-features = false }
-penumbra-governance = { path = "../../../../crates/core/component/governance", package = "penumbra-sdk-governance", default-features = false }
-penumbra-keys = { path = "../../../../crates/core/keys", package = "penumbra-sdk-keys" }
-penumbra-num = { path = "../../../../crates/core/num", package = "penumbra-sdk-num" }
-penumbra-proof-params = { path = "../../../../crates/crypto/proof-params", package = "penumbra-sdk-proof-params", default-features = false }
-penumbra-proto = { path = "../../../../crates/proto", package = "penumbra-sdk-proto", default-features = false }
-penumbra-sct = { path = "../../../../crates/core/component/sct", package = "penumbra-sdk-sct", default-features = false }
-penumbra-shielded-pool = { path = "../../../../crates/core/component/shielded-pool", package = "penumbra-sdk-shielded-pool", default-features = false }
-penumbra-tct = { path = "../../../../crates/crypto/tct", package = "penumbra-sdk-tct" }
-penumbra-transaction = { path = "../../../../crates/core/transaction", package = "penumbra-sdk-transaction", default-features = false }
+penumbra-asset = { path = "../../../../penumbra/crates/core/asset", package = "penumbra-sdk-asset" }
+penumbra-compact-block = { path = "../../../../penumbra/crates/core/component/compact-block", package = "penumbra-sdk-compact-block", default-features = false }
+penumbra-compliance = { path = "../../../../penumbra/crates/core/component/compliance", package = "penumbra-sdk-compliance", default-features = false }
+penumbra-fee = { path = "../../../../penumbra/crates/core/component/fee", package = "penumbra-sdk-fee", default-features = false }
+penumbra-governance = { path = "../../../../penumbra/crates/core/component/governance", package = "penumbra-sdk-governance", default-features = false }
+penumbra-keys = { path = "../../../../penumbra/crates/core/keys", package = "penumbra-sdk-keys" }
+penumbra-num = { path = "../../../../penumbra/crates/core/num", package = "penumbra-sdk-num" }
+penumbra-proof-params = { path = "../../../../penumbra/crates/crypto/proof-params", package = "penumbra-sdk-proof-params", default-features = false }
+penumbra-proto = { path = "../../../../penumbra/crates/proto", package = "penumbra-sdk-proto", default-features = false }
+penumbra-sct = { path = "../../../../penumbra/crates/core/component/sct", package = "penumbra-sdk-sct", default-features = false }
+penumbra-shielded-pool = { path = "../../../../penumbra/crates/core/component/shielded-pool", package = "penumbra-sdk-shielded-pool", default-features = false }
+penumbra-tct = { path = "../../../../penumbra/crates/crypto/tct", package = "penumbra-sdk-tct" }
+penumbra-transaction = { path = "../../../../penumbra/crates/core/transaction", package = "penumbra-sdk-transaction", default-features = false }
 
 anyhow = "1.0.89"
-ark-ff = { version = "0.4.2", features = ["std"] }
+ark-ff = { version = "0.5.0", features = ["std"] }
 base64 = "0.22.1"
 console_error_panic_hook = { version = "0.1.7", optional = true }
 decaf377 = { version = "0.10.1", features = ["r1cs"] }
@@ -49,6 +49,13 @@ ibc-types = "0.16.0"
 [dev-dependencies]
 wasm-bindgen-test = "0.3.43"
 serde_json = "1.0.128"
+
+[patch.crates-io]
+decaf377 = { git = "https://github.com/mizufinance/decaf377", branch = "main" }
+decaf377-rdsa = { git = "https://github.com/mizufinance/decaf377-rdsa", branch = "main" }
+poseidon377 = { git = "https://github.com/mizufinance/poseidon377", branch = "main" }
+poseidon-permutation = { git = "https://github.com/mizufinance/poseidon377", branch = "main" }
+poseidon-parameters = { git = "https://github.com/mizufinance/poseidon377", branch = "main" }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(wasm_bindgen_unstable_test_coverage)'] }

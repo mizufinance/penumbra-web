@@ -40,7 +40,7 @@
       "dependencies": ["tailwindcss"],
       "pinVersion": "3.4.17",
       "packages": [
-        "@penumbra-zone/ui-deprecated",
+        "@mizufinance/ui-deprecated",
         "@repo/tailwind-config",
         "minifront",
         "node-status"
@@ -64,9 +64,9 @@
       "isBanned": true
     },
     {
-      "label": "Use @penumbra-zone/protobuf instead of a BSR dependency",
+      "label": "Use @mizufinance/protobuf instead of a BSR dependency",
       "dependencies": [
-        "@buf/penumbra-zone_penumbra.*"
+        "@buf/mizufinance_penumbra.*"
       ],
       "isBanned": true
     },
@@ -76,7 +76,7 @@
         "@buf/*"
       ],
       "packages": [
-        "@penumbra-zone/**"
+        "@mizufinance/**"
       ],
       "isBanned": true
     }
