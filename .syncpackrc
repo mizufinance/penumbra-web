@@ -1,0 +1,84 @@
+{
+  "sortFirst": [
+    "name",
+    "version",
+    "private",
+    "license",
+    "description",
+    "repository",
+    "packageManager",
+    "type",
+    "main",
+    "engine",
+    "scripts",
+    "files",
+    "exports",
+    "publishConfig",
+    "pnpm"
+  ],
+  "dependencyTypes": [
+    "dev",
+    "peer",
+    "pnpmOverrides",
+    "prod"
+  ],
+  "semverGroups": [
+    {
+      "range": "^",
+      "dependencies": [
+        "@bufbuild/**",
+        "@connectrpc/**"
+      ],
+      "packages": [
+        "**"
+      ]
+    }
+  ],
+  "versionGroups": [
+    {
+      "label": "Use Tailwind v3 for older applications",
+      "dependencies": ["tailwindcss"],
+      "pinVersion": "3.4.17",
+      "packages": [
+        "@penumbra-zone/ui-deprecated",
+        "@repo/tailwind-config",
+        "minifront",
+        "node-status"
+      ]
+    },
+    {
+      "label": "Use workspace protocol for local packages",
+      "dependencies": [
+        "$LOCAL"
+      ],
+      "pinVersion": "workspace:*"
+    },
+    {
+      "label": "@types packages should only be under devDependencies",
+      "dependencies": [
+        "@types/**"
+      ],
+      "dependencyTypes": [
+        "!dev"
+      ],
+      "isBanned": true
+    },
+    {
+      "label": "Use @penumbra-zone/protobuf instead of a BSR dependency",
+      "dependencies": [
+        "@buf/penumbra-zone_penumbra.*"
+      ],
+      "isBanned": true
+    },
+    {
+      "label": "Don't depend on BSR in published packages",
+      "dependencies": [
+        "@buf/*"
+      ],
+      "packages": [
+        "@penumbra-zone/**"
+      ],
+      "isBanned": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+name: Compile WASM
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  wasm:
+    runs-on: buildjet-16vcpu-ubuntu-2204
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup nix
+        uses: ./.github/actions/setup-nix
+        # Optional: override default parameters
+        # with:
+        #   backend: 'github'
+      #
+      - name: setup turbo
+        uses: ./.github/actions/setup-turbo
+
+      - name: build the project
+        run: nix develop --command just build
+
+      - name: Verify no unexpected file changes (like cargo.lock change)
+        run: git diff --exit-code
+
+      - name: dump rust dependencies for debugging, only on failure
+        run: nix develop --command cargo tree --invert penumbra-wasm --edges features
+        if: failure()
+        working-directory: packages/wasm/crate

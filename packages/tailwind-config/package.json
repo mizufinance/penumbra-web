@@ -1,0 +1,12 @@
+{
+  "name": "@repo/tailwind-config",
+  "version": "3.2.3",
+  "private": true,
+  "license": "(MIT OR Apache-2.0)",
+  "main": "index.js",
+  "dependencies": {
+    "@mizufinance/ui-deprecated": "workspace:*",
+    "tailwindcss": "3.4.17",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

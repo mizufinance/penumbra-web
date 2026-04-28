@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
+    "composite": true,
+    "module": "Node16",
+    "outDir": "dist",
+    "preserveWatchOutput": true,
+    "rootDir": "src",
+    "target": "ESNext"
+  },
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "include": ["src/indexed-db.ts", "src/state-commitment-tree.ts", "src/base64.ts"],
+  "exclude": ["**/*.test.ts", "src/test/**"]
+}

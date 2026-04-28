@@ -1,0 +1,24 @@
+{
+  "name": "@mizufinance/zquery",
+  "version": "3.0.2",
+  "private": true,
+  "license": "(MIT OR Apache-2.0)",
+  "main": "src/index.ts",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.12",
+    "@types/react-dom": "19.0.4"
+  }
+}

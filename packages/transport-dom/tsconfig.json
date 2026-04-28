@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
+    "composite": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
+    "module": "Node16",
+    "outDir": "dist",
+    "preserveWatchOutput": true,
+    "rootDir": "src",
+    "target": "ESNext"
+  },
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "include": ["src"],
+  "exclude": ["**/*.test.ts", "src/test/**"]
+}

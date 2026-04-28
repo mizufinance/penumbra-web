@@ -1,0 +1,15 @@
+import type { CustodyService } from '@mizufinance/protobuf';
+import type { ServiceImpl } from '@connectrpc/connect';
+import { authorize } from './authorize.js';
+
+export type Impl = ServiceImpl<typeof CustodyService>;
+
+export const custodyImpl: Omit<
+  Impl,
+  | 'confirmAddress'
+  | 'exportFullViewingKey'
+  | 'authorizeValidatorVote'
+  | 'authorizeValidatorDefinition'
+> = {
+  authorize,
+};

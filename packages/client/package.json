@@ -1,0 +1,46 @@
+{
+  "name": "@mizufinance/client",
+  "version": "29.0.0",
+  "license": "(MIT OR Apache-2.0)",
+  "description": "Package for connecting to any Penumbra extension, including Prax.",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "devDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@connectrpc/connect": "^1.6.1",
+    "@mizufinance/protobuf": "workspace:*",
+    "@mizufinance/transport-dom": "workspace:*",
+    "@tsconfig/strictest": "2.0.5",
+    "@types/chrome": "^0.0.268",
+    "typescript": "5.5.3"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@connectrpc/connect": "^1.6.1",
+    "@mizufinance/protobuf": "workspace:*",
+    "@mizufinance/transport-dom": "workspace:*"
+  }
+}

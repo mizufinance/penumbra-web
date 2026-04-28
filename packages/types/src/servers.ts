@@ -1,0 +1,24 @@
+import { ScanBlockResult } from './state-commitment-tree.js';
+import { CompactBlock } from '@mizufinance/protobuf/penumbra/core/component/compact_block/v1/compact_block_pb';
+import { MerkleRoot } from '@mizufinance/protobuf/penumbra/crypto/tct/v1/tct_pb';
+import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+
+export interface ViewServerInterface {
+  scanBlock(compactBlock: CompactBlock, skipTrialDecrypt: boolean): Promise<boolean>;
+
+  scanGenesisChunk(
+    start: bigint,
+    partialCompactBlock: CompactBlock,
+    skipTrialDecrypt: boolean,
+  ): Promise<void>;
+
+  genesisAdvice(fullCompactBlock: CompactBlock): Promise<boolean>;
+
+  flushUpdates(): ScanBlockResult;
+
+  resetTreeToStored(): Promise<void>;
+
+  getSctRoot(): MerkleRoot;
+
+  isControlledAddress(address: Address): boolean;
+}

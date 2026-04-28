@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "exactOptionalPropertyTypes": false,
+    "noEmit": true
+  },
+  "extends": ["@tsconfig/strictest/tsconfig.json", "@tsconfig/vite-react/tsconfig.json"],
+  "include": ["src", "vite.config.ts"]
+}

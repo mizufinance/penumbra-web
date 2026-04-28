@@ -1,0 +1,41 @@
+{
+  "name": "@mizufinance/getters",
+  "version": "28.0.0",
+  "license": "(MIT OR Apache-2.0)",
+  "description": "Convenience getters for the deeply nested optionals of Penumbra's protobuf types",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist",
+    "!dist/*.test.ts"
+  ],
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "devDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/protobuf": "workspace:*",
+    "@tsconfig/strictest": "2.0.5",
+    "typescript": "5.5.3"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/protobuf": "workspace:*"
+  }
+}

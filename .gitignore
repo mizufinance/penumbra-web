@@ -1,0 +1,82 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+vite*.config.ts.timestamp-*-*.mjs
+
+# build output
+.next/
+out/
+build
+dist/
+dist
+dist-ssr
+*.local
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.direnv/
+.envrc
+./**/.envrc
+./**/.direnv/
+
+# turbo
+.turbo
+
+# vercel
+.vercel
+
+# firebase
+.firebase
+firebase-debug.log
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/*
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.pem
+
+# large binary files
+*_pk.bin
+
+# pack outputs
+packages/*/penumbra-zone-*.tgz
+packages/*/repo-*-*.tgz
+packages/*/package
+
+tsconfig.tsbuildinfo
+
+# Storybook builds
+storybook-static
+
+packages/protobuf/gen
+packages/protobuf/proto
+
+scripts/private
+
+# LLM assistance files
+CURSOR_RULES.md
+
+# Cursor IDE
+.cursor

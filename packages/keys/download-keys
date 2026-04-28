@@ -1,0 +1,29 @@
+#!/bin/sh
+set -e
+
+scriptDir=$(dirname "$(readlink -f -- "$0")")
+cacheDir="${scriptDir}/keys"
+
+# arg or default
+keysVersion="$1"
+[ -z "$keysVersion" ] && keysVersion="v1.0.0"
+
+# arg or default
+outDir="$2"
+[ -z "$outDir" ] && outDir="$cacheDir"
+
+shaFile="${keysVersion}.shasum"
+
+## main ##
+
+./check-keys "${shaFile}" || (
+    keysUrl="https://github.com/mizufinance/penumbra/raw/${keysVersion}/crates/crypto/proof-params/src/gen/"
+    keysGlob="{convert,delegator_vote,nullifier_derivation,output,spend,swap,swapclaim}_pk.bin"
+    curl --location --parallel --remote-name \
+        --output-dir "${cacheDir}/${keysVersion}" --create-dirs \
+        "${keysUrl}${keysGlob}"
+
+    cp -v "${cacheDir}/${keysVersion}/"*_pk.bin "$outDir"
+)
+
+echo "download-keys finished" >&2
