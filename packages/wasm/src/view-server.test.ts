@@ -2,19 +2,38 @@ import 'fake-indexeddb/auto'; // Instanitating ViewServer requires opening up In
 import { describe, expect, it } from 'vitest';
 import { generateSpendKey, getFullViewingKey } from './keys.js';
 import { ViewServer } from '../wasm/index.js';
-import { IDB_TABLES, IdbConstants } from '@mizufinance/types/indexed-db';
+import { IdbConstants } from '@mizufinance/types/indexed-db';
+
+const TEST_TABLES = {
+  assets: 'assets',
+  advice_notes: 'advice_notes',
+  spendable_notes: 'spendable_notes',
+  swaps: 'swaps',
+  fmd_parameters: 'fmd_parameters',
+  app_parameters: 'app_parameters',
+  gas_prices: 'gas_prices',
+  epochs: 'epochs',
+  transactions: 'transactions',
+  full_sync_height: 'full_sync_height',
+  auctions: 'auctions',
+  auction_outstanding_reserves: 'auction_outstanding_reserves',
+  tree_commitments: 'tree_commitments',
+  tree_hashes: 'tree_hashes',
+  tree_last_position: 'tree_last_position',
+  tree_last_forgotten: 'tree_last_forgotten',
+} as const;
 
 describe('wasmViewServer', () => {
   it('does not raise zod validation error', async () => {
     const seedPhrase =
       'benefit cherry cannon tooth exhibit law avocado spare tooth that amount pumpkin scene foil tape mobile shine apology add crouch situate sun business explain';
 
-    const spendKey = generateSpendKey(seedPhrase);
-    const fullViewingKey = getFullViewingKey(spendKey);
+    const spendKey = await generateSpendKey(seedPhrase);
+    const fullViewingKey = await getFullViewingKey(spendKey);
     const idbConstants = {
       name: 'dbName',
       version: 123,
-      tables: IDB_TABLES,
+      tables: TEST_TABLES,
     } satisfies IdbConstants;
 
     const storedTree = {

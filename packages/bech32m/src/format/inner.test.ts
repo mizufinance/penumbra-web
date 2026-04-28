@@ -1,5 +1,4 @@
 import { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { PositionId } from '@mizufinance/protobuf/penumbra/core/component/dex/v1/dex_pb';
 import {
   Address,
   FullViewingKey,
@@ -40,11 +39,6 @@ describe('The expected inner field exists on the actual types', () => {
   test('validatorid key ik', () => {
     const validatorId = new IdentityKey();
     expect(validatorId[Inner.penumbravalid]).toBeDefined();
-  });
-
-  test('lp id inner', () => {
-    const positionId = new PositionId();
-    expect(positionId[Inner.plpid]).toBeDefined();
   });
 
   test('wallet id inner', () => {

@@ -5,5 +5,8 @@ export default defineConfig(({ mode }) => {
   return {
     define: { 'globalThis.__DEV__': mode !== 'production' },
     plugins: [wasm()],
+    test: {
+      setupFiles: ['./tests-setup.ts'],
+    },
   };
 });

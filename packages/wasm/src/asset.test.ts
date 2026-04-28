@@ -9,18 +9,20 @@ const randomString = (byteLength = 32) =>
   randomBytes(1 + Math.random() * (byteLength - 1)).toString();
 
 describe('assetIdFromBaseDenom', () => {
-  test('should return the correct asset id for a known asset id', () => {
+  test('should return the correct asset id for a known asset id', async () => {
     const upenumbraFromBech32m = new AssetId(
       assetIdFromBech32m('passet1984fctenw8m2fpl8a9wzguzp7j34d7vravryuhft808nyt9fdggqxmanqm'),
     );
 
-    const upenumbraFromBaseDenom = assetIdFromBaseDenom('upenumbra');
+    const upenumbraFromBaseDenom = await assetIdFromBaseDenom('upenumbra');
 
     expect(AssetId.equals(upenumbraFromBech32m, upenumbraFromBaseDenom)).toBeTruthy();
   });
 
-  test('should return a 32-byte asset id for any string', () => {
-    const randomIds = Array.from(Array(10), randomString).map(denom => assetIdFromBaseDenom(denom));
+  test('should return a 32-byte asset id for any string', async () => {
+    const randomIds = await Promise.all(
+      Array.from(Array(10), randomString).map(denom => assetIdFromBaseDenom(denom)),
+    );
 
     expect(
       randomIds.every(
@@ -29,10 +31,10 @@ describe('assetIdFromBaseDenom', () => {
     ).toBeTruthy();
   });
 
-  test('should return same asset id for same string', () => {
+  test('should return same asset id for same string', async () => {
     const sameAltBaseDenom = randomString();
-    const a1 = assetIdFromBaseDenom(sameAltBaseDenom);
-    const a2 = assetIdFromBaseDenom(sameAltBaseDenom);
+    const a1 = await assetIdFromBaseDenom(sameAltBaseDenom);
+    const a2 = await assetIdFromBaseDenom(sameAltBaseDenom);
 
     expect(a1.inner).toEqual(a2.inner);
   });
@@ -40,11 +42,11 @@ describe('assetIdFromBaseDenom', () => {
   test(
     'should return different asset id for different strings',
     { retry: 2 }, // there is a chance that this test could fail randomly :)
-    () => {
+    async () => {
       const someAltBaseDenom = randomString();
       const differentAltBaseDenom = randomString();
-      const a = assetIdFromBaseDenom(someAltBaseDenom);
-      const b = assetIdFromBaseDenom(differentAltBaseDenom);
+      const a = await assetIdFromBaseDenom(someAltBaseDenom);
+      const b = await assetIdFromBaseDenom(differentAltBaseDenom);
 
       expect(a.inner).not.toEqual(b.inner);
     },
