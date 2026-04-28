@@ -1,6 +1,6 @@
 {
   "name": "@mizufinance/protobuf",
-  "version": "11.0.1-bankd-demo.0",
+  "version": "11.0.1-bankd-demo.1",
   "license": "(MIT OR Apache-2.0)",
   "description": "Exports a `@bufbuild/protobuf` type registry with all message types necessary to communicate with a Penumbra extension",
   "type": "module",

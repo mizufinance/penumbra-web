@@ -1,6 +1,6 @@
 {
   "name": "@mizufinance/wasm",
-  "version": "53.0.1-bankd-demo.0",
+  "version": "53.0.1-bankd-demo.1",
   "license": "(MIT OR Apache-2.0)",
   "type": "module",
   "engine": {
