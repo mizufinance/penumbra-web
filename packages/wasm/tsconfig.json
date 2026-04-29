@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
+    "composite": true,
+    "module": "Node16",
+    "outDir": "dist",
+    "preserveWatchOutput": true,
+    "rootDir": "src",
+    "target": "ESNext"
+  },
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "include": [
+    "src/address.ts",
+    "src/asset.ts",
+    "src/build.ts",
+    "src/init.ts",
+    "src/keys.ts",
+    "src/metadata.ts",
+    "src/planner.ts",
+    "src/transaction.ts",
+    "src/tree.ts",
+    "src/view-server.ts"
+  ],
+  "exclude": ["**/*.test.ts", "src/test/**"]
+}

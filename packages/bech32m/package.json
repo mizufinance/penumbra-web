@@ -1,0 +1,45 @@
+{
+  "name": "@mizufinance/bech32m",
+  "version": "18.0.1-bankd-demo.1",
+  "license": "(MIT OR Apache-2.0)",
+  "description": "Tools for manipulating Penumbra bech32m strings",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/test/util"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "bech32": "^2.0.0"
+  },
+  "devDependencies": {
+    "@mizufinance/protobuf": "workspace:*",
+    "@tsconfig/strictest": "2.0.5",
+    "typescript": "5.5.3"
+  },
+  "peerDependencies": {
+    "@mizufinance/protobuf": "workspace:*"
+  }
+}

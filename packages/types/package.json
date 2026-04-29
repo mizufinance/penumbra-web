@@ -1,0 +1,51 @@
+{
+  "name": "@mizufinance/types",
+  "version": "36.0.1-bankd-demo.1",
+  "license": "(MIT OR Apache-2.0)",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run src/base64.test.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./internal-msg/*": {
+      "types": "./dist/internal-msg/*.d.ts",
+      "default": "./dist/internal-msg/*.js"
+    }
+  },
+  "dependencies": {
+    "bignumber.js": "^9.1.2",
+    "decimal.js": "^10.4.3",
+    "idb": "^8.0.0",
+    "lodash": "^4.17.21",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/protobuf": "workspace:*",
+    "@tsconfig/strictest": "2.0.5",
+    "@types/lodash": "^4.17.13",
+    "typescript": "5.5.3"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/protobuf": "workspace:*"
+  }
+}

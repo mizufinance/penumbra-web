@@ -1,0 +1,39 @@
+{
+  "name": "@mizufinance/crypto-web",
+  "version": "48.0.0",
+  "license": "(MIT OR Apache-2.0)",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist",
+    "!dist/*.test.*"
+  ],
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "bip39": "^3.1.0",
+    "crypto-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "@mizufinance/types": "workspace:*",
+    "@types/crypto-js": "^4.2.2"
+  },
+  "peerDependencies": {
+    "@mizufinance/types": "workspace:*"
+  }
+}

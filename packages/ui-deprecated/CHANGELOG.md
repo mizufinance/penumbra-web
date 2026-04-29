@@ -1,0 +1,967 @@
+# @mizufinance/ui
+
+## 22.0.2
+
+### Patch Changes
+
+- 4657582: import `BigNumber` correctly
+- Updated dependencies [4657582]
+  - @mizufinance/types@36.0.0
+  - @mizufinance/perspective@61.1.1
+
+## 22.0.1
+
+### Patch Changes
+
+- Updated dependencies [cca1b0f]
+  - @mizufinance/perspective@61.1.0
+
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies [bdb700d]
+- Updated dependencies [f1e701a]
+  - @mizufinance/types@35.0.0
+  - @mizufinance/protobuf@11.0.0
+  - @mizufinance/bech32m@18.0.0
+  - @mizufinance/perspective@61.0.0
+
+## 21.1.0
+
+### Minor Changes
+
+- d3b1d78: feat: establish minifront-v2 app with Transactions UI and Transfer Page
+
+## 21.0.2
+
+### Patch Changes
+
+- 82d034e: fix publish workflow
+- Updated dependencies [82d034e]
+  - @mizufinance/bech32m@17.0.1
+  - @mizufinance/perspective@60.0.1
+  - @mizufinance/protobuf@10.1.1
+  - @mizufinance/types@34.2.1
+
+## 21.0.1
+
+### Patch Changes
+
+- 36e68f4: Fix background color of minifront, connections issues and z-index for SegmentPicker
+
+## 21.0.0
+
+### Major Changes
+
+- dcfbe8a: Upgrade to React 19 and address forwardRef deprecation across the repo
+
+### Patch Changes
+
+- @mizufinance/perspective@60.0.0
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies [cee8150]
+  - @mizufinance/types@34.2.0
+  - @mizufinance/perspective@59.0.0
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies [ec85373]
+- Updated dependencies [cba3daf]
+  - @mizufinance/types@34.1.0
+  - @mizufinance/perspective@58.0.0
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies [dc1eb8b]
+- Updated dependencies [f9cd9dd]
+  - @mizufinance/protobuf@10.1.0
+  - @mizufinance/types@34.0.0
+  - @mizufinance/bech32m@17.0.0
+  - @mizufinance/perspective@57.0.0
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies [085e855]
+  - @mizufinance/types@33.1.0
+  - @mizufinance/perspective@56.0.0
+
+## 19.0.0
+
+### Major Changes
+
+- 4a51a46: Upgrade to React 19
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies [93f1d05]
+  - @mizufinance/protobuf@10.0.0
+  - @mizufinance/types@33.0.0
+  - @mizufinance/bech32m@16.0.0
+  - @mizufinance/perspective@55.0.0
+
+## 17.1.6
+
+### Patch Changes
+
+- @mizufinance/perspective@54.0.0
+
+## 17.1.5
+
+### Patch Changes
+
+- @mizufinance/perspective@53.0.2
+
+## 17.1.4
+
+### Patch Changes
+
+- Updated dependencies [405b5b1]
+  - @mizufinance/types@32.2.1
+  - @mizufinance/perspective@53.0.1
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies [ce4c43e]
+  - @mizufinance/types@32.2.0
+  - @mizufinance/perspective@53.0.0
+
+## 17.1.2
+
+### Patch Changes
+
+- 80148ae: Fix bugs related to transaction history and transaction/action views
+- Updated dependencies [a5e14e9]
+- Updated dependencies [b0e0eef]
+- Updated dependencies [5c45f2c]
+- Updated dependencies [85022e1]
+- Updated dependencies [3c48120]
+  - @mizufinance/perspective@52.0.0
+  - @mizufinance/types@32.1.0
+
+## 17.1.1
+
+### Patch Changes
+
+- @mizufinance/perspective@51.0.0
+
+## 17.1.0
+
+### Minor Changes
+
+- e272767: minimal reversion to disable t-addr support in minifront
+
+## 17.0.0
+
+### Patch Changes
+
+- 2dac6ab: detect genesis sync state more accurately
+- Updated dependencies [15d768f]
+- Updated dependencies [aaaa775]
+  - @mizufinance/protobuf@9.0.0
+  - @mizufinance/types@32.0.0
+  - @mizufinance/perspective@50.0.0
+  - @mizufinance/bech32m@15.0.0
+
+## 16.0.1
+
+### Patch Changes
+
+- @mizufinance/perspective@49.0.0
+- @mizufinance/types@31.0.0
+
+## 16.0.0
+
+### Minor Changes
+
+- 49ae3ab: LQT integration in web packages
+
+### Patch Changes
+
+- Updated dependencies [49ae3ab]
+  - @mizufinance/protobuf@8.0.0
+  - @mizufinance/types@30.0.0
+  - @mizufinance/perspective@48.0.0
+  - @mizufinance/bech32m@14.0.0
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies [e51bc61]
+  - @mizufinance/types@29.1.0
+  - @mizufinance/perspective@47.0.0
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies [68b8f36]
+  - @mizufinance/protobuf@7.2.0
+  - @mizufinance/bech32m@13.0.0
+  - @mizufinance/perspective@46.0.0
+  - @mizufinance/types@29.0.0
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies [6869c52]
+- Updated dependencies [29dd11a]
+  - @mizufinance/types@28.0.0
+  - @mizufinance/protobuf@7.1.0
+  - @mizufinance/bech32m@12.0.0
+  - @mizufinance/perspective@45.0.0
+
+## 13.0.2
+
+### Patch Changes
+
+- @mizufinance/perspective@44.0.0
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies [ebc58d2]
+  - @mizufinance/types@27.1.0
+  - @mizufinance/perspective@43.0.0
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies [95d5fd9]
+  - @mizufinance/protobuf@7.0.0
+  - @mizufinance/bech32m@11.0.0
+  - @mizufinance/types@27.0.0
+  - @mizufinance/perspective@42.0.0
+
+## 12.4.6
+
+### Patch Changes
+
+- Updated dependencies [d619836]
+  - @mizufinance/types@26.4.0
+  - @mizufinance/perspective@41.0.0
+
+## 12.4.5
+
+### Patch Changes
+
+- 39a9fd9: Fixed tab width grow setting
+
+## 12.4.4
+
+### Patch Changes
+
+- Updated dependencies [712e7b1]
+  - @mizufinance/types@26.3.0
+  - @mizufinance/perspective@40.0.0
+
+## 12.4.3
+
+### Patch Changes
+
+- Updated dependencies [838de8a]
+  - @mizufinance/types@26.2.1
+  - @mizufinance/perspective@39.0.0
+
+## 12.4.2
+
+### Patch Changes
+
+- Updated dependencies [291bc7d]
+  - @mizufinance/types@26.2.0
+  - @mizufinance/perspective@38.0.0
+
+## 12.4.1
+
+### Patch Changes
+
+- @mizufinance/perspective@37.0.0
+
+## 12.4.0
+
+### Minor Changes
+
+- fcb025d: Update @mizufinance/ui exports
+
+## 12.3.0
+
+### Minor Changes
+
+- 2484bdc: Add ReactNode proptype to description Toast prop
+
+## 12.2.1
+
+### Patch Changes
+
+- 185728a: Fix and improve UI components to prepare them for sub-account selector
+
+## 12.2.0
+
+### Minor Changes
+
+- ef1a89d: Add theme and lib/toast exports
+
+## 12.1.0
+
+### Minor Changes
+
+- e3778eb: Add `ToastProvider` and `openToast` function to the v2 UI components
+
+### Patch Changes
+
+- 7c1d4e7: Improve hot reloading
+- Updated dependencies [b5d2922]
+  - @mizufinance/types@26.1.0
+  - @mizufinance/perspective@36.0.0
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies [3269282]
+  - @mizufinance/protobuf@6.3.0
+  - @mizufinance/bech32m@10.0.0
+  - @mizufinance/perspective@35.0.0
+  - @mizufinance/types@26.0.0
+
+## 11.0.2
+
+### Patch Changes
+
+- 74b53af: Fix asset selector not firing onChange event
+
+## 11.0.1
+
+### Patch Changes
+
+- @mizufinance/perspective@34.0.0
+
+## 11.0.0
+
+### Minor Changes
+
+- deb04f5: Add `Dialog.RadioGroup` and `Dialog.RadioItem` components
+
+### Patch Changes
+
+- 9d68f48: fix `copyable` prop on `AddressViewComponent`
+- dad8165: Add ellipsis to `ValueViewComponent`
+- Updated dependencies [e543db4]
+  - @mizufinance/protobuf@6.2.0
+  - @mizufinance/perspective@33.0.0
+  - @mizufinance/bech32m@9.0.0
+  - @mizufinance/types@25.0.0
+
+## 10.0.2
+
+### Patch Changes
+
+- 4885420: Fix AssetSelector filtering and display
+
+## 10.0.1
+
+### Patch Changes
+
+- 4295109: - Add a temporary zIndex prop to the Dialog component. It is only needed for minifront v1 and must be removed when we stop supporting the v1.
+  - Improve the styles of the v2 sync bar and popover
+  - @mizufinance/perspective@32.0.0
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies [b6e32f8]
+- Updated dependencies [b6e32f8]
+- Updated dependencies [b6e32f8]
+  - @mizufinance/protobuf@6.1.0
+  - @mizufinance/bech32m@8.0.0
+  - @mizufinance/types@24.0.0
+  - @mizufinance/perspective@31.0.0
+
+## 9.2.0
+
+### Minor Changes
+
+- b1d4b7d: Add `AssetSelector` UI component
+- de9bd06: Add `SwapInput` and `ValueInput` UI components
+- 43d8350: Fix the issue of UI package not being build correctly for some server-side environments
+
+### Patch Changes
+
+- 75ef4f5: Fix copy button styles
+
+## 9.1.1
+
+### Patch Changes
+
+- @mizufinance/perspective@30.0.0
+- @mizufinance/types@23.0.0
+
+## 9.1.0
+
+### Minor Changes
+
+- 74e89e0: UI:
+
+  - Add new `Progress` component
+  - Add `MenuItem` component that shares the styles with `DropdownMenu.Item`
+  - Update the `Pill` component to support `context` prop
+  - Update the `Tabs` component to support the `compact` density
+  - Allow passing custom icons to the `Button`
+  - Fix `density` tag in Storybook
+
+  Tailwind Config:
+
+  - Add support for v2 colors with v2 prefix like `bg-v2-secondary-dark`
+
+  Minifront:
+
+  - Add top navigation to the v2 minifront with sync bar and prax connection infos
+
+- d938456: Add Slider Component
+
+### Patch Changes
+
+- 516caf3: Fix z-index of dialog content
+- 5100518: Update UI components: `ValueViewComponent`, `AssetIcon`, and `Popover`
+- Updated dependencies [e01d5f8]
+  - @mizufinance/types@22.0.0
+  - @mizufinance/perspective@29.0.0
+
+## 9.0.0
+
+### Major Changes
+
+- a8a5f41: Prepare UI package for publishing to NPM
+
+### Minor Changes
+
+- e7d0767: Support for displaying LP position action views
+
+### Patch Changes
+
+- Updated dependencies [e7d0767]
+  - @mizufinance/perspective@28.0.0
+
+## 8.2.0
+
+### Minor Changes
+
+- d01196a: Add WalletBalance UI component
+- 74f9a7f: Remove browser & version check
+
+### Patch Changes
+
+- e952e03: remove BSR dependencies, correctly specify @bufbuild and @connectrpc dependencies
+- Updated dependencies [e952e03]
+  - @mizufinance/perspective@27.0.0
+
+## 8.1.0
+
+### Minor Changes
+
+- e4a4dd7: Fix font alignments & sync dialog
+- 7732f8d: Add Popover UI component
+- 2788cf0: Add DropdownMenu UI component
+- 907f6ee: Add Banner and IncompatableBrowserBanner
+
+### Patch Changes
+
+- @mizufinance/perspective@26.0.0
+- @mizufinance/types@21.0.0
+
+## 8.0.0
+
+### Minor Changes
+
+- 6fd8ce6: Compress fonts (ttf -> woff2)
+- 2a76fce: Create <Card />'s subcomponents; create <FormField /> and <TextInput />; add some features re: disabled fields
+
+### Patch Changes
+
+- Updated dependencies [49263c6]
+  - @mizufinance/protobuf@6.0.0
+  - @mizufinance/bech32m@7.0.0
+  - @mizufinance/perspective@25.0.0
+  - @mizufinance/types@20.0.0
+
+## 7.4.1
+
+### Patch Changes
+
+- e6f019e: Fix sidebar font
+
+## 7.4.0
+
+### Minor Changes
+
+- 10ef940: Updating to v0.80.0 bufbuild types
+
+### Patch Changes
+
+- Updated dependencies [10ef940]
+  - @mizufinance/perspective@24.0.0
+  - @mizufinance/types@19.0.0
+
+## 7.3.4
+
+### Patch Changes
+
+- 0069132: Fix copy button styles
+- Updated dependencies [bd43d49]
+- Updated dependencies [807648a]
+  - @mizufinance/types@18.2.0
+  - @mizufinance/perspective@23.0.0
+
+## 7.3.3
+
+### Patch Changes
+
+- @mizufinance/perspective@22.0.0
+
+## 7.3.2
+
+### Patch Changes
+
+- Updated dependencies [f5bea48]
+  - @mizufinance/types@18.1.0
+  - @mizufinance/perspective@21.0.0
+
+## 7.3.1
+
+### Patch Changes
+
+- Updated dependencies [a9ffd2d]
+  - @mizufinance/types@18.0.0
+  - @mizufinance/perspective@20.0.0
+
+## 7.3.0
+
+### Minor Changes
+
+- dfad32b: fix auctions source
+- 49fb3f1: Create <Table /> component; introduce <Density />
+- Update registry dep
+
+### Patch Changes
+
+- Updated dependencies [40a471d]
+  - @mizufinance/perspective@19.0.0
+
+## 7.2.1
+
+### Patch Changes
+
+- Updated dependencies [3477bef]
+  - @mizufinance/types@17.0.1
+
+## 7.2.0
+
+### Minor Changes
+
+- 54a5d66: Add Button/ButtonGroup/SegmentedPicker components
+
+## 7.1.0
+
+### Minor Changes
+
+- 86c1bbe: Add support for delegate vote action views
+
+### Patch Changes
+
+- @mizufinance/types@17.0.0
+
+## 7.0.3
+
+### Patch Changes
+
+- 26bd932: Shows the green checkmark icon for all filled dutch auctions
+- Updated dependencies [0233722]
+  - @mizufinance/types@16.1.0
+
+## 7.0.2
+
+### Patch Changes
+
+- @mizufinance/types@16.0.0
+
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies [3aaead1]
+  - @mizufinance/types@15.1.1
+
+## 7.0.0
+
+### Major Changes
+
+- 3b7a289: Utilize v10 remote registry methods
+
+### Minor Changes
+
+- 3c91e8b: UI: update CopyToClipboard component. Minifront: add information about ibc-in new address generation
+
+### Patch Changes
+
+- cbc2419: Stop truncating metadata symbols programatically
+- cbc2419: Storage: bump IDB version. UI: fix Dialog rendering on mobile screens. Minifront: fix metadata symbol truncation.
+- Updated dependencies [877fb1f]
+  - @mizufinance/types@15.1.0
+
+## 6.6.0
+
+### Minor Changes
+
+- fa798d9: Bufbuild + registry dep update
+
+### Patch Changes
+
+- Updated dependencies [fa798d9]
+  - @mizufinance/types@15.0.0
+
+## 6.5.0
+
+### Minor Changes
+
+- 28a48d7: Updated ActionViewComponent to support FeeView
+
+### Patch Changes
+
+- Updated dependencies [28a48d7]
+  - @mizufinance/types@14.0.0
+
+## 6.4.0
+
+### Minor Changes
+
+- 8e68481: Update to v9.3.0 registry
+
+### Patch Changes
+
+- 1ae30d8: Render the timeout time in withdrawal transactions in UTC format
+- Updated dependencies [43ccd96]
+  - @mizufinance/types@13.1.0
+
+## 6.3.1
+
+### Patch Changes
+
+- 248300c: Display epoch index in undelegate TX action
+- Updated dependencies [3708e2c]
+  - @mizufinance/bech32m@6.1.1
+  - @mizufinance/types@13.0.0
+
+## 6.3.0
+
+### Minor Changes
+
+- bump @penumbra-labs/registry
+
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @mizufinance/types@12.0.0
+
+## 6.2.0
+
+### Minor Changes
+
+- bump registry
+
+### Patch Changes
+
+- Updated dependencies
+  - @mizufinance/types@11.0.0
+
+## 6.1.0
+
+### Minor Changes
+
+- Bump registry
+
+## 6.0.0
+
+### Major Changes
+
+- 24d9bfa: UI: refactor the package to provide better and more clear exports. Includes a readme with setting up the UI package and more storybook stories.
+
+### Minor Changes
+
+- 4161587: Update to latest bufbuild deps (v0.77.4)
+
+### Patch Changes
+
+- 97b7231: Minifront:
+
+  - extend `BalanceSelector` to show not only assets with balances but all available assets
+  - fix the issues with empty wallets not rendering a swap block correctly
+  - reduce the height of `BalanceSelecor` and `AssetSelector` to `90dvh`
+  - autofocus the search inputs in `BalanceSelecor` and `AssetSelector`
+  - change validations of the swap input to allow entering any possible values
+
+  UI: allow passing `autoFocus` attribute to the `IconInput` component
+
+- Updated dependencies [4161587]
+  - @mizufinance/types@10.0.0
+
+## 5.0.0
+
+### Minor Changes
+
+- d8825f9: UI: add `compact` prop to render a minimalistic version of the AccountSwitcher component.
+
+  Minifront: use AccountSwitcher in the IBC-in form
+
+### Patch Changes
+
+- f5c511e: Fix a few layout issues with the header
+- Updated dependencies [9b3f561]
+  - @mizufinance/perspective@6.0.0
+  - @mizufinance/bech32m@6.1.0
+  - @mizufinance/getters@8.0.0
+  - @mizufinance/types@9.0.0
+
+## 4.0.0
+
+### Major Changes
+
+- f067fab: reconfigure all package builds
+
+### Minor Changes
+
+- 1ee18e0: relocate navigationmenu into minifront
+
+### Patch Changes
+
+- Updated dependencies [f067fab]
+  - @repo/tailwind-config@3.0.0
+  - @mizufinance/perspective@5.0.0
+  - @mizufinance/bech32m@6.0.0
+  - @mizufinance/getters@7.0.0
+  - @mizufinance/types@8.0.0
+
+## 3.5.0
+
+### Minor Changes
+
+- 6b78e22: Tweaks to the auction UI; create a new PopoverMenu component
+
+### Patch Changes
+
+- Updated dependencies [a75256f]
+- Updated dependencies [468ecc7]
+- Updated dependencies [a75256f]
+  - @mizufinance/bech32m@5.1.0
+  - @mizufinance/getters@6.2.0
+  - @mizufinance/perspective@4.0.2
+  - @mizufinance/types@7.1.1
+
+## 3.4.0
+
+### Minor Changes
+
+- ab9d743: decouple service/rpc init
+- 282eabf: Click wallet for max amount
+- 0076a1d: add candlestick component
+- 24c8b4f: Add ActionDetails.TruncatedText component
+
+### Patch Changes
+
+- 6b06e04: Introduce ZQuery package and use throughout minifront
+- 24c8b4f: fix delegation prompting window being too wide
+- e7d7ffc: 'chrome-extension': Add an onboarding screen for the default frontend selection
+
+  '@mizufinance/storage': Remove the MINIFRONT_URL env usages
+
+  '@mizufinance/ui': Don't show the image in SelectList.Option component if it is not passed
+
+- Updated dependencies [ab9d743]
+- Updated dependencies [282eabf]
+- Updated dependencies [6b06e04]
+- Updated dependencies [c8e8d15]
+  - @mizufinance/types@7.1.0
+  - @mizufinance/getters@6.1.0
+  - @mizufinance/perspective@4.0.1
+
+## 3.3.2
+
+### Patch Changes
+
+- Updated dependencies [8fe4de6]
+  - @mizufinance/perspective@4.0.0
+  - @mizufinance/bech32m@5.0.0
+  - @mizufinance/getters@6.0.0
+  - @mizufinance/types@7.0.1
+
+## 3.3.1
+
+### Patch Changes
+
+- bb5f621: formatAmount() takes new args
+- Updated dependencies [bb5f621]
+- Updated dependencies [8b121ec]
+  - @mizufinance/types@7.0.0
+  - @mizufinance/perspective@3.0.0
+  - @mizufinance/bech32m@4.0.0
+  - @mizufinance/getters@5.0.0
+
+## 3.3.0
+
+### Minor Changes
+
+- 120b654: Support estimates of outputs for auctions; redesign the estimate results part of the swap/auction UI
+- 3ea1e6c: update buf types dependencies
+
+### Patch Changes
+
+- fc9418c: Fixed a couple bugs, and displayed the auction ID in its details.
+- Updated dependencies [120b654]
+- Updated dependencies [029eebb]
+- Updated dependencies [3ea1e6c]
+  - @mizufinance/getters@4.1.0
+  - @mizufinance/types@6.0.0
+  - @mizufinance/perspective@2.1.0
+  - @mizufinance/bech32m@3.2.0
+
+## 3.2.0
+
+### Minor Changes
+
+- d8fef48: Update design of DutchAuctionComponent; add filtering to auctions
+- 5b80e7c: Add animations to SegmentedPicker
+
+### Patch Changes
+
+- @mizufinance/perspective@2.0.1
+
+## 3.1.0
+
+### Minor Changes
+
+- cf63b30: Show swap routes in the UI; extract a <TokenSwapInput /> component.
+- e4c9fce: Add features to handle auction withdrawals
+- 43bf99f: Add a UI to inspect an address; create a <Box /> component
+
+### Patch Changes
+
+- e35c6f7: Deps bumped to latest
+- 8a3b442: optimize animation
+- Updated dependencies [146b48d]
+- Updated dependencies [8ccaf30]
+- Updated dependencies [8ccaf30]
+- Updated dependencies [e35c6f7]
+- Updated dependencies [cf63b30]
+- Updated dependencies [e4c9fce]
+- Updated dependencies [8ccaf30]
+  - @mizufinance/getters@4.0.0
+  - @mizufinance/types@5.0.0
+  - @mizufinance/perspective@2.0.0
+  - @mizufinance/bech32m@3.1.1
+
+## 3.0.0
+
+### Major Changes
+
+- v8.0.0 versioning and manifest
+
+### Patch Changes
+
+- Updated dependencies
+  - @mizufinance/bech32m@3.1.0
+  - @mizufinance/types@4.1.0
+  - @mizufinance/getters@3.0.2
+  - @mizufinance/perspective@1.0.6
+
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies [8410d2f]
+  - @mizufinance/bech32m@3.0.1
+  - @mizufinance/getters@3.0.1
+  - @mizufinance/perspective@1.0.5
+  - @mizufinance/types@4.0.1
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [6fb898a]
+  - @mizufinance/types@4.0.0
+  - @mizufinance/perspective@1.0.4
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies [3148375]
+- Updated dependencies [fdd4303]
+  - @mizufinance/constants@4.0.0
+  - @mizufinance/getters@3.0.0
+  - @mizufinance/types@3.0.0
+  - @mizufinance/bech32m@3.0.0
+  - @mizufinance/perspective@1.0.3
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [862283c]
+  - @mizufinance/constants@3.0.0
+  - @mizufinance/perspective@1.0.2
+  - @mizufinance/getters@2.0.1
+  - @mizufinance/types@2.0.1
+
+## 2.0.1
+
+### Patch Changes
+
+- @mizufinance/perspective@1.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- 929d278: barrel imports to facilitate better tree shaking
+
+### Minor Changes
+
+- 7a1efed: Added warning toast
+
+### Patch Changes
+
+- 8933117: Account for changes to core
+- Updated dependencies [929d278]
+  - @mizufinance/perspective@1.0.0
+  - @mizufinance/getters@2.0.0
+  - @mizufinance/bech32@2.0.0
+  - @mizufinance/types@2.0.0
+
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @mizufinance/getters@1.1.0
+  - @mizufinance/types@1.1.0

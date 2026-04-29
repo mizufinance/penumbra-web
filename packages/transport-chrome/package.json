@@ -1,0 +1,41 @@
+{
+  "name": "@mizufinance/transport-chrome",
+  "version": "9.0.1",
+  "license": "(MIT OR Apache-2.0)",
+  "description": "Tools for adapting `@mizufinance/transport` to Chrome's extension runtime messaging API",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist",
+    "!dist/*.test.*",
+    "!dist/util/test"
+  ],
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "devDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@connectrpc/connect": "^1.6.1",
+    "@mizufinance/transport-dom": "workspace:*",
+    "@types/chrome": "^0.0.268"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@connectrpc/connect": "^1.6.1",
+    "@mizufinance/transport-dom": "workspace:*"
+  }
+}

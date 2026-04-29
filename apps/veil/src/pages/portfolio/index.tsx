@@ -1,0 +1,105 @@
+'use client';
+
+import React from 'react';
+import { observer } from 'mobx-react-lite';
+import { XCircle } from 'lucide-react';
+import { Button } from '@mizufinance/ui/Button';
+import { Text } from '@mizufinance/ui/Text';
+import { Density } from '@mizufinance/ui/Density';
+import { AssetsTable, AssetsTableLayout } from './ui/assets-table';
+import { WalletConnect } from './ui/wallet-connect';
+import { useRegistry } from '@/shared/api/registry.tsx';
+import { IbcChainProvider } from '@/features/cosmos/chain-provider.tsx';
+import { PortfolioPositionTabs } from './ui/position-tabs';
+import { AssetBars } from './ui/asset-bars';
+import { useUnifiedAssets } from './api/use-unified-assets';
+import { PenumbraWaves } from '@/pages/explore/ui/waves.tsx';
+import { ShieldingTicker } from '@/widgets/shielding-ticker';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { PortfolioCard } from './ui/portfolio-card';
+
+interface PortfolioPageProps {
+  isMobile: boolean;
+}
+
+export const PortfolioPage = ({ isMobile }: PortfolioPageProps): React.ReactNode => {
+  const { data } = useRegistry();
+  if (isMobile) {
+    return <MobilePortfolioPage />;
+  }
+
+  return (
+    <IbcChainProvider registry={data}>
+      <DesktopPortfolioPage />
+    </IbcChainProvider>
+  );
+};
+
+function MobilePortfolioPage() {
+  return (
+    <section className='absolute inset-0 flex h-screen flex-col items-center justify-between gap-3 border-t border-neutral-800 p-4'>
+      <div className='flex w-full grow flex-col items-center justify-center gap-4 p-0'>
+        <div className='relative'>
+          <XCircle className='h-8 w-8 text-neutral-light' />
+        </div>
+
+        <Text color={'text.secondary'} align={'center'} small={true}>
+          This page requires a connection to your wallet, please switch to a desktop device.
+        </Text>
+
+        <Density compact={true}>
+          {/* Copy Link Button */}
+          <Button
+            onClick={() => {
+              // We discard the promise using void,
+              // because Button only expects void-returning functions.
+              void (async () => {
+                /* Write the current url to clipboard */
+                const currentUrl = window.location.href;
+                await navigator.clipboard.writeText(currentUrl);
+              })();
+            }}
+          >
+            Copy Link
+          </Button>
+        </Density>
+      </div>
+
+      <Button>
+        <Text body>Go Back</Text>
+      </Button>
+    </section>
+  );
+}
+
+const DesktopPortfolioPage = observer(() => {
+  const [parent] = useAutoAnimate();
+  const { isPenumbraConnected, isCosmosConnected, isConnectionLoading } = useUnifiedAssets();
+
+  return (
+    <>
+      <PenumbraWaves />
+
+      <ShieldingTicker />
+
+      {!isConnectionLoading && (
+        <div ref={parent} className='container mx-auto flex max-w-[1136px] flex-col gap-4 py-8'>
+          <WalletConnect />
+
+          {/* Asset Allocation Bars */}
+          {(isPenumbraConnected || isCosmosConnected) && (
+            <PortfolioCard title={'Allocation'}>
+              <AssetBars />
+            </PortfolioCard>
+          )}
+
+          <AssetsTableLayout>
+            <AssetsTable />
+          </AssetsTableLayout>
+
+          <PortfolioPositionTabs />
+        </div>
+      )}
+    </>
+  );
+});

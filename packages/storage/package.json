@@ -1,0 +1,50 @@
+{
+  "name": "@mizufinance/storage",
+  "version": "62.0.0",
+  "license": "(MIT OR Apache-2.0)",
+  "type": "module",
+  "engine": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "dev:pack": "tsc-watch --onSuccess \"$npm_execpath pack\"",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test*"
+  ],
+  "exports": {
+    "./indexed-db": {
+      "types": "./dist/indexed-db/index.d.ts",
+      "default": "./dist/indexed-db/index.js"
+    }
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/getters": "workspace:*",
+    "@mizufinance/types": "workspace:*",
+    "@mizufinance/wasm": "workspace:*",
+    "idb": "^8.0.0"
+  },
+  "devDependencies": {
+    "@penumbra-labs/registry": "^12.8.0",
+    "@mizufinance/protobuf": "workspace:*",
+    "fetch-mock": "10.0.7"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "^1.10.0",
+    "@penumbra-labs/registry": "^12.8.0",
+    "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/getters": "workspace:*",
+    "@mizufinance/protobuf": "workspace:*",
+    "@mizufinance/types": "workspace:*",
+    "@mizufinance/wasm": "workspace:*"
+  }
+}

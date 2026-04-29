@@ -1,0 +1,12 @@
+import { defineConfig } from 'vitest/config';
+import wasm from 'vite-plugin-wasm';
+
+export default defineConfig(({ mode }) => {
+  return {
+    define: { 'globalThis.__DEV__': mode !== 'production' },
+    plugins: [wasm()],
+    test: {
+      setupFiles: ['./tests-setup.ts'],
+    },
+  };
+});

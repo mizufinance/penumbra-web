@@ -1,0 +1,80 @@
+name: Turbo CI
+on:
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+# this is pretty verbose and repetitive, but github workflows require it
+# the first action is commented, most of those comments apply to all actions
+# every 'turbo' call is cached and essentially no-op if the inputs match
+
+# tried to make wasm compile conditional, but that turned out to be complex.
+# cache should make it decently fast.
+
+# pnpm cached by lock hash
+# turbo cached by cargo lock, pnpm lock in that order
+# mostly, compiled wasm will restore from turbo cache
+# rust cache only used in rust jobs
+
+jobs:
+  turbo-build:
+    uses: ./.github/workflows/compile-wasm.yml
+
+  lint:
+    runs-on: buildjet-8vcpu-ubuntu-2204
+    # needs: turbo-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup nix
+        uses: ./.github/actions/setup-nix
+
+      - name: setup turbo
+        uses: ./.github/actions/setup-turbo
+
+      - name: run all linters
+        run: nix develop --command just lint
+
+  test:
+    name: test
+    runs-on: buildjet-16vcpu-ubuntu-2204
+    # TEMPORARY: dont wait on dependency step, just run it
+    # needs: turbo-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup nix
+        uses: ./.github/actions/setup-nix
+
+      - name: setup turbo
+        uses: ./.github/actions/setup-turbo
+
+      - name: install playwright deps
+        run: nix develop --command just playwright-setup
+
+      - name: run rust tests
+        run: nix develop --command just test-rust
+
+      - name: run turbo tests
+        run: nix develop --command just test-turbo
+
+  all-check:
+    runs-on: buildjet-16vcpu-ubuntu-2204
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup nix
+        uses: ./.github/actions/setup-nix
+
+      - name: setup turbo
+        uses: ./.github/actions/setup-turbo
+
+      - name: run all checks
+        run: nix develop --command pnpm all-check

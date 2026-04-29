@@ -1,0 +1,477 @@
+import { makeAutoObservable, runInAction } from 'mobx';
+import { RootStore } from './root-store';
+import {
+  BalancesResponse,
+  TransactionPlannerRequest,
+} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
+import { Metadata, Value } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { MemoPlaintext } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import {
+  getAssetIdFromValueView,
+  getDisplayDenomExponentFromValueView,
+} from '@mizufinance/getters/value-view';
+import { getAddress, getAddressIndex } from '@mizufinance/getters/address-view';
+import { toBaseUnit } from '@mizufinance/types/lo-hi';
+import { isAddress, bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { uint8ArrayToBase64 } from '@mizufinance/types/base64';
+import BigNumber from 'bignumber.js';
+import { ViewService } from '@mizufinance/protobuf';
+import { penumbra } from '../lib/penumbra';
+
+export interface SendState {
+  recipient: string;
+  amount: string;
+  memo: string;
+  selectedAsset?: BalancesResponse;
+  feeTier: FeeTier_Tier;
+  fee?: Fee;
+  feeAssetMetadata?: Metadata;
+  isLoading: boolean;
+  isFeeLoading: boolean;
+  error?: string;
+}
+
+export interface ReceiveState {
+  selectedAccountIndex: number;
+  accountAddress: string;
+  ibcDepositEnabled: boolean;
+}
+
+export class TransferStore {
+  private rootStore: RootStore;
+
+  // Send state
+  sendState: SendState = {
+    recipient: '',
+    amount: '',
+    memo: '',
+    feeTier: FeeTier_Tier.LOW,
+    isLoading: false,
+    isFeeLoading: false,
+  };
+
+  // Receive state
+  receiveState: ReceiveState = {
+    selectedAccountIndex: 0,
+    accountAddress: '',
+    ibcDepositEnabled: false,
+  };
+
+  // UI state
+  activeTab: 'send' | 'receive' = 'send';
+
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
+    makeAutoObservable(this);
+  }
+
+  // Send actions
+  setSendRecipient(recipient: string) {
+    this.sendState.recipient = recipient;
+    this.refreshFee();
+  }
+
+  setSendAmount(amount: string) {
+    // Prevent negative amounts
+    if (Number(amount) < 0) {
+      return;
+    }
+    this.sendState.amount = amount;
+    this.refreshFee();
+  }
+
+  setSendMemo(memo: string) {
+    this.sendState.memo = memo;
+  }
+
+  setSelectedAsset(asset?: BalancesResponse) {
+    this.sendState.selectedAsset = asset;
+    this.refreshFee();
+  }
+
+  setFeeTier(tier: FeeTier_Tier) {
+    this.sendState.feeTier = tier;
+    this.refreshFee();
+  }
+
+  estimateFee() {
+    this.refreshFee();
+  }
+
+  // Receive actions
+  setSelectedAccountIndex(index: number) {
+    this.receiveState.selectedAccountIndex = index;
+    this.loadAccountAddress();
+  }
+
+  toggleIbcDeposit() {
+    this.receiveState.ibcDepositEnabled = !this.receiveState.ibcDepositEnabled;
+    // Reload address when toggle changes
+    this.loadAccountAddress();
+  }
+
+  setActiveTab(tab: 'send' | 'receive') {
+    this.activeTab = tab;
+  }
+
+  // Computed values
+  get sendValidation() {
+    const { recipient, memo } = this.sendState;
+
+    return {
+      recipientError: Boolean(recipient) && !isAddress(recipient),
+      amountError: this.isAmountMoreThanBalance(),
+      exponentError: this.hasIncorrectDecimal(),
+      // Memo cannot exceed 512 bytes, return address uses 80 bytes
+      memoError: new TextEncoder().encode(memo).length > 432,
+    };
+  }
+
+  get canSend() {
+    const { recipient, amount, selectedAsset } = this.sendState;
+    const validation = this.sendValidation;
+
+    return (
+      Boolean(recipient) &&
+      Boolean(Number(amount)) &&
+      Boolean(selectedAsset) &&
+      !validation.recipientError &&
+      !validation.amountError &&
+      !validation.exponentError &&
+      !validation.memoError &&
+      !this.sendState.isLoading
+    );
+  }
+
+  // Helper methods
+  private isAmountMoreThanBalance(): boolean {
+    const { selectedAsset, amount } = this.sendState;
+    if (!selectedAsset || !amount) {
+      return false;
+    }
+
+    const balance = selectedAsset.balanceView?.valueView?.value?.amount;
+    if (!balance) {
+      return false;
+    }
+
+    try {
+      const exponent = getDisplayDenomExponentFromValueView.optional(selectedAsset.balanceView);
+      const amountInBaseUnit = toBaseUnit(BigNumber(amount), exponent);
+
+      // toBaseUnit returns a LoHi object, we need to compare as BigNumber
+      const amountBigNumber = new BigNumber(amountInBaseUnit.lo.toString()).plus(
+        new BigNumber((amountInBaseUnit.hi || 0).toString()).shiftedBy(32),
+      );
+
+      // Convert balance to BigNumber for comparison
+      const balanceBigNumber = new BigNumber(balance.lo.toString()).plus(
+        new BigNumber(balance.hi.toString()).shiftedBy(32),
+      );
+
+      return amountBigNumber.gt(balanceBigNumber);
+    } catch (error) {
+      // If conversion fails (e.g., due to decimals that can't be converted to BigInt),
+      // return false to avoid crashing the app. The AssetValueInput validation will
+      // handle showing appropriate error messages to the user.
+      // log removed
+      return false;
+    }
+  }
+
+  private hasIncorrectDecimal(): boolean {
+    const { selectedAsset, amount } = this.sendState;
+    if (!selectedAsset || !amount) {
+      return false;
+    }
+
+    const exponent = getDisplayDenomExponentFromValueView.optional(selectedAsset.balanceView);
+    const decimals = amount.split('.')[1]?.length ?? 0;
+
+    return decimals > (exponent ?? 0);
+  }
+
+  private async refreshFee() {
+    const { amount, recipient, selectedAsset, feeTier } = this.sendState;
+
+    // Always show loading state when attempting fee calculation
+    runInAction(() => {
+      this.sendState.isFeeLoading = true;
+    });
+
+    try {
+      // Check if penumbra service is available
+      if (!penumbra?.service) {
+        this.resetFee();
+        return;
+      }
+
+      let request: TransactionPlannerRequest;
+
+      // Try to build a transaction request for fee estimation
+      if (amount && recipient && selectedAsset && isAddress(recipient)) {
+        request = await this.buildTransactionRequest();
+      } else {
+        const estimationAsset = selectedAsset || this.getDummyAsset();
+        const estimationAmount = amount || '1';
+        const estimationRecipient =
+          recipient && isAddress(recipient) ? recipient : await this.getDummyAddress();
+
+        if (!estimationAsset || !estimationRecipient) {
+          this.resetFee();
+          return;
+        }
+
+        request = await this.buildDummyTransactionRequest(
+          estimationAsset,
+          estimationAmount,
+          estimationRecipient,
+          feeTier,
+        );
+      }
+
+      const { plan } = await penumbra.service(ViewService).transactionPlanner(request);
+
+      if (!plan) {
+        this.resetFee();
+        return;
+      }
+
+      const fee = plan.transactionParameters?.fee;
+
+      // Get fee asset metadata
+      let feeAssetMetadata: Metadata | undefined;
+
+      // If fee has no assetId, use staking token (UM) as default
+      if (!fee?.assetId?.inner) {
+        // Find UM token in assets
+        feeAssetMetadata = this.rootStore.assetsStore.allAssets.find(
+          asset => asset.symbol === 'UM' || asset.display === 'penumbra',
+        );
+      } else {
+        const assetIdBase64 = uint8ArrayToBase64(fee.assetId.inner);
+        // Search through all assets to find matching metadata
+        for (const asset of this.rootStore.assetsStore.allAssets) {
+          if (asset.penumbraAssetId?.inner) {
+            const currentAssetIdBase64 = uint8ArrayToBase64(asset.penumbraAssetId.inner);
+            if (currentAssetIdBase64 === assetIdBase64) {
+              feeAssetMetadata = asset;
+              break;
+            }
+          }
+        }
+      }
+
+      runInAction(() => {
+        this.sendState.fee = fee;
+        this.sendState.feeAssetMetadata = feeAssetMetadata;
+        this.sendState.isFeeLoading = false;
+      });
+    } catch (error) {
+      this.resetFee();
+    }
+  }
+
+  private resetFee() {
+    runInAction(() => {
+      this.sendState.fee = undefined;
+      this.sendState.feeAssetMetadata = undefined;
+      this.sendState.isFeeLoading = false;
+    });
+  }
+
+  private getDummyAsset(): BalancesResponse | undefined {
+    // Return first available balance response as dummy
+    return this.rootStore.balancesStore.balancesResponses[0];
+  }
+
+  private async getDummyAddress(): Promise<string> {
+    // First try to use an existing balance address
+    const firstBalance = this.rootStore.balancesStore.balancesResponses[0];
+    if (firstBalance?.accountAddress) {
+      return bech32mAddress(getAddress(firstBalance.accountAddress));
+    }
+
+    // If no balances, generate a dummy address using account 0
+    try {
+      const response = await penumbra.service(ViewService).addressByIndex({
+        addressIndex: { account: 0 },
+      });
+
+      if (response.address) {
+        return bech32mAddress(response.address);
+      }
+    } catch (error) {
+      // log removed
+    }
+
+    return '';
+  }
+
+  private async buildDummyTransactionRequest(
+    asset: BalancesResponse,
+    amount: string,
+    recipient: string,
+    feeTier: FeeTier_Tier,
+  ): Promise<TransactionPlannerRequest> {
+    const value = new Value({
+      amount: toBaseUnit(
+        BigNumber(amount),
+        getDisplayDenomExponentFromValueView.optional(asset.balanceView),
+      ),
+      assetId: getAssetIdFromValueView(asset.balanceView),
+    });
+
+    return new TransactionPlannerRequest({
+      outputs: [
+        {
+          address: new Address({ altBech32m: recipient }),
+          value,
+        },
+      ],
+      source: getAddressIndex(asset.accountAddress),
+      feeMode: {
+        case: 'autoFee',
+        value: { feeTier },
+      },
+      memo: new MemoPlaintext({
+        returnAddress: getAddress(asset.accountAddress),
+        text: 'Fee estimation',
+      }),
+    });
+  }
+
+  private async buildTransactionRequest(): Promise<TransactionPlannerRequest> {
+    const { amount, feeTier, recipient, selectedAsset, memo } = this.sendState;
+
+    const value = new Value({
+      amount: toBaseUnit(
+        BigNumber(amount),
+        getDisplayDenomExponentFromValueView.optional(selectedAsset?.balanceView),
+      ),
+      assetId: getAssetIdFromValueView(selectedAsset?.balanceView),
+    });
+
+    return new TransactionPlannerRequest({
+      outputs: [
+        {
+          address: new Address({ altBech32m: recipient }),
+          value,
+        },
+      ],
+      source: getAddressIndex(selectedAsset?.accountAddress),
+      feeMode: {
+        case: 'autoFee',
+        value: { feeTier },
+      },
+      memo: new MemoPlaintext({
+        returnAddress: getAddress(selectedAsset?.accountAddress),
+        text: memo,
+      }),
+    });
+  }
+
+  async sendTransaction() {
+    if (!this.canSend) {
+      return;
+    }
+
+    runInAction(() => {
+      this.sendState.isLoading = true;
+      this.sendState.error = undefined;
+    });
+
+    try {
+      const request = await this.buildTransactionRequest();
+
+      // Use the toast-enabled transaction helper
+      const { planBuildBroadcast } = await import('../services/transaction');
+      await planBuildBroadcast('send', request);
+
+      // Reset form after successful send
+      runInAction(() => {
+        this.sendState.amount = '';
+        this.sendState.memo = '';
+        this.sendState.isLoading = false;
+      });
+
+      // Refresh balances
+      await this.rootStore.balancesStore.loadBalances();
+      // Refresh transactions so that new transfer appears immediately
+      void this.rootStore.transactionsStore.loadTransactions();
+    } catch (error) {
+      // Only set error state if it's not a user denial (toast handles those)
+      const { userDeniedTransaction } = await import('../services/transaction');
+      if (!userDeniedTransaction(error)) {
+        runInAction(() => {
+          this.sendState.error = error instanceof Error ? error.message : 'Transaction failed';
+        });
+      }
+      runInAction(() => {
+        this.sendState.isLoading = false;
+      });
+    }
+  }
+
+  private async loadAccountAddress() {
+    if (!penumbra.connected) {
+      return;
+    }
+
+    try {
+      if (this.receiveState.ibcDepositEnabled) {
+        // Generate randomized IBC deposit address
+        const response = await penumbra.service(ViewService).ephemeralAddress({
+          addressIndex: { account: this.receiveState.selectedAccountIndex },
+        });
+
+        if (response.address) {
+          runInAction(() => {
+            this.receiveState.accountAddress = bech32mAddress(response.address!);
+          });
+        }
+      } else {
+        // Get regular address for the selected account index
+        const response = await penumbra.service(ViewService).addressByIndex({
+          addressIndex: { account: this.receiveState.selectedAccountIndex },
+        });
+
+        if (response.address) {
+          runInAction(() => {
+            this.receiveState.accountAddress = bech32mAddress(response.address!);
+          });
+        }
+      }
+    } catch (error) {
+      // log removed
+    }
+  }
+
+  async copyAddress() {
+    if (!this.receiveState.accountAddress) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(this.receiveState.accountAddress);
+    } catch (error) {
+      // log removed
+    }
+  }
+
+  async initialize() {
+    if (!penumbra.connected) {
+      // Connection not ready yet, will be called again when connected
+      return;
+    }
+
+    // Load initial account address for receive tab
+    await this.loadAccountAddress();
+  }
+
+  dispose() {
+    // Cleanup if needed
+  }
+}
