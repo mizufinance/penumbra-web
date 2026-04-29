@@ -26,6 +26,8 @@ jobs:
     runs-on: buildjet-8vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: install nix
         uses: nixbuild/nix-quick-install-action@v28
@@ -64,6 +66,8 @@ jobs:
     runs-on: buildjet-8vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: setup nix
         uses: ./.github/actions/setup-nix
