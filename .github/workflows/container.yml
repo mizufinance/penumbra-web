@@ -1,20 +1,9 @@
 ---
 name: Build container image
 on:
-  # Don't build on merge into main:
-  # instead, we'll trigger the container build via the "deploy" workflow,
-  # which runs on merge to main.
-  # push:
-  #   branches:
-  #     - main
-
-  # Also support ad-hoc and per-repo calls to trigger builds.
   workflow_call:
   workflow_dispatch:
   repository_dispatch:
-
-  # Temporary: build on PRs, to make sure workflow succeeds
-  pull_request:
 jobs:
   veil-testnet:
     runs-on: buildjet-16vcpu-ubuntu-2204

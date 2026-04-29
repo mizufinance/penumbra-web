@@ -4,9 +4,6 @@
 name: deploy veil
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build-container:
