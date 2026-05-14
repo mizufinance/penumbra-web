@@ -21,7 +21,8 @@
     "postcompile": "mkdir -p ./wasm && touch ./wasm/.npmignore",
     "test": "vitest run",
     "test:cargo": "cd crate && cargo test --release",
-    "test:wasm": "cd crate && wasm-pack test --headless --firefox -- --target wasm32-unknown-unknown --release"
+    "test:wasm": "cd crate && wasm-pack test --headless --firefox -- --target wasm32-unknown-unknown --release",
+    "pack:local": "pnpm compile && pnpm build && pnpm pack"
   },
   "files": [
     "wasm",

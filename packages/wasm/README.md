@@ -109,6 +109,33 @@ cargo install cargo-watch wasm-pack
 
 Now you can just run `pnpm compile` or `pnpm dev` in the package directory.
 
+### Generating local package artifacts
+
+Compiled WASM and TypeScript output are intentionally not committed to this
+repository. To generate them locally from `packages/wasm`, run:
+
+```sh
+pnpm compile
+pnpm build
+```
+
+To produce a local tarball that can be installed by a downstream app, run:
+
+```sh
+pnpm pack:local
+```
+
+This creates `mizufinance-wasm-*.tgz` in `packages/wasm`. A downstream project
+can consume it with a relative file dependency, for example:
+
+```json
+{
+  "dependencies": {
+    "@mizufinance/wasm": "file:../penumbra-web/packages/wasm/mizufinance-wasm-<version>.tgz"
+  }
+}
+```
+
 ### Testing
 
 This package contains both typescript tests executed with `vitest`, and WASM tests

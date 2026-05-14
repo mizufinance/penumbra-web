@@ -4,6 +4,7 @@ use decaf377::{Fq, Fr};
 use penumbra_asset::asset;
 use penumbra_compliance::{
     indexed_tree, AssetPolicy, ComplianceLeaf, IndexedLeaf, MerklePath, MerklePathLayer,
+    OrbisEncryptedSeedUploadPackage, TransferOrbisUploadBundle,
 };
 use penumbra_keys::Address;
 use penumbra_proto::core::component::compliance::v1 as pb;
@@ -11,8 +12,10 @@ use penumbra_proto::Message;
 use penumbra_shielded_pool::ShieldedIcs20WithdrawalPlan;
 use penumbra_tct::StateCommitment;
 use penumbra_transaction::{ActionPlan, TransactionPlan};
+use serde::Serialize;
 use std::collections::{BTreeMap, BTreeSet};
 use wasm_bindgen::JsCast;
+use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 use wasm_bindgen_futures::JsFuture;
 
@@ -734,4 +737,84 @@ fn js_error(value: JsValue) -> anyhow::Error {
     } else {
         anyhow!("JavaScript error: {:?}", value)
     }
+}
+
+#[wasm_bindgen(js_name = deriveComplianceScalarForAddress)]
+pub fn derive_compliance_scalar_for_address(address: &[u8]) -> Result<Vec<u8>, JsValue> {
+    let pb_address = penumbra_proto::core::keys::v1::Address::decode(address)
+        .map_err(|e| JsValue::from_str(&format!("invalid address protobuf: {e}")))?;
+    let address = Address::try_from(pb_address)
+        .map_err(|e| JsValue::from_str(&format!("invalid address: {e}")))?;
+    let b_d_fq = address.diversified_generator().vartime_compress_to_field();
+    Ok(penumbra_compliance::derive_compliance_scalar(b_d_fq)
+        .to_bytes()
+        .to_vec())
+}
+
+#[derive(Serialize)]
+struct JsOrbisUploadPackage {
+    ring_id: String,
+    policy_id: String,
+    resource: String,
+    permission: String,
+    tier_label: String,
+    timestamp: u64,
+    salt: String,
+    encrypted_document: Vec<u8>,
+    enc_cmt: Vec<u8>,
+    shared_point: Vec<u8>,
+    challenge: Vec<u8>,
+    response: Vec<u8>,
+    orbis_challenge: Vec<u8>,
+    orbis_response: Vec<u8>,
+    derived_pk: Vec<u8>,
+    metadata_hash: Vec<u8>,
+}
+
+#[derive(Serialize)]
+struct JsOrbisUploadBundle {
+    sender_core: JsOrbisUploadPackage,
+    sender_ext: JsOrbisUploadPackage,
+    output_core: JsOrbisUploadPackage,
+    output_ext: JsOrbisUploadPackage,
+}
+
+impl From<OrbisEncryptedSeedUploadPackage> for JsOrbisUploadPackage {
+    fn from(p: OrbisEncryptedSeedUploadPackage) -> Self {
+        Self {
+            ring_id: p.ring_id,
+            policy_id: p.policy_id,
+            resource: p.resource,
+            permission: p.permission,
+            tier_label: p.tier_label,
+            timestamp: p.timestamp,
+            salt: p.salt,
+            encrypted_document: p.encrypted_document,
+            enc_cmt: p.enc_cmt,
+            shared_point: p.shared_point,
+            challenge: p.challenge,
+            response: p.response,
+            orbis_challenge: p.orbis_challenge,
+            orbis_response: p.orbis_response,
+            derived_pk: p.derived_pk,
+            metadata_hash: p.metadata_hash,
+        }
+    }
+}
+
+#[wasm_bindgen(js_name = decodeOrbisUploadBundle)]
+pub fn decode_orbis_upload_bundle(bundle: &[u8]) -> Result<JsValue, JsValue> {
+    let bundle = TransferOrbisUploadBundle::from_bytes(bundle)
+        .map_err(|e| JsValue::from_str(&format!("invalid ORBIS upload bundle: {e}")))?;
+    bundle
+        .validate()
+        .map_err(|e| JsValue::from_str(&format!("invalid ORBIS upload package: {e}")))?;
+    let js = JsOrbisUploadBundle {
+        sender_core: bundle.sender_core.into(),
+        sender_ext: bundle.sender_ext.into(),
+        output_core: bundle.output_core.into(),
+        output_ext: bundle.output_ext.into(),
+    };
+    serde_wasm_bindgen::to_value(&js)
+        .map_err(|e| JsValue::from_str(&format!("serialize ORBIS upload bundle: {e}")))
 }
