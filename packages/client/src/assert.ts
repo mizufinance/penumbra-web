@@ -1,9 +1,9 @@
 import {
-  PenumbraNotInstalledError,
-  PenumbraProviderNotAvailableError,
-  PenumbraProviderNotConnectedError,
+  ShielddNotInstalledError,
+  ShielddProviderNotAvailableError,
+  ShielddProviderNotConnectedError,
 } from './error.js';
-import { PenumbraSymbol } from './symbol.js';
+import { ShielddSymbol } from './symbol.js';
 
 import './global.js';
 
@@ -14,11 +14,11 @@ export const assertStringIsOrigin = (s?: string) => {
   return s;
 };
 
-export const assertPenumbra = () => {
-  if (!window[PenumbraSymbol]) {
-    throw new PenumbraNotInstalledError();
+export const assertShieldd = () => {
+  if (!window[ShielddSymbol]) {
+    throw new ShielddNotInstalledError();
   }
-  return window[PenumbraSymbol];
+  return window[ShielddSymbol];
 };
 
 /**
@@ -26,9 +26,9 @@ export const assertPenumbra = () => {
  * `undefined` origin is accepted but will throw.
  */
 export const assertProviderRecord = (providerOrigin?: string) => {
-  const provider = providerOrigin && assertPenumbra()[assertStringIsOrigin(providerOrigin)];
+  const provider = providerOrigin && assertShieldd()[assertStringIsOrigin(providerOrigin)];
   if (!provider) {
-    throw new PenumbraProviderNotAvailableError(providerOrigin);
+    throw new ShielddProviderNotAvailableError(providerOrigin);
   }
   return provider;
 };
@@ -41,7 +41,7 @@ export const assertProviderRecord = (providerOrigin?: string) => {
 export const assertProviderConnected = (providerOrigin?: string) => {
   const provider = assertProviderRecord(providerOrigin);
   if (!provider.isConnected()) {
-    throw new PenumbraProviderNotConnectedError(providerOrigin);
+    throw new ShielddProviderNotConnectedError(providerOrigin);
   }
   return provider;
 };
@@ -76,7 +76,7 @@ export const assertProviderManifest = async (providerOrigin?: string, signal?: A
   } catch (e) {
     if (signal?.aborted !== true) {
       console.warn(e);
-      throw new PenumbraProviderNotAvailableError(providerOrigin);
+      throw new ShielddProviderNotAvailableError(providerOrigin);
     }
   }
 

@@ -5,7 +5,7 @@ const CHROME_EXTENSION_ID = 'lkpmkhpnhknhmibgnmmhdhgdilepfghe';
 export const ExtensionNotInstalled = () => {
   const openInstallPage = () => {
     window.open(
-      `https://chrome.google.com/webstore/detail/penumbra-wallet/${CHROME_EXTENSION_ID}`,
+      `https://chrome.google.com/webstore/detail/shieldd-wallet/${CHROME_EXTENSION_ID}`,
       '_blank',
       'noreferrer',
     );
@@ -13,8 +13,8 @@ export const ExtensionNotInstalled = () => {
 
   return (
     <FallbackPage
-      title='Welcome to Penumbra'
-      description='To get started, install Prax, the default Penumbra wallet in your browser.'
+      title='Welcome to Shieldd'
+      description='To get started, install Prax, the default Shieldd wallet in your browser.'
       buttonText='Install Prax'
       onButtonClick={openInstallPage}
     />

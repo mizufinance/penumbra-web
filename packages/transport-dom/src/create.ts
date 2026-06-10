@@ -90,7 +90,7 @@ export const createChannelTransport = ({
   // this is used to recover errors that couldn't be thrown at a caller
   const transportFailure = new AbortController();
 
-  // port returned by the penumbra global
+  // port returned by the shieldd global
   let port: MessagePort | undefined;
 
   /**

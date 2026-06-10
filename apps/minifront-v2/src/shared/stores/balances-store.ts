@@ -6,16 +6,16 @@
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { AddressView, AddressIndex } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { Metadata, AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { AddressView, AddressIndex } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { Metadata, AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import {
   getMetadataFromBalancesResponse,
   getAddressIndex,
 } from '@mizufinance/getters/balances-response';
 import { RootStore } from './root-store';
-import { penumbra } from '../lib/penumbra';
-import { PenumbraState } from '@mizufinance/client';
+import { shieldd } from '../lib/shieldd';
+import { ShielddState } from '@mizufinance/client';
 
 export interface BalancesByAccount {
   account: number;
@@ -37,8 +37,8 @@ export class BalancesStore {
     makeAutoObservable(this);
 
     // Listen for connection state changes to retry loading
-    penumbra.onConnectionStateChange(event => {
-      if (event.state === PenumbraState.Connected) {
+    shieldd.onConnectionStateChange(event => {
+      if (event.state === ShielddState.Connected) {
         void this.loadBalances();
       }
     });
@@ -48,7 +48,7 @@ export class BalancesStore {
    * Initialize the store and load initial data
    */
   async initialize() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       // Connection not ready yet, will retry when connection is established
       return;
     }
@@ -79,7 +79,7 @@ export class BalancesStore {
    * Load balances from the service
    */
   async loadBalances() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
@@ -88,7 +88,7 @@ export class BalancesStore {
 
     try {
       const responses: BalancesResponse[] = [];
-      const stream = this.rootStore.penumbraService.getBalancesStream({
+      const stream = this.rootStore.shielddService.getBalancesStream({
         accountFilter:
           this.accountFilter !== undefined
             ? new AddressIndex({ account: this.accountFilter })
@@ -168,8 +168,8 @@ export class BalancesStore {
 
     for (const response of this.balancesResponses) {
       const metadata = getMetadataFromBalancesResponse(response);
-      if (metadata.penumbraAssetId) {
-        const assetId = metadata.penumbraAssetId.inner.toString();
+      if (metadata.shielddAssetId) {
+        const assetId = metadata.shielddAssetId.inner.toString();
         if (!assetMap.has(assetId)) {
           assetMap.set(assetId, metadata);
         }
@@ -200,7 +200,7 @@ export class BalancesStore {
   getBalancesByAsset(assetId: string): BalancesResponse[] {
     return this.balancesResponses.filter(response => {
       const metadata = getMetadataFromBalancesResponse(response);
-      return metadata.penumbraAssetId?.inner.toString() === assetId;
+      return metadata.shielddAssetId?.inner.toString() === assetId;
     });
   }
 }

@@ -1,11 +1,11 @@
 import { useCosmosBalances, CosmosBalance } from './use-cosmos-balances';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { useMemo, useEffect } from 'react';
 import { useWallet } from '@cosmos-kit/react';
 import { WalletStatus } from '@cosmos-kit/core';
 import { pnum } from '@mizufinance/types/pnum';
 import { assetPatterns } from '@mizufinance/types/assets';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { useBalancesStore } from '../stores/store-context';
 import {
   getMetadataFromBalancesResponse,
@@ -50,24 +50,24 @@ export const shouldFilterAsset = (symbol: string): boolean => {
 };
 
 /**
- * Hook that combines Penumbra (shielded) and Cosmos (public) balances into a unified asset structure.
+ * Hook that combines Shieldd (shielded) and Cosmos (public) balances into a unified asset structure.
  */
 export const useUnifiedAssets = () => {
   const { status: cosmosWalletStatus } = useWallet();
 
   const balancesStore = useBalancesStore();
-  const penumbraBalances = balancesStore.balancesResponses;
-  const penumbraLoading = balancesStore.loading;
+  const shielddBalances = balancesStore.balancesResponses;
+  const shielddLoading = balancesStore.loading;
 
   const { balances: cosmosBalances = [], isLoading: cosmosLoading } = useCosmosBalances();
 
   useEffect(() => {
-    if (penumbraBalances.length === 0 && !penumbraLoading) {
+    if (shielddBalances.length === 0 && !shielddLoading) {
       void balancesStore.loadAllAccountBalances();
     }
-  }, [balancesStore, penumbraBalances.length, penumbraLoading]);
+  }, [balancesStore, shielddBalances.length, shielddLoading]);
 
-  const isPenumbraConnected = penumbraBalances.length > 0 || !penumbraLoading;
+  const isShielddConnected = shielddBalances.length > 0 || !shielddLoading;
   const isCosmosConnected = cosmosWalletStatus === WalletStatus.Connected;
 
   const shouldFilterAsset = (symbol: string): boolean => {
@@ -82,13 +82,13 @@ export const useUnifiedAssets = () => {
   };
 
   const shieldedAssets = useMemo(() => {
-    if (!isPenumbraConnected || !penumbraBalances.length) {
+    if (!isShielddConnected || !shielddBalances.length) {
       return [];
     }
 
     const assetMap = new Map<string, UnifiedAsset>();
 
-    penumbraBalances
+    shielddBalances
       .filter(balance => {
         return balance.balanceView?.valueView.case === 'knownAssetId';
       })
@@ -123,12 +123,12 @@ export const useUnifiedAssets = () => {
             assetMap.set(symbol, newAsset);
           }
         } catch (error: unknown) {
-          console.error('Error processing Penumbra balance', error);
+          console.error('Error processing Shieldd balance', error);
         }
       });
 
     return Array.from(assetMap.values());
-  }, [isPenumbraConnected, penumbraBalances]);
+  }, [isShielddConnected, shielddBalances]);
 
   const publicAssets = useMemo(() => {
     if (!isCosmosConnected || !cosmosBalances.length) {
@@ -143,7 +143,7 @@ export const useUnifiedAssets = () => {
             display: asset.display,
             denomUnits: asset.denom_units,
             symbol: asset.symbol,
-            penumbraAssetId: { inner: new Uint8Array([1]) },
+            shielddAssetId: { inner: new Uint8Array([1]) },
             coingeckoId: asset.coingecko_id,
             images: asset.images,
             name: asset.name,
@@ -234,7 +234,7 @@ export const useUnifiedAssets = () => {
     return totalShieldedValue + totalPublicValue;
   }, [totalShieldedValue, totalPublicValue]);
 
-  const isLoading = unifiedAssets.length === 0 && (penumbraLoading || cosmosLoading);
+  const isLoading = unifiedAssets.length === 0 && (shielddLoading || cosmosLoading);
 
   return {
     unifiedAssets,
@@ -242,7 +242,7 @@ export const useUnifiedAssets = () => {
     totalPublicValue,
     totalValue,
     isLoading,
-    isPenumbraConnected,
+    isShielddConnected,
     isCosmosConnected,
   };
 };

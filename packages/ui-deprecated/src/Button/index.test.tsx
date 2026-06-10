@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
 import { Button } from '.';
 import { fireEvent, render } from '@testing-library/react';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 import { Check } from 'lucide-react';
 
 describe('<Button />', () => {
   it('calls the passed-in click handler when clicked', () => {
     const onClick = vi.fn();
     const { getByText } = render(<Button onClick={onClick}>Click me</Button>, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     fireEvent.click(getByText('Click me'));
@@ -18,7 +18,7 @@ describe('<Button />', () => {
 
   describe('when `iconOnly` is falsey', () => {
     it('renders `children` as the button text', () => {
-      const { queryByText } = render(<Button>Label</Button>, { wrapper: PenumbraUIProvider });
+      const { queryByText } = render(<Button>Label</Button>, { wrapper: ShielddUIProvider });
 
       expect(queryByText('Label')).toBeTruthy();
     });
@@ -30,7 +30,7 @@ describe('<Button />', () => {
         <Button iconOnly icon={Check}>
           Label
         </Button>,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
 
       expect(queryByText('Label')).toBeNull();
@@ -42,7 +42,7 @@ describe('<Button />', () => {
         <Button iconOnly icon={Check}>
           Label
         </Button>,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
 
       expect(queryByTitle('Label')).toBeTruthy();

@@ -1,7 +1,7 @@
 /// <reference types="chrome" />
 
 /**
- * Currently, Penumbra manifests are expected to be chrome extension manifest
+ * Currently, Shieldd manifests are expected to be chrome extension manifest
  * v3.  This type just requires a few fields of ManifestV3 that apps might use
  * to display provider information to the user.
  *
@@ -17,24 +17,24 @@
  *
  * @see https://web.archive.org/web/20120606044635/http://supercollider.dk/2010/01/calculating-chrome-extension-id-from-your-private-key-233
  */
-export type PenumbraManifestJson = chrome.runtime.ManifestV3 & {
+export type ShielddManifestJson = chrome.runtime.ManifestV3 & {
   [k in 'name' | 'version' | 'description' | 'icons']-?: NonNullable<chrome.runtime.ManifestV3[k]>;
 };
 
 type IconBlobs = { '128': Blob } & Partial<Record<`${number}`, Blob>>;
 
-// export interface PenumbraManifest extends Record<string, unknown> {
+// export interface ShielddManifest extends Record<string, unknown> {
 //   name: string;
 //   version: string;
 //   description: string;
 //   icons: IconBlobs;
 // }
 
-export type PenumbraManifest = {
-  [k in keyof PenumbraManifestJson]: k extends 'icons' ? IconBlobs : PenumbraManifestJson[k];
+export type ShielddManifest = {
+  [k in keyof ShielddManifestJson]: k extends 'icons' ? IconBlobs : ShielddManifestJson[k];
 };
 
-export const isPenumbraManifestJson = (mf: unknown): mf is PenumbraManifestJson =>
+export const isShielddManifestJson = (mf: unknown): mf is ShielddManifestJson =>
   mf !== null &&
   typeof mf === 'object' &&
   'name' in mf &&

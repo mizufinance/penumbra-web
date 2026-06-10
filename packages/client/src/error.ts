@@ -1,36 +1,36 @@
-export enum PenumbraRequestFailure {
+export enum ShielddRequestFailure {
   Denied = 'Denied',
   NeedsLogin = 'NeedsLogin',
   BadResponse = 'BadResponse',
   NotHandled = 'NotHandled',
 }
 
-export class PenumbraProviderNotAvailableError extends Error {
+export class ShielddProviderNotAvailableError extends Error {
   constructor(providerOrigin?: string, opts?: ErrorOptions) {
-    super(`Penumbra provider ${providerOrigin} is not available`, opts);
-    this.name = 'PenumbraProviderNotAvailableError';
+    super(`Shieldd provider ${providerOrigin} is not available`, opts);
+    this.name = 'ShielddProviderNotAvailableError';
   }
 }
 
-export class PenumbraProviderNotConnectedError extends Error {
+export class ShielddProviderNotConnectedError extends Error {
   constructor(providerOrigin?: string, opts?: ErrorOptions) {
-    super(`Penumbra provider ${providerOrigin} is not connected`, opts);
-    this.name = 'PenumbraProviderNotConnectedError';
+    super(`Shieldd provider ${providerOrigin} is not connected`, opts);
+    this.name = 'ShielddProviderNotConnectedError';
   }
 }
 
-export class PenumbraProviderRequestError extends Error {
-  constructor(providerOrigin?: string, opts?: ErrorOptions & { cause: PenumbraRequestFailure }) {
-    super(`Penumbra provider ${providerOrigin} did not approve request`, opts);
-    this.name = 'PenumbraProviderRequestError';
+export class ShielddProviderRequestError extends Error {
+  constructor(providerOrigin?: string, opts?: ErrorOptions & { cause: ShielddRequestFailure }) {
+    super(`Shieldd provider ${providerOrigin} did not approve request`, opts);
+    this.name = 'ShielddProviderRequestError';
   }
 }
-export class PenumbraNotInstalledError extends Error {
+export class ShielddNotInstalledError extends Error {
   constructor(
-    message = "Penumbra global `window[Symbol.for('penumbra')]` is not present.",
+    message = "Shieldd global `window[Symbol.for('shieldd')]` is not present.",
     opts?: ErrorOptions,
   ) {
     super(message, opts);
-    this.name = 'PenumbraNotInstalledError';
+    this.name = 'ShielddNotInstalledError';
   }
 }

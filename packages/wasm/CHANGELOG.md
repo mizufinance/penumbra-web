@@ -44,7 +44,7 @@
 
 ### Patch Changes
 
-- 61270de: bump penumbra protocol deps to v2.0.0-alpha.11
+- 61270de: bump shieldd protocol deps to v2.0.0-alpha.11
 
 ## 50.0.0
 

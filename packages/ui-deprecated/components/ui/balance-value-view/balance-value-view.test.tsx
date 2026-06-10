@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { BalanceValueView } from '.';
 import { base64ToUint8Array } from '@mizufinance/types/base64';
 
@@ -12,29 +12,29 @@ vi.mock('../icons/wallet', () => ({
 }));
 
 describe('<BalanceValueView />', () => {
-  const penumbraMetadata = new Metadata({
-    base: 'upenumbra',
-    display: 'penumbra',
+  const shielddMetadata = new Metadata({
+    base: 'ushieldd',
+    display: 'shieldd',
     symbol: 'UM',
-    penumbraAssetId: {
+    shielddAssetId: {
       inner: base64ToUint8Array('KeqcLzNx9qSH5+lcJHBB9KNW+YPrBk5dKzvPMiypahA='),
     },
     images: [
       {
-        png: 'https://raw.githubusercontent.com/mizufinance/penumbra/main/apps/minifront/public/favicon.png',
+        png: 'https://raw.githubusercontent.com/mizufinance/shieldd/main/apps/minifront/public/favicon.png',
       },
     ],
     denomUnits: [
       {
-        denom: 'penumbra',
+        denom: 'shieldd',
         exponent: 6,
       },
       {
-        denom: 'mpenumbra',
+        denom: 'mshieldd',
         exponent: 3,
       },
       {
-        denom: 'upenumbra',
+        denom: 'ushieldd',
         exponent: 0,
       },
     ],
@@ -48,7 +48,7 @@ describe('<BalanceValueView />', () => {
           hi: 0n,
           lo: 123_456_789n,
         },
-        metadata: penumbraMetadata,
+        metadata: shielddMetadata,
       },
     },
   });

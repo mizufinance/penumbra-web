@@ -2,14 +2,14 @@ import { fromBech32m, toBech32m } from './format/convert.js';
 import { Inner } from './format/inner.js';
 import { Prefixes } from './format/prefix.js';
 
-const innerName = Inner.penumbragovern;
-const prefix = Prefixes.penumbragovern;
+const innerName = Inner.shielddgovern;
+const prefix = Prefixes.shielddgovern;
 
 export const bech32mGovernanceId = ({ [innerName]: bytes }: { [innerName]: Uint8Array }) =>
   toBech32m(bytes, prefix);
 
-export const governanceIdFromBech32 = (penumbragovern1: string): { [innerName]: Uint8Array } => ({
-  [innerName]: fromBech32m(penumbragovern1 as `${typeof prefix}1${string}`, prefix),
+export const governanceIdFromBech32 = (shielddgovern1: string): { [innerName]: Uint8Array } => ({
+  [innerName]: fromBech32m(shielddgovern1 as `${typeof prefix}1${string}`, prefix),
 });
 
 export const isGovernanceId = (check: string): check is `${typeof prefix}1${string}` => {
@@ -22,6 +22,6 @@ export const isGovernanceId = (check: string): check is `${typeof prefix}1${stri
 };
 
 export {
-  PENUMBRA_BECH32M_GOVERNANCEID_LENGTH,
-  PENUMBRA_BECH32M_GOVERNANCEID_PREFIX,
+  SHIELDD_BECH32M_GOVERNANCEID_LENGTH,
+  SHIELDD_BECH32M_GOVERNANCEID_PREFIX,
 } from './index.js';

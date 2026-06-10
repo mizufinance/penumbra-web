@@ -5,7 +5,7 @@ import {
   DialogHeader,
 } from '@mizufinance/ui-deprecated/components/ui/dialog';
 import { AssetIcon } from '@mizufinance/ui-deprecated/components/ui/asset-icon';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { ValueViewComponent } from '@mizufinance/ui-deprecated/components/ui/value';
 import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { IconInput } from '@mizufinance/ui-deprecated/components/ui/icon-input';
@@ -80,7 +80,7 @@ const useFilteredAssets = ({ assets, value, onChange, filter }: AssetSelectorPro
 };
 
 /**
- * Allows the user to select any asset known to Penumbra, optionally filtered by
+ * Allows the user to select any asset known to Shieldd, optionally filtered by
  * a filter function.
  *
  * For an asset selector that picks from the user's balances, use

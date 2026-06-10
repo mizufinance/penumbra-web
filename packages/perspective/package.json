@@ -2,7 +2,7 @@
   "name": "@mizufinance/perspective",
   "version": "61.1.1",
   "license": "(MIT OR Apache-2.0)",
-  "description": "Tools for assuming different perspectives of Penumbra transactions",
+  "description": "Tools for assuming different perspectives of Shieldd transactions",
   "type": "module",
   "engine": {
     "node": ">=22"

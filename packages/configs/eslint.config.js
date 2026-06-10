@@ -117,7 +117,7 @@ export default tseslint.config(
             { pattern: '@repo/**', group: 'internal', position: 'after' },
 
             { pattern: '@buf/**', group: 'external', position: 'after' },
-            { pattern: '@penumbra-labs/**', group: 'external', position: 'after' },
+            { pattern: '@mizufinance/**', group: 'external', position: 'after' },
           ],
           pathGroupsExcludedImportTypes: [],
           distinctGroup: true,

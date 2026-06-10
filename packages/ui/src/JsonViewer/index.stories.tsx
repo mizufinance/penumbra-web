@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { JsonViewer } from '.';
 import { Text } from '../Text';
 
-// Realistic Penumbra transaction data based on actual codebase structures
-const penumbraSpendAction = {
+// Realistic Shieldd transaction data based on actual codebase structures
+const shielddSpendAction = {
   spend: {
     body: {
       balanceCommitment: {
@@ -27,7 +27,7 @@ const penumbraSpendAction = {
   },
 };
 
-const penumbraOutputAction = {
+const shielddOutputAction = {
   output: {
     body: {
       notePayload: {
@@ -53,10 +53,10 @@ const penumbraOutputAction = {
   },
 };
 
-const realisticPenumbraTransaction = {
+const realisticShielddTransaction = {
   body: {
     actions: [
-      penumbraSpendAction,
+      shielddSpendAction,
       {
         spend: {
           body: {
@@ -78,7 +78,7 @@ const realisticPenumbraTransaction = {
           },
         },
       },
-      penumbraOutputAction,
+      shielddOutputAction,
       {
         output: {
           body: {
@@ -106,7 +106,7 @@ const realisticPenumbraTransaction = {
       },
     ],
     transactionParameters: {
-      chainId: 'penumbra-testnet-rhea',
+      chainId: 'shieldd-testnet-rhea',
     },
     detectionData: {
       fmdClues: [
@@ -134,7 +134,7 @@ const realisticPenumbraTransaction = {
   },
 };
 
-const penumbraTransactionView = {
+const shielddTransactionView = {
   bodyView: {
     actionViews: [
       {
@@ -160,28 +160,28 @@ const penumbraTransactionView = {
                     lo: '1900000',
                   },
                   metadata: {
-                    display: 'penumbra',
-                    name: 'Penumbra',
+                    display: 'shieldd',
+                    name: 'Shieldd',
                     symbol: 'UM',
                     denomUnits: [
                       {
-                        denom: 'upenumbra',
+                        denom: 'ushieldd',
                         exponent: 0,
-                        aliases: ['upenumbra'],
+                        aliases: ['ushieldd'],
                       },
                       {
-                        denom: 'mpenumbra',
+                        denom: 'mshieldd',
                         exponent: 3,
-                        aliases: ['millipenumbra'],
+                        aliases: ['millishieldd'],
                       },
                       {
-                        denom: 'penumbra',
+                        denom: 'shieldd',
                         exponent: 6,
-                        aliases: ['penumbra'],
+                        aliases: ['shieldd'],
                       },
                     ],
-                    base: 'upenumbra',
-                    penumbraAssetId: {
+                    base: 'ushieldd',
+                    shielddAssetId: {
                       inner: 'KeqcLzNx9qSH5+lcJHBB9KNW+YPrBk5dKzvPMiypahA=',
                     },
                   },
@@ -206,7 +206,7 @@ const penumbraTransactionView = {
       },
     ],
     transactionParameters: {
-      chainId: 'penumbra-1',
+      chainId: 'shieldd-1',
       fee: {
         amount: {
           lo: '1013',
@@ -216,7 +216,7 @@ const penumbraTransactionView = {
     memoView: {
       visible: {
         plaintext: {
-          text: 'Welcome to Penumbra! 🌗',
+          text: 'Welcome to Shieldd! 🌗',
           returnAddress: {
             opaque: {
               address: {
@@ -231,7 +231,7 @@ const penumbraTransactionView = {
   },
 };
 
-const penumbraSwapData = {
+const shielddSwapData = {
   transaction: {
     id: {
       inner: 'tC8UkRa/CMAtIft8TgIHRTWS7D8KNA+nYlixMl0mYjU=',
@@ -271,7 +271,7 @@ const penumbraSwapData = {
   timestamp: '2023-10-15T14:30:00Z',
 };
 
-const penumbraPositionData = {
+const shielddPositionData = {
   position: {
     phi: {
       component: { p: { lo: '1000000' }, q: { lo: '1000000' } },
@@ -327,64 +327,64 @@ export default meta;
 type Story = StoryObj<typeof JsonViewer>;
 
 /**
- * Basic JSON viewer with a single Penumbra spend action.
+ * Basic JSON viewer with a single Shieldd spend action.
  */
 export const SpendAction: Story = {
   args: {
-    data: penumbraSpendAction,
+    data: shielddSpendAction,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Shows a single Penumbra spend action with balance commitment, nullifier, authorization signature, and proof.',
+          'Shows a single Shieldd spend action with balance commitment, nullifier, authorization signature, and proof.',
       },
     },
   },
 };
 
 /**
- * JSON viewer showing a Penumbra output action with encrypted note.
+ * JSON viewer showing a Shieldd output action with encrypted note.
  */
 export const OutputAction: Story = {
   args: {
-    data: penumbraOutputAction,
+    data: shielddOutputAction,
     collapsed: 2,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Displays a Penumbra output action containing note payload with encrypted note data, balance commitment, and cryptographic keys.',
+          'Displays a Shieldd output action containing note payload with encrypted note data, balance commitment, and cryptographic keys.',
       },
     },
   },
 };
 
 /**
- * Complete Penumbra transaction with multiple actions and metadata.
+ * Complete Shieldd transaction with multiple actions and metadata.
  */
 export const CompleteTransaction: Story = {
   args: {
-    data: realisticPenumbraTransaction,
+    data: realisticShielddTransaction,
     collapsed: 2,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Shows a complete Penumbra transaction with multiple spend and output actions, transaction parameters, detection data, memo, and signatures.',
+          'Shows a complete Shieldd transaction with multiple spend and output actions, transaction parameters, detection data, memo, and signatures.',
       },
     },
   },
 };
 
 /**
- * Penumbra transaction view with visible and opaque actions.
+ * Shieldd transaction view with visible and opaque actions.
  */
 export const TransactionView: Story = {
   args: {
-    data: penumbraTransactionView,
+    data: shielddTransactionView,
     collapsed: 3,
   },
   parameters: {
@@ -398,29 +398,29 @@ export const TransactionView: Story = {
 };
 
 /**
- * Penumbra swap and claim transaction data.
+ * Shieldd swap and claim transaction data.
  */
 export const SwapTransaction: Story = {
   args: {
-    data: penumbraSwapData,
+    data: shielddSwapData,
     collapsed: 3,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Shows swap claim transaction data with proofs, nullifiers, fees, and epoch information specific to Penumbra DEX operations.',
+          'Shows swap claim transaction data with proofs, nullifiers, fees, and epoch information specific to Shieldd DEX operations.',
       },
     },
   },
 };
 
 /**
- * Penumbra DEX position data structure.
+ * Shieldd DEX position data structure.
  */
 export const PositionData: Story = {
   args: {
-    data: penumbraPositionData,
+    data: shielddPositionData,
     collapsed: 2,
   },
   parameters: {
@@ -443,35 +443,35 @@ export const CollapseVariants: Story = {
         <Text h4 color='text.primary'>
           Fully Collapsed
         </Text>
-        <JsonViewer {...args} data={realisticPenumbraTransaction} collapsed={true} />
+        <JsonViewer {...args} data={realisticShielddTransaction} collapsed={true} />
       </div>
 
       <div className='flex flex-col gap-2'>
         <Text h4 color='text.primary'>
           Level 1 (Show main structure)
         </Text>
-        <JsonViewer {...args} data={realisticPenumbraTransaction} collapsed={1} />
+        <JsonViewer {...args} data={realisticShielddTransaction} collapsed={1} />
       </div>
 
       <div className='flex flex-col gap-2'>
         <Text h4 color='text.primary'>
           Level 2 (Show actions)
         </Text>
-        <JsonViewer {...args} data={realisticPenumbraTransaction} collapsed={2} />
+        <JsonViewer {...args} data={realisticShielddTransaction} collapsed={2} />
       </div>
 
       <div className='flex flex-col gap-2'>
         <Text h4 color='text.primary'>
           Level 3 (Show action details)
         </Text>
-        <JsonViewer {...args} data={realisticPenumbraTransaction} collapsed={3} />
+        <JsonViewer {...args} data={realisticShielddTransaction} collapsed={3} />
       </div>
 
       <div className='flex flex-col gap-2'>
         <Text h4 color='text.primary'>
           Fully Expanded
         </Text>
-        <JsonViewer {...args} data={realisticPenumbraTransaction} collapsed={false} />
+        <JsonViewer {...args} data={realisticShielddTransaction} collapsed={false} />
       </div>
     </div>
   ),
@@ -479,7 +479,7 @@ export const CollapseVariants: Story = {
     docs: {
       description: {
         story:
-          'Shows different collapse levels for exploring Penumbra transaction data: from high-level structure to detailed cryptographic proofs.',
+          'Shows different collapse levels for exploring Shieldd transaction data: from high-level structure to detailed cryptographic proofs.',
       },
     },
   },
@@ -495,14 +495,14 @@ export const DarkModeUsage: Story = {
         <Text h4 color='text.primary'>
           Flat theme (default) - Optimized for dark UIs
         </Text>
-        <JsonViewer {...args} data={penumbraSwapData} theme='flat' collapsed={2} />
+        <JsonViewer {...args} data={shielddSwapData} theme='flat' collapsed={2} />
       </div>
 
       <div className='flex flex-col gap-2'>
         <Text h4 color='text.primary'>
           Monokai theme - Alternative dark theme
         </Text>
-        <JsonViewer {...args} data={penumbraSwapData} theme='monokai' collapsed={2} />
+        <JsonViewer {...args} data={shielddSwapData} theme='monokai' collapsed={2} />
       </div>
 
       <div className='flex flex-col gap-2'>
@@ -510,7 +510,7 @@ export const DarkModeUsage: Story = {
           Transparent background - Inherits container styling
         </Text>
         <div className='rounded bg-other-tonal-fill5 p-4'>
-          <JsonViewer {...args} data={penumbraPositionData} backgroundColor='transparent' />
+          <JsonViewer {...args} data={shielddPositionData} backgroundColor='transparent' />
         </div>
       </div>
     </div>
@@ -519,7 +519,7 @@ export const DarkModeUsage: Story = {
     docs: {
       description: {
         story:
-          "JSON viewer themes and styling options optimized for Penumbra's dark mode interface.",
+          "JSON viewer themes and styling options optimized for Shieldd's dark mode interface.",
       },
     },
   },
@@ -577,7 +577,7 @@ export const EdgeCases: Story = {
     docs: {
       description: {
         story:
-          'Shows how the JSON viewer handles edge cases commonly found in Penumbra transaction data.',
+          'Shows how the JSON viewer handles edge cases commonly found in Shieldd transaction data.',
       },
     },
   },
@@ -588,11 +588,11 @@ export const EdgeCases: Story = {
  */
 export const CustomLoading: Story = {
   args: {
-    data: realisticPenumbraTransaction,
+    data: realisticShielddTransaction,
     loadingFallback: (
       <div className='flex items-center justify-center rounded bg-other-tonal-fill5 p-8'>
         <Text detail color='text.secondary'>
-          🔄 Loading Penumbra transaction data...
+          🔄 Loading Shieldd transaction data...
         </Text>
       </div>
     ),

@@ -1,6 +1,6 @@
 import React from 'react';
-import { TransactionInfo as GrpcTransactionInfo } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { Address, AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { TransactionInfo as GrpcTransactionInfo } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { Address, AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { AddressViewComponent } from '@mizufinance/ui/AddressView';
 import { DetailRow } from './DetailRow';
 import { SectionComponentProps } from './TransactionView';

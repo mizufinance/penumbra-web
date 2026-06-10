@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { animateTheta, extractViewBoxDimensions, initializePlotsArr } from './animation-logic';
 
-// React component version of animated-penumbra.svg
-export const AnimatedPenumbra = ({ className }: { className: string }) => {
+// React component version of animated-shieldd.svg
+export const AnimatedShieldd = ({ className }: { className: string }) => {
   useEffect(() => {
     const coordinateCentrePoint = extractViewBoxDimensions();
     const noiseIntensityFactor = coordinateCentrePoint * 0.0014;

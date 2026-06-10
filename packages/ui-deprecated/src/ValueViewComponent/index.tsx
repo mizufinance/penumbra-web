@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getMetadata } from '@mizufinance/getters/value-view';
 import { getFormattedAmtFromValueView } from '@mizufinance/types/value-view';
 import { ConditionalWrap } from '../ConditionalWrap';

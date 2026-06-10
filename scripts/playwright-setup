@@ -49,7 +49,7 @@ playwright_cache_dir="${HOME:?}/.cache/ms-playwright"
 playwright_chromium_dir="${playwright_cache_dir}/chromium_headless_shell-${_PLAYWRIGHT_CHROMIUM_HEADLESS_VERSION}"
 
 # Create a textbox for displaying a readable message.
-# Also theme it kinda like Penumbra.
+# Also theme it kinda like Shieldd.
 function format_message() {
   local s
   s="${1:-}"

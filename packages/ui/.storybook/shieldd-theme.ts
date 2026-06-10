@@ -1,14 +1,14 @@
 import { create } from '@storybook/theming/create';
 import logo from './public/logo.svg';
 
-const penumbraTheme = create({
+const shielddTheme = create({
   appBg: 'black',
   appContentBg: 'black',
   appPreviewBg: 'black',
   barBg: 'black',
   base: 'dark',
   brandImage: logo,
-  brandTitle: 'Penumbra UI library',
+  brandTitle: 'Shieldd UI library',
   colorPrimary: '#8d5728',
   colorSecondary: '#629994',
   fontBase: 'Poppins',
@@ -17,4 +17,4 @@ const penumbraTheme = create({
   textMutedColor: '#e3e3e3',
 });
 
-export default penumbraTheme;
+export default shielddTheme;

@@ -79,9 +79,6 @@ activity.
 
 Prax queries a remote 'full node' `pd` endpoint to scan the compact chain,
 download full block details when interested, and broadcast new chain activity.
-Omitting the remote endpoint, it looks something like this:
-
-![Penumbra web architecture chart](./penumbra-web-architecture.svg)
 
 <!-- This link is read-only. Update if you edit or replace the diagram.
 https://excalidraw.com/#json=_3b4K0RpWFJWAtVCH5ymB,CHegLkto1X_NdKG67LNh2A
@@ -95,9 +92,7 @@ reusable dependencies.
 Both Prax and Minifront manage running state with Zustand. For storage, Prax
 uses extension storage and idb. Minifront does not store anything.
 
-Prax [parallelizes WASM during transaction
-builds](https://penumbra.zone/blog/faster-client-side-proving-with-parallelism)
-by launching individual [web workers](./web-workers.md) for each chunk of work.
+Prax parallelizes WASM during transaction builds by launching individual [web workers](./web-workers.md) for each chunk of work.
 Chrome extension workers can't launch web workers, so this is managed via the
 'Offscreen' feature of the chrome extension API which provides full DOM
 compatibility.

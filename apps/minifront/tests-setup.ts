@@ -7,11 +7,11 @@ vi.mock('zustand');
 
 vi.mock('@mizufinance/client');
 
-vi.mock('./src/penumbra', async () => {
+vi.mock('./src/shieldd', async () => {
   const { createPromiseClient } =
     await vi.importActual<typeof import('@connectrpc/connect')>('@connectrpc/connect');
   return {
-    penumbra: {
+    shieldd: {
       service: vi.fn(s => createPromiseClient(s, { unary: vi.fn(), stream: vi.fn() })),
     },
   };

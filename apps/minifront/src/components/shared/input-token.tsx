@@ -1,4 +1,4 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { BalanceValueView } from '@mizufinance/ui-deprecated/components/ui/balance-value-view';
 import { cn } from '@mizufinance/ui-deprecated/lib/utils';
 import BalanceSelector from './selectors/balance-selector';

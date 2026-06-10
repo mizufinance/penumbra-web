@@ -1,4 +1,4 @@
-import { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { get_asset_id } from '../wasm/index.js';
 import { ensureWasmInitialized } from './init.js';
 

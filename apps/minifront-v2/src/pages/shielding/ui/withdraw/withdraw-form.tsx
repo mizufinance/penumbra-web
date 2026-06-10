@@ -6,8 +6,8 @@ import { useWithdrawStore } from '@/shared/stores/store-context';
 import { useUnifiedAssets, UnifiedAsset } from '@/shared/api/use-unified-assets';
 import { useRegistry } from '@/shared/api/use-registry';
 import { IbcChainProvider } from '@/shared/api/chain-provider';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { pnum } from '@mizufinance/types/pnum';
 import { getAddressIndex } from '@mizufinance/getters/address-view';
 import { ChainSelector } from '../chain-selector';
@@ -83,7 +83,7 @@ const WithdrawFormInternal: React.FC = observer(() => {
         const metadata = asset.metadata;
         const baseDenom = metadata.base;
 
-        if (baseDenom === 'upenumbra') {
+        if (baseDenom === 'ushieldd') {
           const allowed = !NATIVE_TRANSFERS_ONLY_CHAIN_IDS.includes(
             withdrawState.selectedChain!.chainId,
           );

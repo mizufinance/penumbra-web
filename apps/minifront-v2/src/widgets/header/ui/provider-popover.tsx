@@ -6,18 +6,18 @@ import { Popover } from '@mizufinance/ui/Popover';
 import { Button } from '@mizufinance/ui/Button';
 import { Density } from '@mizufinance/ui/Density';
 import { Text } from '@mizufinance/ui/Text';
-import { penumbra } from '@/shared/lib/penumbra';
-import { PenumbraManifest } from '@mizufinance/client';
+import { shieldd } from '@/shared/lib/shieldd';
+import { ShielddManifest } from '@mizufinance/client';
 import { useAppParametersStore } from '@/shared/stores/store-context';
 import { useIsConnected } from '@/shared/hooks/use-connection';
 
-const usePenumbraManifest = (): PenumbraManifest | undefined => {
-  const [manifest, setManifest] = useState<PenumbraManifest>();
+const useShielddManifest = (): ShielddManifest | undefined => {
+  const [manifest, setManifest] = useState<ShielddManifest>();
 
   useEffect(() => {
-    setManifest(penumbra.manifest);
-    const unsubscribe = penumbra.onConnectionStateChange(() => {
-      setManifest(penumbra.manifest);
+    setManifest(shieldd.manifest);
+    const unsubscribe = shieldd.onConnectionStateChange(() => {
+      setManifest(shieldd.manifest);
     });
     return unsubscribe;
   }, []);
@@ -26,7 +26,7 @@ const usePenumbraManifest = (): PenumbraManifest | undefined => {
 };
 
 export const ProviderPopover = observer(() => {
-  const manifest = usePenumbraManifest();
+  const manifest = useShielddManifest();
   const isConnected = useIsConnected();
   const appParametersStore = useAppParametersStore();
 
@@ -47,12 +47,12 @@ export const ProviderPopover = observer(() => {
   }, [manifest]);
 
   const disconnect = () => {
-    void penumbra.disconnect().then(() => window.location.reload());
+    void shieldd.disconnect().then(() => window.location.reload());
   };
 
   // If connected and have manifest, show the full popover
   if (isConnected && manifest) {
-    const chainId = appParametersStore.chainId || 'penumbra-1';
+    const chainId = appParametersStore.chainId || 'shieldd-1';
 
     return (
       <Popover>

@@ -1,7 +1,7 @@
-import { AssetId, Metadata, Denom } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AssetId, Metadata, Denom } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import {
   USDC_METADATA,
-  PENUMBRA_METADATA,
+  SHIELDD_METADATA,
   OSMO_METADATA,
   LPNFT_METADATA,
   DELEGATION_TOKEN_METADATA,
@@ -12,15 +12,15 @@ import { uint8ArrayToBase64 } from '@mizufinance/types/base64';
 
 const METADATA_MAP: Record<string, Metadata> = {
   /* eslint-disable @typescript-eslint/no-non-null-assertion -- it's only for storybook purposes */
-  [uint8ArrayToBase64(USDC_METADATA.penumbraAssetId!.inner)]: USDC_METADATA,
-  [uint8ArrayToBase64(PENUMBRA_METADATA.penumbraAssetId!.inner)]: PENUMBRA_METADATA,
-  [uint8ArrayToBase64(OSMO_METADATA.penumbraAssetId!.inner)]: OSMO_METADATA,
-  [uint8ArrayToBase64(LPNFT_METADATA.penumbraAssetId!.inner)]: LPNFT_METADATA,
-  [uint8ArrayToBase64(DELEGATION_TOKEN_METADATA.penumbraAssetId!.inner)]: DELEGATION_TOKEN_METADATA,
+  [uint8ArrayToBase64(USDC_METADATA.shielddAssetId!.inner)]: USDC_METADATA,
+  [uint8ArrayToBase64(SHIELDD_METADATA.shielddAssetId!.inner)]: SHIELDD_METADATA,
+  [uint8ArrayToBase64(OSMO_METADATA.shielddAssetId!.inner)]: OSMO_METADATA,
+  [uint8ArrayToBase64(LPNFT_METADATA.shielddAssetId!.inner)]: LPNFT_METADATA,
+  [uint8ArrayToBase64(DELEGATION_TOKEN_METADATA.shielddAssetId!.inner)]: DELEGATION_TOKEN_METADATA,
 
   // Map by denom
   [USDC_METADATA.base]: USDC_METADATA,
-  [PENUMBRA_METADATA.base]: PENUMBRA_METADATA,
+  [SHIELDD_METADATA.base]: SHIELDD_METADATA,
   [OSMO_METADATA.base]: OSMO_METADATA,
   [LPNFT_METADATA.base]: LPNFT_METADATA,
   [DELEGATION_TOKEN_METADATA.base]: DELEGATION_TOKEN_METADATA,

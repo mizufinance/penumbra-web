@@ -1,6 +1,6 @@
 import { describe } from 'vitest';
 import { generateTests } from './util/generate-tests.js';
-import { bech32CompatAddress, compatAddressFromBech32 } from '../penumbracompat1.js';
+import { bech32CompatAddress, compatAddressFromBech32 } from '../shielddcompat1.js';
 import { Prefixes } from '../format/prefix.js';
 import { Inner } from '../format/inner.js';
 
@@ -12,11 +12,11 @@ describe('compat address conversion', () => {
     208, 159, 24, 235, 148, 153, 211, 7, 137, 198, 158, 226, 221, 22, 208, 152, 246, 247,
   ]);
   const okBech32 =
-    'penumbracompat1147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahhwqq0da';
+    'shielddcompat1147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahhwqq0da';
 
   generateTests(
-    Prefixes.penumbracompat1,
-    Inner.penumbracompat1,
+    Prefixes.shielddcompat1,
+    Inner.shielddcompat1,
     okInner,
     okBech32,
     bech32CompatAddress,

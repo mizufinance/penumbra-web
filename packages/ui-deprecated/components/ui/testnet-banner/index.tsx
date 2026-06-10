@@ -6,7 +6,7 @@ export const TestnetBanner = ({ chainId }: { chainId?: string }) =>
       type='warning'
       title={`You are using ${chainId}.`}
       content={`
-        Testnet tokens are solely to allow testing the Penumbra protocol.
+        Testnet tokens are solely to allow testing the Shieldd protocol.
         Testnet tokens have no monetary value. Testnet activity has no relation to mainnet.
       `}
     />

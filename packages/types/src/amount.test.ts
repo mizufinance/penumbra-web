@@ -12,8 +12,8 @@ import {
   subtractAmounts,
   toDecimalExchangeRate,
 } from './amount.js';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 describe('lohi helpers', () => {
   it('fromBaseUnitAmount works', () => {
@@ -28,19 +28,19 @@ describe('lohi helpers', () => {
   });
 
   it('fromBaseUnitAmountAndMetadata works for knownAssetId', () => {
-    const penumbraMetadata = new Metadata({
-      display: 'penumbra',
+    const shielddMetadata = new Metadata({
+      display: 'shieldd',
       denomUnits: [
         {
-          denom: 'penumbra',
+          denom: 'shieldd',
           exponent: 6,
         },
         {
-          denom: 'mpenumbra',
+          denom: 'mshieldd',
           exponent: 3,
         },
         {
-          denom: 'upenumbra',
+          denom: 'ushieldd',
           exponent: 0,
         },
       ],
@@ -52,7 +52,7 @@ describe('lohi helpers', () => {
           case: 'knownAssetId',
           value: {
             amount: { lo: 123456789n, hi: 0n },
-            metadata: penumbraMetadata,
+            metadata: shielddMetadata,
           },
         },
       }),

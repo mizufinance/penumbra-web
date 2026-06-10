@@ -1,5 +1,5 @@
-import { bech32mIdentityKey } from '@mizufinance/bech32m/penumbravalid';
-import { AssetId, Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { bech32mIdentityKey } from '@mizufinance/bech32m/shielddvalid';
+import { AssetId, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { base64ToUint8Array } from '@mizufinance/types/base64';
 
 const u8 = (length: number) => Uint8Array.from({ length }, () => Math.floor(Math.random() * 256));
@@ -17,7 +17,7 @@ export const DELEGATION_TOKEN_METADATA = new Metadata({
   base: udelString,
   denomUnits: [{ denom: udelString }, { denom: delString, exponent: 6 }],
   name: 'Delegation token',
-  penumbraAssetId: delAsset,
+  shielddAssetId: delAsset,
   symbol: `delUM(${validatorIkString})`,
 });
 
@@ -26,29 +26,29 @@ export const UNBONDING_TOKEN_METADATA = new Metadata({
   base: uunbondString,
   denomUnits: [{ denom: uunbondString }, { denom: unbondString, exponent: 6 }],
   name: 'Unbonding token',
-  penumbraAssetId: unbondAsset,
+  shielddAssetId: unbondAsset,
   symbol: `unbondUMat123(${validatorIkString})`,
 });
 
-export const PENUMBRA_METADATA = new Metadata({
+export const SHIELDD_METADATA = new Metadata({
   denomUnits: [
     {
-      denom: 'penumbra',
+      denom: 'shieldd',
       exponent: 6,
     },
     {
-      denom: 'mpenumbra',
+      denom: 'mshieldd',
       exponent: 3,
     },
     {
-      denom: 'upenumbra',
+      denom: 'ushieldd',
     },
   ],
-  base: 'upenumbra',
-  name: 'Penumbra',
-  display: 'penumbra',
+  base: 'ushieldd',
+  name: 'Shieldd',
+  display: 'shieldd',
   symbol: 'UM',
-  penumbraAssetId: new AssetId({ inner: u8(32) }),
+  shielddAssetId: new AssetId({ inner: u8(32) }),
   images: [
     {
       svg: 'https://raw.githubusercontent.com/prax-wallet/registry/main/images/um.svg',
@@ -76,7 +76,7 @@ export const USDC_METADATA = new Metadata({
   display: 'transfer/channel-2/usdc',
   name: 'USDC',
   symbol: 'USDC',
-  penumbraAssetId: {
+  shielddAssetId: {
     inner: base64ToUint8Array('drPksQaBNYwSOzgfkGOEdrd4kEDkeALeh58Ps+7cjQs='),
   },
   images: [
@@ -113,7 +113,7 @@ export const OSMO_METADATA = new Metadata({
   display: 'transfer/channel-4/osmo',
   name: 'Osmosis',
   symbol: 'OSMO',
-  penumbraAssetId: {
+  shielddAssetId: {
     inner: base64ToUint8Array('KSOgqHs6JCHxZcyFPb9zqb2vtdoNlIVktgWcsCF8RAc='),
   },
   images: [
@@ -131,14 +131,14 @@ export const OSMO_METADATA = new Metadata({
 export const PIZZA_METADATA = new Metadata({
   symbol: 'PIZZA',
   name: 'Pizza',
-  penumbraAssetId: new AssetId({ inner: u8(32) }),
+  shielddAssetId: new AssetId({ inner: u8(32) }),
   base: 'upizza',
   display: 'pizza',
   denomUnits: [{ denom: 'upizza' }, { denom: 'pizza', exponent: 6 }],
 });
 
 export const UNKNOWN_TOKEN_METADATA = new Metadata({
-  penumbraAssetId: { inner: new Uint8Array([]) },
+  shielddAssetId: { inner: new Uint8Array([]) },
 });
 
 export const LPNFT_METADATA = Metadata.fromJson({
@@ -156,14 +156,14 @@ export const LPNFT_METADATA = Metadata.fromJson({
       aliases: [],
     },
   ],
-  penumbraAssetId: {
+  shielddAssetId: {
     inner: 'rtchIR1VaNZpAxSMh7+Wf2VU8Kfs9b5qDE+kMTGsRww=',
   },
 });
 
 // Delegate action specific metadata for testing/storybook
 export const DELEGATE_ACTION_VALIDATOR_ID =
-  'penumbravalid19caff39080amxlupcjutnhcm7vh8rjfevza0hpx33pn7lnwe6vyqpekzlw';
+  'shielddvalid19caff39080amxlupcjutnhcm7vh8rjfevza0hpx33pn7lnwe6vyqpekzlw';
 export const DELEGATE_ACTION_DELEGATION_DENOM = `udelegation_${DELEGATE_ACTION_VALIDATOR_ID}`;
 
 export const DELEGATE_ACTION_DELEGATION_METADATA = new Metadata({
@@ -173,7 +173,7 @@ export const DELEGATE_ACTION_DELEGATION_METADATA = new Metadata({
     { denom: DELEGATE_ACTION_DELEGATION_DENOM },
     { denom: `delegation_${DELEGATE_ACTION_VALIDATOR_ID}`, exponent: 6 },
   ],
-  name: 'Delegated Penumbra',
+  name: 'Delegated Shieldd',
   symbol: 'delUM',
   images: [
     {

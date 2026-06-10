@@ -11,18 +11,18 @@ import { useIsConnected, useConnectWallet } from '@/shared/hooks/use-connection'
 const defaultRoute = {
   srcChainId: 'noble-1',
   srcAssetDenom: 'ausdy',
-  destChainId: 'penumbra-1',
+  destChainId: 'shieldd-1',
 };
 
 const filter = {
   destination: {
-    'penumbra-1': undefined,
+    'shieldd-1': undefined,
   },
 };
 
 // Theme adapted for minifront-v2 design system
 const theme = {
-  brandColor: '#ba4d14', // Primary main color from Penumbra design system
+  brandColor: '#ba4d14', // Primary main color from Shieldd design system
   primary: {
     background: {
       normal: '#0a0a0a', // Dark background

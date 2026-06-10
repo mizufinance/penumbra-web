@@ -9,7 +9,7 @@
 # -n Number of validators to delegate to. (default: 2)
 # -b The base directory that the validators were generated in. (default:
 #    /tmp/pcli-validators)
-# -d Amount (in penumbra) to delegate to each validator *from your default pcli
+# -d Amount (in shieldd) to delegate to each validator *from your default pcli
 #    wallet*. If left empty, no delegations will be created.
 # -s Start index of validators to delegate to. Only validators at this index and
 #    higher will receive a delegation, until the number of validators
@@ -57,6 +57,6 @@ for ((i=$START_INDEX; i<=$END_INDEX; i++)); do
   DIRECTORY="$BASE_DIRECTORY/validator-$i"
 
   VALIDATOR_IDENTITY_KEY=$(sed -n -E 's/(.*^identity_key = "([^"]+)"$.*)/\2/p' $DIRECTORY/validator.toml)
-  echo "Running pcli tx delegate --to $VALIDATOR_IDENTITY_KEY $DELEGATION_AMOUNT""penumbra"
-  pcli tx delegate --to $VALIDATOR_IDENTITY_KEY $DELEGATION_AMOUNT"penumbra"
+  echo "Running pcli tx delegate --to $VALIDATOR_IDENTITY_KEY $DELEGATION_AMOUNT""shieldd"
+  pcli tx delegate --to $VALIDATOR_IDENTITY_KEY $DELEGATION_AMOUNT"shieldd"
 done

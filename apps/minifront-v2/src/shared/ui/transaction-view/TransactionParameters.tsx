@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { ValueViewComponent } from '@mizufinance/ui/ValueView';
 import { DetailRow } from './DetailRow';
 import { SectionComponentProps } from './TransactionView';

@@ -47,7 +47,7 @@ const PROPS_BY_SIZE: Record<IconSize, ComponentProps<LucideIcon>> = {
 /**
  * Renders the Lucide icon passed in via the `IconComponent` prop. Use this
  * component rather than rendering Lucide icon components directly, since this
- * component standardizes the stroke width and sizes throughout the Penumbra
+ * component standardizes the stroke width and sizes throughout the Shieldd
  * ecosystem.
  *
  * ```tsx

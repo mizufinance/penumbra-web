@@ -1,4 +1,4 @@
-import { Address, AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address, AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { describe, expect, test } from 'vitest';
 import { asOpaqueAddressView } from './address-view.js';
 

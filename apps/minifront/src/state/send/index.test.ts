@@ -1,17 +1,17 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 import { AllSlices, initializeStore } from '..';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import { sendValidationErrors } from '.';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import {
   AddressByIndexResponse,
   BalancesResponse,
   TransactionPlannerResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { Fee } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
-import { addressFromBech32m } from '@mizufinance/bech32m/penumbra';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { Fee } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
+import { addressFromBech32m } from '@mizufinance/bech32m/shieldd';
 
 vi.mock('../fetchers/address', () => ({
   getAddressByIndex: vi.fn(),
@@ -26,8 +26,8 @@ const hoisted = vi.hoisted(() => ({
   },
 }));
 
-vi.mock('../../penumbra', () => ({
-  penumbra: {
+vi.mock('../../shieldd', () => ({
+  shieldd: {
     service: vi.fn(() => hoisted.mockViewClient),
   },
 }));
@@ -45,7 +45,7 @@ describe('Send Slice', () => {
           metadata: new Metadata({
             display: 'xyz',
             denomUnits: [{ denom: 'xyz', exponent: 6 }],
-            penumbraAssetId: { inner: new Uint8Array(32) },
+            shielddAssetId: { inner: new Uint8Array(32) },
           }),
         },
       },
@@ -55,7 +55,7 @@ describe('Send Slice', () => {
         case: 'decoded',
         value: {
           address: addressFromBech32m(
-            'penumbra1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
+            'shieldd1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
           ),
           index: { account: 12 },
         },
@@ -130,7 +130,7 @@ describe('Send Slice', () => {
 
   describe('setRecipient and validate', () => {
     const rightAddress =
-      'penumbra1ftmn2a3hf8pxe0e48es8u9rqhny4xggq9wn2caxcjnfwfhwr5s0t3y6nzs9gx3ty5czd0sd9ssfgjt2pcxrq93yvgk2gu3ynmayuwgddkxthce8l445v8x6v07y2sjd8djcr6v';
+      'shieldd1ftmn2a3hf8pxe0e48es8u9rqhny4xggq9wn2caxcjnfwfhwr5s0t3y6nzs9gx3ty5czd0sd9ssfgjt2pcxrq93yvgk2gu3ynmayuwgddkxthce8l445v8x6v07y2sjd8djcr6v';
 
     test('recipient can be set and validate', () => {
       useStore.getState().send.setSelection(selectionExample);
@@ -143,7 +143,7 @@ describe('Send Slice', () => {
 
     test('recipient will have a validation error after entering an incorrect address length', () => {
       const badAddressLength =
-        'penumbra1lsqlh43cxh6amvtu0g84v9s8sq0zef4mz8jvje9lxwarancqg9qjf6nthhnjzlwngplepq7vaam8h4z530gys7x2s82zn0sgvxneea442q63sumem7r096p7rd';
+        'shieldd1lsqlh43cxh6amvtu0g84v9s8sq0zef4mz8jvje9lxwarancqg9qjf6nthhnjzlwngplepq7vaam8h4z530gys7x2s82zn0sgvxneea442q63sumem7r096p7rd';
 
       useStore.getState().send.setSelection(selectionExample);
       useStore.getState().send.setRecipient(badAddressLength);
@@ -152,7 +152,7 @@ describe('Send Slice', () => {
       expect(recipientErr).toBeTruthy();
     });
 
-    test('recipient will have a validation error after entering an address without penumbra as prefix', () => {
+    test('recipient will have a validation error after entering an address without shieldd as prefix', () => {
       const badAddressPrefix =
         'wwwwwwwwww1lsqlh43cxh6amvtu0g84v9s8sq0zef4mz8jvje9lxwarancqg9qjf6nthhnjzlwngplepq7vaam8h4z530gys7x2s82zn0sgvxneea442q63sumem7r096p7rd2tywm2v6ppc4d';
 
@@ -181,7 +181,7 @@ describe('Send Slice', () => {
   describe('refreshFee', () => {
     const amount = '1';
     const recipient =
-      'penumbra1lsqlh43cxh6amvtu0g84v9s8sq0zef4mz8jvje9lxwarancqg9qjf6nthhnjzlwngplepq7vaam8h4z530gys7x2s82zn0sgvxneea442q63sumem7r096p7rd2tywm2v6ppc4';
+      'shieldd1lsqlh43cxh6amvtu0g84v9s8sq0zef4mz8jvje9lxwarancqg9qjf6nthhnjzlwngplepq7vaam8h4z530gys7x2s82zn0sgvxneea442q63sumem7r096p7rd2tywm2v6ppc4';
     const memo = 'hello';
     const mockFee = new Fee({ amount: { hi: 1n, lo: 2n } });
 

@@ -1,5 +1,5 @@
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getAssetIdFromValueView } from '@mizufinance/getters/value-view';
 import { addAmounts } from '@mizufinance/types/amount';
 

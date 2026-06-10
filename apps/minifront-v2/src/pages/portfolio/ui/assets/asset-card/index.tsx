@@ -35,7 +35,7 @@ export interface AssetCardProps {
 
 /**
  * AssetCard component displays a list of assets grouped by accounts.
- * It follows the Penumbra design system and uses the Card component as a container.
+ * It follows the Shieldd design system and uses the Card component as a container.
  *
  * By default, it shows an InfoButton that provides information about the shielded portfolio.
  */

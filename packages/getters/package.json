@@ -2,7 +2,7 @@
   "name": "@mizufinance/getters",
   "version": "28.0.1-bankd-demo.0",
   "license": "(MIT OR Apache-2.0)",
-  "description": "Convenience getters for the deeply nested optionals of Penumbra's protobuf types",
+  "description": "Convenience getters for the deeply nested optionals of Shieldd's protobuf types",
   "type": "module",
   "engine": {
     "node": ">=22"

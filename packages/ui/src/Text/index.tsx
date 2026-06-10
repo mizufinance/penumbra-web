@@ -156,7 +156,7 @@ const VARIANT_MAP: Record<TextVariant, { element: ElementType; classes: string }
 };
 
 /**
- * All-purpose text wrapper for quickly styling text per the Penumbra UI
+ * All-purpose text wrapper for quickly styling text per the Shieldd UI
  * guidelines.
  *
  * Use with a _single_ text style name:

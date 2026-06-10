@@ -8,12 +8,12 @@ export const ExtensionNotInstalled = () => {
   return (
     <>
       <HeadTag />
-      <SplashPage title='Welcome to Penumbra'>
+      <SplashPage title='Welcome to Shieldd'>
         <div className='flex items-center justify-between gap-[1em] text-lg'>
-          To get started, install a Penumbra extension.
+          To get started, install a Shieldd extension.
           <Button asChild variant='gradient'>
             <a
-              href={`https://chrome.google.com/webstore/detail/penumbra-wallet/${CHROME_EXTENSION_ID}`}
+              href={`https://chrome.google.com/webstore/detail/shieldd-wallet/${CHROME_EXTENSION_ID}`}
               target='_blank'
               rel='noreferrer'
             >

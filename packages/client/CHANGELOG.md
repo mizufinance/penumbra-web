@@ -167,7 +167,7 @@
 
 ### Minor Changes
 
-- 978efe6: PenumbraManifest refers to chrome.runtime.ManifestV3
+- 978efe6: ShielddManifest refers to chrome.runtime.ManifestV3
 
 ### Patch Changes
 

@@ -2,23 +2,23 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
 import { AssetValueInput } from '.';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import {
-  PENUMBRA_BALANCE,
-  PENUMBRA2_BALANCE,
+  SHIELDD_BALANCE,
+  SHIELDD2_BALANCE,
   OSMO_BALANCE,
 } from '../utils/bufs/balances-responses';
 import {
-  PENUMBRA_METADATA,
+  SHIELDD_METADATA,
   OSMO_METADATA,
   PIZZA_METADATA,
   USDC_METADATA,
 } from '../utils/bufs/metadata';
 import { Text } from '../Text';
 
-const balanceOptions: BalancesResponse[] = [PENUMBRA_BALANCE, PENUMBRA2_BALANCE, OSMO_BALANCE];
+const balanceOptions: BalancesResponse[] = [SHIELDD_BALANCE, SHIELDD2_BALANCE, OSMO_BALANCE];
 
-const assetOptions = [PENUMBRA_METADATA, OSMO_METADATA, PIZZA_METADATA, USDC_METADATA];
+const assetOptions = [SHIELDD_METADATA, OSMO_METADATA, PIZZA_METADATA, USDC_METADATA];
 
 const meta: Meta<typeof AssetValueInput> = {
   component: AssetValueInput,
@@ -55,7 +55,7 @@ export const Basic: Story = {
 
   render: function Render(props) {
     const [amount, setAmount] = useState('');
-    const [selectedAsset, setSelectedAsset] = useState<BalancesResponse>(PENUMBRA_BALANCE);
+    const [selectedAsset, setSelectedAsset] = useState<BalancesResponse>(SHIELDD_BALANCE);
 
     return (
       <AssetValueInput
@@ -112,7 +112,7 @@ export const InsufficientFunds: Story = {
 
   render: function Render(props) {
     const [amount, setAmount] = useState('999999');
-    const [selectedAsset, setSelectedAsset] = useState<BalancesResponse>(PENUMBRA_BALANCE);
+    const [selectedAsset, setSelectedAsset] = useState<BalancesResponse>(SHIELDD_BALANCE);
 
     return (
       <AssetValueInput
@@ -141,7 +141,7 @@ export const InsufficientFunds: Story = {
 export const InteractiveValidation: Story = {
   render: () => {
     const [amount, setAmount] = useState('');
-    const [selectedAsset, setSelectedAsset] = useState<BalancesResponse>(PENUMBRA_BALANCE);
+    const [selectedAsset, setSelectedAsset] = useState<BalancesResponse>(SHIELDD_BALANCE);
 
     return (
       <div className='flex flex-col gap-4'>
@@ -192,7 +192,7 @@ export const ValidationErrors: Story = {
         <AssetValueInput
           amount='invalid-amount'
           onAmountChange={() => {}}
-          selectedAsset={PENUMBRA_BALANCE}
+          selectedAsset={SHIELDD_BALANCE}
           onAssetChange={() => {}}
           balances={balanceOptions}
           assets={assetOptions}
@@ -206,7 +206,7 @@ export const ValidationErrors: Story = {
         <AssetValueInput
           amount='123.1234567'
           onAmountChange={() => {}}
-          selectedAsset={PENUMBRA_BALANCE}
+          selectedAsset={SHIELDD_BALANCE}
           onAssetChange={() => {}}
           balances={balanceOptions}
           assets={assetOptions}
@@ -220,7 +220,7 @@ export const ValidationErrors: Story = {
         <AssetValueInput
           amount='99999999'
           onAmountChange={() => {}}
-          selectedAsset={PENUMBRA_BALANCE}
+          selectedAsset={SHIELDD_BALANCE}
           onAssetChange={() => {}}
           balances={balanceOptions}
           assets={assetOptions}
@@ -234,7 +234,7 @@ export const ValidationErrors: Story = {
         <AssetValueInput
           amount='50'
           onAmountChange={() => {}}
-          selectedAsset={PENUMBRA_BALANCE}
+          selectedAsset={SHIELDD_BALANCE}
           onAssetChange={() => {}}
           balances={balanceOptions}
           assets={assetOptions}
@@ -264,7 +264,7 @@ export const Disabled: Story = {
   },
 
   render: function Render(props) {
-    const [selectedAsset] = useState<BalancesResponse>(PENUMBRA_BALANCE);
+    const [selectedAsset] = useState<BalancesResponse>(SHIELDD_BALANCE);
 
     return (
       <AssetValueInput

@@ -4,9 +4,9 @@ import { TestnetBanner } from '.';
 
 describe('<TestnetBanner />', () => {
   it('renders banner if chainId is a testnet', () => {
-    const { container } = render(<TestnetBanner chainId='penumbra-testnet-deimos-7' />);
+    const { container } = render(<TestnetBanner chainId='shieldd-testnet-deimos-7' />);
 
-    expect(container).toHaveTextContent('penumbra-testnet-deimos-7');
+    expect(container).toHaveTextContent('shieldd-testnet-deimos-7');
     expect(container).toHaveTextContent('Testnet tokens have no monetary value.');
   });
 

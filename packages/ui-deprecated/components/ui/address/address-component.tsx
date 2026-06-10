@@ -1,5 +1,5 @@
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 
 export interface AddressComponentProps {
   address: Address;

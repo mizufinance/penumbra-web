@@ -285,7 +285,7 @@
 
 ### Minor Changes
 
-- 03597b7: bump skip widget to latest to fix penumbra noble transparent addresses issue
+- 03597b7: bump skip widget to latest to fix shieldd noble transparent addresses issue
 
 ### Patch Changes
 
@@ -1040,7 +1040,7 @@
 
 ### Minor Changes
 
-- bump @penumbra-labs/registry
+- bump registry
 
 ### Patch Changes
 

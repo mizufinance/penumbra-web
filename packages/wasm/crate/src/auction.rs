@@ -1,6 +1,6 @@
-use penumbra_asset::asset::Metadata;
-use penumbra_auction::auction::{dutch::DutchAuctionDescription, AuctionId, AuctionNft};
-use penumbra_proto::DomainType;
+use shieldd_asset::asset::Metadata;
+use shieldd_auction::auction::{dutch::DutchAuctionDescription, AuctionId, AuctionNft};
+use shieldd_proto::DomainType;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::{error::WasmResult, metadata::customize_symbol_inner, utils};

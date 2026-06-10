@@ -2,14 +2,14 @@ import { fromBech32m, toBech32m } from './format/convert.js';
 import { Inner } from './format/inner.js';
 import { Prefixes } from './format/prefix.js';
 
-const innerName = Inner.penumbravalid;
-const prefix = Prefixes.penumbravalid;
+const innerName = Inner.shielddvalid;
+const prefix = Prefixes.shielddvalid;
 
 export const bech32mIdentityKey = ({ [innerName]: bytes }: { [innerName]: Uint8Array }) =>
   toBech32m(bytes, prefix);
 
-export const identityKeyFromBech32m = (penumbravalid1: string): { [innerName]: Uint8Array } => ({
-  [innerName]: fromBech32m(penumbravalid1 as `${typeof prefix}1${string}`, prefix),
+export const identityKeyFromBech32m = (shielddvalid1: string): { [innerName]: Uint8Array } => ({
+  [innerName]: fromBech32m(shielddvalid1 as `${typeof prefix}1${string}`, prefix),
 });
 
 export const isIdentityKey = (check: string): check is `${typeof prefix}1${string}` => {
@@ -22,6 +22,6 @@ export const isIdentityKey = (check: string): check is `${typeof prefix}1${strin
 };
 
 export {
-  PENUMBRA_BECH32M_IDENTITYKEY_LENGTH,
-  PENUMBRA_BECH32M_IDENTITYKEY_PREFIX,
+  SHIELDD_BECH32M_IDENTITYKEY_LENGTH,
+  SHIELDD_BECH32M_IDENTITYKEY_PREFIX,
 } from './index.js';

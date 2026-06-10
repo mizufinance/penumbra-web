@@ -2,7 +2,7 @@
   "name": "@mizufinance/client",
   "version": "29.0.0",
   "license": "(MIT OR Apache-2.0)",
-  "description": "Package for connecting to any Penumbra extension, including Prax.",
+  "description": "Package for connecting to any Shieldd extension, including Prax.",
   "type": "module",
   "engine": {
     "node": ">=22"

@@ -1,12 +1,6 @@
-# Penumbra UI
+# Shieldd UI
 
-The Penumbra UI library is a set of UI components purpose-built for the Penumbra ecosystem. Use these components to get rendering of various Penumbra data types out of the box, and to create a UI that is consistent with other Penumbra UIs' look and feel.
-
-## Storybook
-
-All Penumbra UI components in the latest tagged release can be found at the Penumbra UI Storybook site: https://ui.penumbra.zone/
-
-To view the latest components merged to `main` (even if they are not yet in a tagged release), check out the Storybook Preview site: https://preview.ui.penumbra.zone/
+The Shieldd UI library is a set of UI components purpose-built for the Shieldd ecosystem. Use these components to get rendering of various Shieldd data types out of the box, and to create a UI that is consistent with other Shieldd UIs' look and feel.
 
 ## Set up
 
@@ -19,7 +13,7 @@ npm install @mizufinance/ui
 Then, import library styles in your project and use the components:
 
 ```tsx
-import { withPenumbra } from '@mizufinance/ui/style.css';
+import { withShieldd } from '@mizufinance/ui/style.css';
 import { Text } from '@mizufinance/ui/Text';
 import { TextInput } from '@mizufinance/ui/TextInput';
 
@@ -29,7 +23,7 @@ function App() {
   return (
     <section>
       <Text xxl color='success.light'>
-        Hello from Penumbra!
+        Hello from Shieldd!
       </Text>
       <TextInput title='Who are you?' value={input} onChange={setInput} />
     </section>
@@ -38,13 +32,13 @@ function App() {
 ```
 
 If you wish to use the library with Tailwind v4, you can additionally import `'@mizufinance/ui/theme.css'` – it
-would extend the Tailwind theme with brand colors, fonts, and other styles used in Penumbra UI components.
+would extend the Tailwind theme with brand colors, fonts, and other styles used in Shieldd UI components.
 
 ## Usage
 
 ### Density
 
-Many Penumbra UI components come in two densities: `sparse` and `compact`. This feature allows Penumbra UI consumers to choose how to present data based on the context. For example, a table with dozens or hundreds of rows would be well suited to a `compact` density, while an interactive form could use the `sparse` density.
+Many Shieldd UI components come in two densities: `sparse` and `compact`. This feature allows Shieldd UI consumers to choose how to present data based on the context. For example, a table with dozens or hundreds of rows would be well suited to a `compact` density, while an interactive form could use the `sparse` density.
 
 To control density, use the `<Density />` component with either the `sparse` or `compact` prop:
 
@@ -54,7 +48,7 @@ To control density, use the `<Density />` component with either the `sparse` or 
 </Density>
 ```
 
-In the example above, the `<Table />` (and all Penumbra UI components inside of it that have density variants) will use the `compact` variant, ensuring consistency throughout the layout.
+In the example above, the `<Table />` (and all Shieldd UI components inside of it that have density variants) will use the `compact` variant, ensuring consistency throughout the layout.
 
 To enable density variants in your own components and layouts, import and use the `useDensity()` hook:
 
@@ -70,29 +64,29 @@ That way, `<MyComponent />` will have looser padding when wrapped with `<Density
 
 ## Development
 
-These guidelines are for maintainers of the components in the Penumbra UI library.
+These guidelines are for maintainers of the components in the Shieldd UI library.
 
 ### Guiding principles
 
-To ensure consistency in the code design of the Penumbra UI components, and to maintain an optimal developer experience, developers should adhere to these guidelines.
+To ensure consistency in the code design of the Shieldd UI components, and to maintain an optimal developer experience, developers should adhere to these guidelines.
 
-#### Keep design decisions to a minimum for Penumbra UI consumers.
+#### Keep design decisions to a minimum for Shieldd UI consumers.
 
-Penumbra UI aims to take as much as possible of the design-related decision-making out of developers' hands. Developers using Penumbra UI should be freed up to focus on _functionality_, rather than needing to think about what colors would "look nice" or what spacing would "feel right." Specifically:
+Shieldd UI aims to take as much as possible of the design-related decision-making out of developers' hands. Developers using Shieldd UI should be freed up to focus on _functionality_, rather than needing to think about what colors would "look nice" or what spacing would "feel right." Specifically:
 
 ##### Props and their values should be named to indicate their _use_, rather than their _effect on appearance_.
 
 For example, buttons have a `priority` prop to determine whether a given button is `primary` or `secondary`. This allows consumers to set the prop based on how the button is _used_: if it's the "Confirm" button for a popup dialog, it would obviously have a `primary` priority. If it's a "Cancel" button underneath the "Confirm" button, it would have a `secondary` priority.
 
-It just so happens that the primary button has a filled-in, solid-color background, while the secondary button has a transparent background and a subtle border. Notice, though, that Penumbra UI buttons don't accept `backgroundColor` or `borderColor` props. Nor do they accept `className` props that would allow consumers to customize their appearance in any number of other ways (that would be even worse!). For that matter, they don't even have a `variant` prop with values like `filled` vs. `outlined`. Why not? Because if they did, two developers working on the same app might end up using those visual styles in inconsistent ways, resulting in a disjointed UI.
+It just so happens that the primary button has a filled-in, solid-color background, while the secondary button has a transparent background and a subtle border. Notice, though, that Shieldd UI buttons don't accept `backgroundColor` or `borderColor` props. Nor do they accept `className` props that would allow consumers to customize their appearance in any number of other ways (that would be even worse!). For that matter, they don't even have a `variant` prop with values like `filled` vs. `outlined`. Why not? Because if they did, two developers working on the same app might end up using those visual styles in inconsistent ways, resulting in a disjointed UI.
 
-Instead, the `priority` prop is so named to indicate that it should be set based on how the button is used. Then, Penumbra UI itself makes the right decision about how to style it based on that use case.
+Instead, the `priority` prop is so named to indicate that it should be set based on how the button is used. Then, Shieldd UI itself makes the right decision about how to style it based on that use case.
 
 ##### Components must not accept `className` or `style` props.
 
 This ensures that each component is internally responsible for its own styling.
 
-Any variations of the component's appearance must be controlled via props like `state`, `priority` etc. — not by kitchen-sink props like `className` and `style`, which allow arbitrary changes to be made that could interfere with the internal structure of the component and cause visual inconsistencies between instances of Penumbra UI components.
+Any variations of the component's appearance must be controlled via props like `state`, `priority` etc. — not by kitchen-sink props like `className` and `style`, which allow arbitrary changes to be made that could interfere with the internal structure of the component and cause visual inconsistencies between instances of Shieldd UI components.
 
 ##### Components should not define external margins or absolute/fixed positioning.
 
@@ -211,9 +205,9 @@ export function ValueComponent({ value, metadata }: ValueComponentProps) {
 }
 ```
 
-#### Document and test Penumbra UI components thoroughly.
+#### Document and test Shieldd UI components thoroughly.
 
-Penumbra UI is a public package available for anyone in the Penumbra ecosystem to use. As such, its documentation and tests should be given first-class treatment. Specifically:
+Shieldd UI is a public package available for anyone in the Shieldd ecosystem to use. As such, its documentation and tests should be given first-class treatment. Specifically:
 
 ##### Components should include Storybook stories.
 
@@ -269,13 +263,13 @@ Note that we do not use unit tests to test the visual appearance of components; 
 
 #### Component directories must have `index.tsx` file with all necessary exports.
 
-This ensures that the Penumbra UI `package.json` `exports` field works as intended, so that components can be imported via `@mizufinance/ui/<ComponentName>`.
+This ensures that the Shieldd UI `package.json` `exports` field works as intended, so that components can be imported via `@mizufinance/ui/<ComponentName>`.
 
 Note that `<ComponentName>` should be replaced with the `UpperCamelCase` component name — e.g., `./src/LoadingIndicator/index.tsx`.
 
 #### Internal-use components that are only used within a parent component must sit in the parent component's directory, rather than be a sibling of the parent directory.
 
-This guideline only applies to components that are _not_ intended to be used externally, but are only to be used as dependencies of other Penumbra UI library components.
+This guideline only applies to components that are _not_ intended to be used externally, but are only to be used as dependencies of other Shieldd UI library components.
 
 ```
 - src/
@@ -313,7 +307,7 @@ For example, a component designed to render a `ValueView` must be named `ValueVi
 
 ```tsx
 // ValueView/index.tsx
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 export interface ValueViewComponentProps {
   valueView: ValueView;
@@ -325,7 +319,7 @@ export function ValueViewComponent({ valueView }: ValueViewComponentProps) {
 
 // SomeConsumer.tsx
 // ✅ Now, there is no naming conflict between these two imports.
-import { ValueView } from 'mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from 'mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { ValueViewComponent } from '@mizufinance/ui/ValueViewComponent';
 ```
 

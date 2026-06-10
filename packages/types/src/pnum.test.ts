@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { pnum } from './pnum.js';
 import BigNumber from 'bignumber.js';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import {
   DenomUnit,
   Metadata,
   ValueView,
-} from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+} from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 describe('pnum', () => {
   it('should correctly parse and convert a number with decimals', () => {
@@ -154,11 +154,11 @@ describe('pnum', () => {
             }),
             metadata: new Metadata({
               base: 'UM',
-              display: 'penumbra',
+              display: 'shieldd',
               denomUnits: [
                 new DenomUnit({
                   exponent: 4,
-                  denom: 'penumbra',
+                  denom: 'shieldd',
                 }),
               ],
             }),
@@ -174,7 +174,7 @@ describe('pnum', () => {
     const unknown = pnum(12345.5678, { exponent: 4 }).toValueView();
     const metadata = new Metadata({
       base: 'UM',
-      display: 'penumbra',
+      display: 'shieldd',
       denomUnits: [
         new DenomUnit({
           exponent: 0,

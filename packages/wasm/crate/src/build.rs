@@ -3,17 +3,17 @@ use crate::utils;
 use crate::view_server::{load_tree, StoredTree};
 use anyhow::{anyhow, Context};
 use decaf377::Fq;
-use penumbra_keys::{keys::SpendKey, symmetric::PayloadKey, FullViewingKey};
-use penumbra_proto::DomainType;
-use penumbra_shielded_pool::{
+use shieldd_keys::{keys::SpendKey, symmetric::PayloadKey, FullViewingKey};
+use shieldd_proto::DomainType;
+use shieldd_shielded_pool::{
     gnark::{
         decode_shielded_ics20_withdrawal_witness_v1, decode_transfer_witness_v1,
         translate_shielded_ics20_withdrawal_proof_result, translate_transfer_proof_result,
     },
     ShieldedIcs20WithdrawalFamilyId,
 };
-use penumbra_tct::{self as tct, Proof, StateCommitment};
-use penumbra_transaction::{
+use shieldd_tct::{self as tct, Proof, StateCommitment};
+use shieldd_transaction::{
     plan::{ActionPlan, TransactionPlan},
     Action, AuthorizationData, Transaction, WitnessData,
 };
@@ -330,7 +330,7 @@ fn memo_key(transaction_plan: &TransactionPlan) -> PayloadKey {
 }
 
 fn transfer_auth_paths(
-    spends: &[penumbra_shielded_pool::ShieldedInputPlan],
+    spends: &[shieldd_shielded_pool::ShieldedInputPlan],
     witness: &WitnessData,
 ) -> WasmResult<Vec<tct::Proof>> {
     spends
@@ -347,7 +347,7 @@ fn transfer_auth_paths(
         .collect()
 }
 
-fn planned_spends(plan: &TransactionPlan) -> Vec<&penumbra_shielded_pool::ShieldedInputPlan> {
+fn planned_spends(plan: &TransactionPlan) -> Vec<&shieldd_shielded_pool::ShieldedInputPlan> {
     let mut spends = Vec::new();
     for action in &plan.actions {
         match action {

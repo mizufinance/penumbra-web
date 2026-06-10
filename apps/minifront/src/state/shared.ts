@@ -1,7 +1,7 @@
 import { getAddress, getAddressIndex } from '@mizufinance/getters/address-view';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { ZQueryState, createZQuery } from '@mizufinance/zquery';
 import { AbridgedZQueryState } from '@mizufinance/zquery/src/types';
 import { SliceCreator, useStore } from '.';
@@ -9,7 +9,7 @@ import { getStakingTokenMetadata } from '../fetchers/registry';
 import { getBalancesStream } from '../fetchers/balances';
 import { getAllAssets } from '../fetchers/assets';
 import { uint8ArrayToHex } from '@mizufinance/types/hex';
-import { GasPrices } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
+import { GasPrices } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
 import { getGasPrices } from '../fetchers/gas-prices';
 
 /**

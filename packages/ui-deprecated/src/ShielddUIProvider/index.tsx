@@ -6,10 +6,10 @@ import { FontFaces } from './FontFaces';
 import { MotionConfig } from 'framer-motion';
 
 /**
- * Place at the root of your app, above all Penumbra UI components, to provide
+ * Place at the root of your app, above all Shieldd UI components, to provide
  * a number of context values that they use.
  */
-export const PenumbraUIProvider = ({ children }: PropsWithChildren) => (
+export const ShielddUIProvider = ({ children }: PropsWithChildren) => (
   <ThemeProvider theme={theme as DefaultTheme}>
     <MotionConfig transition={{ duration: 0.15 }}>
       <TooltipProvider delayDuration={0}>

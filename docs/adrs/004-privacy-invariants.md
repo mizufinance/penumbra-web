@@ -1,6 +1,6 @@
 # ADR 004: Privacy and Security Invariants
 
-Following the documentation of [integrity invariants](https://github.com/mizufinance/penumbra/issues/3867) in the protocol spec for each action containing a proof and the description of [privacy invariants](https://github.com/mizufinance/penumbra/issues/3997) for each action, we aim to compile a comprehensive list of privacy / security-related invariants for the web code. This is tracked by the the following [tracking issue](https://github.com/mizufinance/penumbra/issues/792).
+Following the documentation of [integrity invariants](https://github.com/mizufinance/shieldd/issues/3867) in the protocol spec for each action containing a proof and the description of [privacy invariants](https://github.com/mizufinance/shieldd/issues/3997) for each action, we aim to compile a comprehensive list of privacy / security-related invariants for the web code. This is tracked by the the following [tracking issue](https://github.com/mizufinance/shieldd/issues/792).
 
 ### Prax Extension
 
@@ -16,7 +16,7 @@ The extension must ensure that its local and session storage states are adequate
 
 - **storage.session** holds data in memory for the duration of a browser session.
 
-In https://github.com/mizufinance/penumbra/pull/38, we implement secure password-based encryption and decryption using PBKDF2 and AES-GCM, as well as mnemonic phrase generation and validation.
+In https://github.com/mizufinance/shieldd/pull/38, we implement secure password-based encryption and decryption using PBKDF2 and AES-GCM, as well as mnemonic phrase generation and validation.
 
 1. **PBKDF2 algorithm**: key derivation function with SHA-512 key stretching and 210,000 iterations to hamper brute force, dictionary attacks, and precomputed attacks (rainbow tables) attacks.
 2. **AES-GCM** symmetric encryption scheme, using a random nonce for each encryption operation during wallet initialization.

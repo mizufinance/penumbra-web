@@ -31,13 +31,13 @@ describe('assetPatterns', () => {
 
   describe('delegationToken', () => {
     it('matches when a string is a valid delegation token name', () => {
-      expect(assetPatterns.delegationToken.matches('delegation_penumbravalid1abc123')).toBe(true);
+      expect(assetPatterns.delegationToken.matches('delegation_shielddvalid1abc123')).toBe(true);
     });
 
     it('does not match when a string contains, but does not begin with, a valid delegation token name', () => {
       expect(
         assetPatterns.delegationToken.matches(
-          'ibc-transfer/channel-1234/delegation_penumbravalid1abc123',
+          'ibc-transfer/channel-1234/delegation_shielddvalid1abc123',
         ),
       ).toBe(false);
     });
@@ -58,13 +58,13 @@ describe('assetPatterns', () => {
   describe('unbondingToken', () => {
     it('matches when a string is a valid unbonding token name', () => {
       expect(
-        assetPatterns.unbondingToken.matches('unbonding_start_at_1_penumbravalid1abc123'),
+        assetPatterns.unbondingToken.matches('unbonding_start_at_1_shielddvalid1abc123'),
       ).toBe(true);
     });
 
     it('captures the unbonding start height', () => {
       const match = assetPatterns.unbondingToken.capture(
-        'unbonding_start_at_1_penumbravalid1abc123',
+        'unbonding_start_at_1_shielddvalid1abc123',
       );
       expect(match?.startAt).toBe('1');
     });
@@ -72,7 +72,7 @@ describe('assetPatterns', () => {
     it('does not match when a string contains, but does not begin with, a valid unbonding token name', () => {
       expect(
         assetPatterns.unbondingToken.matches(
-          'ibc-transfer/channel-1234/unbonding_start_at_1_penumbravalid1abc123',
+          'ibc-transfer/channel-1234/unbonding_start_at_1_shielddvalid1abc123',
         ),
       ).toBe(false);
     });
@@ -93,9 +93,9 @@ describe('assetPatterns', () => {
   describe('ibc', () => {
     it('matches when a string follows the pattern transfer/<channel>/<denom>', () => {
       expect(assetPatterns.ibc.matches('transfer/channel-141/uosmo')).toBeTruthy();
-      expect(assetPatterns.ibc.matches('transfer/channel-0/upenumbra')).toBeTruthy();
-      expect(assetPatterns.ibc.matches('transfer/channel-0/upenumbra/moo/test')).toBeTruthy();
-      expect(assetPatterns.ibc.matches('x/channel-0/upenumbra')).toBeFalsy();
+      expect(assetPatterns.ibc.matches('transfer/channel-0/ushieldd')).toBeTruthy();
+      expect(assetPatterns.ibc.matches('transfer/channel-0/ushieldd/moo/test')).toBeTruthy();
+      expect(assetPatterns.ibc.matches('x/channel-0/ushieldd')).toBeFalsy();
     });
 
     it('captures channel and denom correctly', () => {

@@ -2,7 +2,7 @@ import illustration from './illustration.svg?url';
 
 /**
  * Sync animation component with spinning illustration
- * @todo Use Penumbra UI values for rounding, etc. once its Tailwind config is ready.
+ * @todo Use Shieldd UI values for rounding, etc. once its Tailwind config is ready.
  */
 export const SyncAnimation = () => (
   <div className='flex flex-col gap-8 rounded-sm bg-black'>

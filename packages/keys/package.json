@@ -2,7 +2,7 @@
   "name": "@mizufinance/keys",
   "version": "4.2.3",
   "license": "(MIT OR Apache-2.0)",
-  "description": "Tool to download proving keys for Penumbra",
+  "description": "Tool to download proving keys for Shieldd",
   "type": "module",
   "scripts": {
     "clean:keys": "rm -rfv ./keys/v*",

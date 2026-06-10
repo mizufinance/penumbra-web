@@ -3,7 +3,7 @@ import {
   MetadataFetchFn,
   TransactionViewComponent,
 } from '@mizufinance/ui-deprecated/components/ui/tx';
-import { TransactionInfo } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { TransactionInfo } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import type { Jsonified } from '@mizufinance/types/jsonified';
 import { useState } from 'react';
 import { SegmentedPicker } from '@mizufinance/ui-deprecated/components/ui/segmented-picker';
@@ -13,8 +13,8 @@ import { useQuery } from '@tanstack/react-query';
 import fetchReceiverView from './hooks';
 import { classifyTransaction } from '@mizufinance/perspective/transaction/classify';
 import { uint8ArrayToHex } from '@mizufinance/types/hex';
-import { ChainRegistryClient } from '@penumbra-labs/registry';
-import { penumbra } from '../../penumbra';
+import { ChainRegistryClient } from '@mizufinance/registry';
+import { shieldd } from '../../shieldd';
 
 export enum TxDetailsTab {
   PUBLIC = 'public',
@@ -31,7 +31,7 @@ const OPTIONS = [
 const getMetadata: MetadataFetchFn = async ({ assetId }) => {
   const feeAssetId = assetId ?? new ChainRegistryClient().bundled.globals().stakingAssetId;
 
-  const { denomMetadata } = await penumbra
+  const { denomMetadata } = await shieldd
     .service(ViewService)
     .assetMetadataById({ assetId: feeAssetId });
   return denomMetadata;

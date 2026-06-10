@@ -6,9 +6,9 @@ import { Switch } from '../switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../tooltip';
 import { useEffect, useState } from 'react';
 import { AddressComponent } from '../address/address-component';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { AccountSwitcher } from '../account-switcher';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 import { Box } from '../box';
 
 export interface SelectAccountProps {
@@ -62,9 +62,9 @@ export const SelectAccount = ({ getAddrByIndex }: SelectAccountProps) => {
               </TooltipTrigger>
               <TooltipContent className='w-[250px]'>
                 <p>
-                  IBC transfers into Penumbra post the destination address in public on the source
+                  IBC transfers into Shieldd post the destination address in public on the source
                   chain. Use this randomized IBC deposit address to preserve privacy when
-                  transferring funds into Penumbra.
+                  transferring funds into Shieldd.
                 </p>
               </TooltipContent>
             </Tooltip>

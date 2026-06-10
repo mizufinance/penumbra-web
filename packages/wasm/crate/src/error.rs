@@ -1,6 +1,6 @@
 use std::num::TryFromIntError;
 
-use penumbra_tct::error::InsertError;
+use shieldd_tct::error::InsertError;
 use prost::DecodeError as ProstDecodeError;
 use serde_wasm_bindgen::Error;
 use thiserror::Error;
@@ -24,7 +24,7 @@ pub enum WasmError {
     ProstDecodeError(#[from] ProstDecodeError),
 
     #[error("{0}")]
-    Proof(#[from] penumbra_shielded_pool::ProofError),
+    Proof(#[from] shieldd_shielded_pool::ProofError),
 
     #[error("{0}")]
     RegexError(#[from] regex::Error),

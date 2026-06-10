@@ -1,6 +1,6 @@
-import { TransactionSummary_Effects } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { TransactionSummary_Effects } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { assetPatterns } from '@mizufinance/types/assets';
 import { GetMetadata } from '../ActionView/types';
 
@@ -29,7 +29,7 @@ export const adaptEffects = (
         const isNegative = !balance.negated;
 
         // if the asset is unknown, don't sum it up, show simply as unknown
-        if (!assetMetadata?.penumbraAssetId?.inner) {
+        if (!assetMetadata?.shielddAssetId?.inner) {
           accum.push({
             negative: isNegative,
             view: new ValueView({

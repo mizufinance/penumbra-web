@@ -1,14 +1,14 @@
 # @mizufinance/wasm
 
-The Penumbra core repo has a ton of utilities and functions that are critical to
-developing an app that interacts with the Penumbra chain. However, it is written
+The Shieldd core repo has a ton of utilities and functions that are critical to
+developing an app that interacts with the Shieldd chain. However, it is written
 in Rust. This package exists to bridge the gap between the Rust environment and
 the web. This is done via Web Assembly, the universal binary format that runs
 almost anywhere.
 
 ## Consuming this package
 
-If you're reading this, you're probably trying to use the package. **[Next.js / Webpack example.](https://github.com/mizufinance/nextjs-penumbra-wasm-example/)**
+If you're reading this, you're probably trying to use the package. **[Next.js / Webpack example.](https://github.com/mizufinance/nextjs-shieldd-wasm-example/)**
 
 ### install
 
@@ -52,7 +52,7 @@ export const SpendKeyCat = () => {
   if (!spendKey)
     return (
       <>
-        <h1>Enter your Penumbra wallet recovery phrase to see a cat</h1>
+        <h1>Enter your Shieldd wallet recovery phrase to see a cat</h1>
         <label>Right here:</label>
         <input
           value={phrase}
@@ -87,7 +87,7 @@ tests in node with `vitest`.
 
 If you're using Webpack 5 such as in a Next.js stack, you'll need to enable the
 `asyncWebAssembly` experimental feature. Check out the [example
-repository](https://github.com/mizufinance/nextjs-penumbra-wasm-example/)
+repository](https://github.com/mizufinance/nextjs-shieldd-wasm-example/)
 which contains a complete working configuration. Compontents using this package
 should be client-side only, and you might need to use `next/dynamic` to
 dynamically import the package.

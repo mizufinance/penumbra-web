@@ -1,5 +1,5 @@
 {
-  description = "Dev shell for Penumbra web development";
+  description = "Dev shell for Shieldd web development";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
@@ -103,7 +103,7 @@
 
         # Common shell hook content
         commonShellHook = ''
-          export RUST_LOG="penumbra=debug"
+          export RUST_LOG="shieldd=debug"
           export RUST_SRC_PATH=${pkgs.rustPlatform.rustLibSrc} # Required for rust-analyzer
           export NEXT_TELEMETRY_DISABLED=1
           export TURBO_TELEMETRY_DISABLED=1
@@ -123,7 +123,7 @@
       {
         devShells = {
           default = craneLib.devShell {
-            name = "penumbra-web devShell";
+            name = "shieldd-web devShell";
             packages = commonDevPackages ++ playwrightLibs;
             shellHook = ''
               ${commonShellHook}
@@ -132,7 +132,7 @@
 
           # Separate opt-in devshell that excludes rust tooling & playwright browsers.
           minimal = pkgs.mkShell {
-            name = "minimal penumbra-web devShell";
+            name = "minimal shieldd-web devShell";
             packages = commonDevPackages;
             shellHook = ''
               ${commonShellHook}

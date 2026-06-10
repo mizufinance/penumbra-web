@@ -4,7 +4,7 @@ import { useStore } from '../../../state';
 import { sendSelector, sendValidationErrors } from '../../../state/send';
 import { InputBlock } from '../../shared/input-block';
 import { useMemo } from 'react';
-import { penumbraAddrValidation } from '../helpers';
+import { shielddAddrValidation } from '../helpers';
 import InputToken from '../../shared/input-token';
 import { GasFee } from '../../shared/gas-fee';
 import { useBalancesResponses, useStakingTokenMetadata } from '../../../state/shared';
@@ -54,12 +54,12 @@ export const SendForm = () => {
         label='Recipient'
         className='mb-1'
         value={recipient}
-        validations={[penumbraAddrValidation()]}
+        validations={[shielddAddrValidation()]}
       >
         <Input
           variant='transparent'
           className='font-mono'
-          placeholder='penumbra1…'
+          placeholder='shieldd1…'
           value={recipient}
           onChange={e => setRecipient(e.target.value)}
         />

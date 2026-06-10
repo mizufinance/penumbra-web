@@ -6,13 +6,13 @@ import {
   MsgTimeoutOnClose,
 } from '@mizufinance/protobuf/ibc/core/channel/v1/tx_pb';
 import { MsgUpdateClient } from '@mizufinance/protobuf/ibc/core/client/v1/tx_pb';
-import { IbcRelay } from '@mizufinance/protobuf/penumbra/core/component/ibc/v1/ibc_pb';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { IbcRelay } from '@mizufinance/protobuf/shieldd/core/component/ibc/v1/ibc_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import {
   Denom,
   ValueView,
   Metadata,
-} from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+} from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { unpackIbcRelay } from '@mizufinance/perspective/action-view/ibc';
 import { fromString } from '@mizufinance/types/amount';
 import { useDensity } from '../../utils/density';
@@ -95,11 +95,11 @@ export const IbcRelayAction = ({ value, getMetadata }: IbcRelayActionProps) => {
       // sometimes denom comes in form of "uosmo", and sometimes as "transfer/channel-4/uosmo",
       // where "transfer" is `sourcePort` and "channel-4" is `sourceChannel`.
       // the next lines extract the denom part from and merges it with destination data.
-      // Penumbra is the only asset that doesn't have "transfer" in the denom – hardcode it here.
+      // Shieldd is the only asset that doesn't have "transfer" in the denom – hardcode it here.
       const denomMatch = /\/([^/]+)$/.exec(data.tokenData.denom);
       assetDenom = `${data.packet.destinationPort}/${data.packet.destinationChannel}/${denomMatch?.[1] ?? data.tokenData.denom}`;
-      if (data.tokenData.denom === 'upenumbra' || denomMatch?.[1] === 'upenumbra') {
-        assetDenom = 'upenumbra';
+      if (data.tokenData.denom === 'ushieldd' || denomMatch?.[1] === 'ushieldd') {
+        assetDenom = 'ushieldd';
       }
 
       asset = getMetadata?.(new Denom({ denom: assetDenom }));

@@ -1,17 +1,17 @@
-import { createPenumbraClient, PenumbraClient } from '@mizufinance/client';
+import { createShielddClient, ShielddClient } from '@mizufinance/client';
 
-export const penumbra = createPenumbraClient();
+export const shieldd = createShielddClient();
 
 const reconnect = async () => {
-  const providers = PenumbraClient.getProviders();
+  const providers = ShielddClient.getProviders();
   const connected = Object.keys(providers).find(origin =>
-    PenumbraClient.isProviderConnected(origin),
+    ShielddClient.isProviderConnected(origin),
   );
   if (!connected) {
     return;
   }
   try {
-    await penumbra.connect(connected);
+    await shieldd.connect(connected);
   } catch (error) {
     /* no-op */
   }

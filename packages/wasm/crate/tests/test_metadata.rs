@@ -1,9 +1,9 @@
-extern crate penumbra_wasm;
+extern crate shieldd_wasm;
 
-use penumbra_asset::asset::Metadata;
-use penumbra_proto::core::asset::v1 as pb;
-use penumbra_proto::DomainType;
-use penumbra_wasm::metadata::{customize_symbol, customize_symbol_inner};
+use shieldd_asset::asset::Metadata;
+use shieldd_proto::core::asset::v1 as pb;
+use shieldd_proto::DomainType;
+use shieldd_wasm::metadata::{customize_symbol, customize_symbol_inner};
 
 fn get_metadata_for(display_denom: &str, base_denom_is_display_denom: bool) -> pb::Metadata {
     let mut denom_units = Vec::new();
@@ -36,7 +36,7 @@ fn get_metadata_for(display_denom: &str, base_denom_is_display_denom: bool) -> p
         display: String::from(display_denom),
         images: Vec::new(),
         name: String::from(""),
-        penumbra_asset_id: None,
+        shieldd_asset_id: None,
         symbol: String::from(""),
         priority_score: 0,
         badges: Vec::new(),
@@ -46,24 +46,24 @@ fn get_metadata_for(display_denom: &str, base_denom_is_display_denom: bool) -> p
 
 #[test]
 fn get_helper_interpolates_display_denom() {
-    assert_eq!(get_metadata_for("penumbra", false).base, "upenumbra");
-    assert_eq!(get_metadata_for("penumbra", false).display, "penumbra");
+    assert_eq!(get_metadata_for("shieldd", false).base, "ushieldd");
+    assert_eq!(get_metadata_for("shieldd", false).display, "shieldd");
     assert_eq!(
-        get_metadata_for("penumbra", false).denom_units[0].denom,
-        "upenumbra"
+        get_metadata_for("shieldd", false).denom_units[0].denom,
+        "ushieldd"
     );
     assert_eq!(
-        get_metadata_for("penumbra", false).denom_units[1].denom,
-        "penumbra"
+        get_metadata_for("shieldd", false).denom_units[1].denom,
+        "shieldd"
     );
 }
 
 #[test]
 fn returns_non_staking_metadata_as_is() {
     let metadata = pb::Metadata {
-        name: String::from("Penumbra"),
+        name: String::from("Shieldd"),
         symbol: String::from("UM"),
-        ..get_metadata_for("penumbra", false)
+        ..get_metadata_for("shieldd", false)
     };
     let customized_metadata = customize_symbol_inner(metadata.clone()).unwrap();
 
@@ -75,7 +75,7 @@ fn modifies_unbonding_token_symbol() {
     let metadata = pb::Metadata {
         name: String::from("Unbonding Token"),
         symbol: String::from(""),
-        ..get_metadata_for("unbonding_start_at_1234_penumbravalid1abcdef123456", false)
+        ..get_metadata_for("unbonding_start_at_1234_shielddvalid1abcdef123456", false)
     };
     let customized_metadata = customize_symbol_inner(metadata.clone()).unwrap();
 
@@ -87,7 +87,7 @@ fn modifies_delegation_token_symbol() {
     let metadata = pb::Metadata {
         name: String::from("Delegation Token"),
         symbol: String::from(""),
-        ..get_metadata_for("delegation_penumbravalid1abcdef123456", false)
+        ..get_metadata_for("delegation_shielddvalid1abcdef123456", false)
     };
     let customized_metadata = customize_symbol_inner(metadata.clone()).unwrap();
 
@@ -202,7 +202,7 @@ fn inner_works() {
     let metadata = pb::Metadata {
         name: String::from("Delegation Token"),
         symbol: String::from(""),
-        ..get_metadata_for("delegation_penumbravalid1abcdef123456", false)
+        ..get_metadata_for("delegation_shielddvalid1abcdef123456", false)
     };
     let metadata_as_bytes = Metadata::try_from(metadata).unwrap().encode_to_vec();
     let customized_metadata_bytes = customize_symbol(&metadata_as_bytes).unwrap();

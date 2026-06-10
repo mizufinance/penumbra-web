@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { CopyToClipboardButton } from '.';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<CopyToClipboardButton />', () => {
   beforeAll(() => {
@@ -11,7 +11,7 @@ describe('<CopyToClipboardButton />', () => {
 
   it('copies the value of the `text` prop to the clipboard', async () => {
     const { getByLabelText } = render(<CopyToClipboardButton text='copy that' />, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     fireEvent.click(getByLabelText('Copy'));
@@ -23,7 +23,7 @@ describe('<CopyToClipboardButton />', () => {
 
   it('has an initial label of "Copy"', () => {
     const { queryByLabelText } = render(<CopyToClipboardButton text='copy that' />, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     expect(queryByLabelText('Copy')).toBeTruthy();
@@ -33,7 +33,7 @@ describe('<CopyToClipboardButton />', () => {
     const { getByLabelText, queryByLabelText } = render(
       <CopyToClipboardButton text='copy that' />,
       {
-        wrapper: PenumbraUIProvider,
+        wrapper: ShielddUIProvider,
       },
     );
 

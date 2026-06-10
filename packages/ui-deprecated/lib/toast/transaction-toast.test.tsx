@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   AuthorizeAndBuildResponse,
   BroadcastTransactionResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { Progress } from '../../components/ui/progress';
 
 const TOAST_FN_PROPERTIES = vi.hoisted(

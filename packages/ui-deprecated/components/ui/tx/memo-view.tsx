@@ -1,4 +1,4 @@
-import { MemoView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { MemoView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { AddressViewComponent } from '../address-view';
 import { ViewBox } from './viewbox';
 import { ActionDetails } from './actions-views/action-details';

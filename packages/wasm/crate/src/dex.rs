@@ -1,7 +1,7 @@
-use penumbra_dex::lp::position::{Id, Position, State};
-use penumbra_dex::lp::LpNft;
-use penumbra_keys::{FullViewingKey, PositionMetadataKey};
-use penumbra_proto::DomainType;
+use shieldd_dex::lp::position::{Id, Position, State};
+use shieldd_dex::lp::LpNft;
+use shieldd_keys::{FullViewingKey, PositionMetadataKey};
+use shieldd_proto::DomainType;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::error::WasmResult;

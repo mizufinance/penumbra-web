@@ -1,6 +1,6 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getDisplayDenomFromView, getSymbolFromValueView } from '@mizufinance/getters/value-view';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { type BalanceOrMetadata, isBalance, isMetadata } from './helpers';
 import { getValueViewCaseFromBalancesResponse } from '@mizufinance/getters/balances-response';
 

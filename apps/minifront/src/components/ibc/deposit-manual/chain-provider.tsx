@@ -3,7 +3,7 @@ import { aminoTypes, registry as CosmosRegistry } from './config/defaults';
 import { assets, chains } from 'chain-registry';
 import { SignerOptions, wallets } from 'cosmos-kit';
 import { ReactNode, useMemo } from 'react';
-import { Registry as PenumbraRegistry } from '@penumbra-labs/registry';
+import { Registry as ShielddRegistry } from '@mizufinance/registry';
 
 import '@interchain-ui/react/styles';
 
@@ -17,12 +17,12 @@ const signerOptions: SignerOptions = {
 };
 
 interface IbcProviderProps {
-  registry: PenumbraRegistry;
+  registry: ShielddRegistry;
   children: ReactNode;
 }
 
 export const IbcChainProvider = ({ registry, children }: IbcProviderProps) => {
-  const chainsToDisplay = useMemo(() => chainsInPenumbraRegistry(registry), [registry]);
+  const chainsToDisplay = useMemo(() => chainsInShielddRegistry(registry), [registry]);
 
   return (
     <ChainProvider
@@ -40,7 +40,7 @@ export const IbcChainProvider = ({ registry, children }: IbcProviderProps) => {
   );
 };
 
-// Searches cosmos registry for chains that have ibc connections to Penumbra
-const chainsInPenumbraRegistry = ({ ibcConnections }: PenumbraRegistry) => {
+// Searches cosmos registry for chains that have ibc connections to Shieldd
+const chainsInShielddRegistry = ({ ibcConnections }: ShielddRegistry) => {
   return chains.filter(c => ibcConnections.some(i => c.chain_id === i.chainId));
 };

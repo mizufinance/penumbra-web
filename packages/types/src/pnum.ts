@@ -1,15 +1,15 @@
 import BigNumber from 'bignumber.js';
 import { round } from '@mizufinance/types/round';
 import { LoHi, joinLoHi, splitLoHi } from '@mizufinance/types/lo-hi';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getAmount, getDisplayDenomExponentFromValueView } from '@mizufinance/getters/value-view';
 import { removeTrailingZeros } from '@mizufinance/types/shortify';
 
 /**
- * pnum (penumbra number)
+ * pnum (shieldd number)
  *
- * In Penumbra a number can be in the form of a base unit (bigint, LoHi, Amount, ValueView)
+ * In Shieldd a number can be in the form of a base unit (bigint, LoHi, Amount, ValueView)
  * or a number with decimals for display purposes (string, number)
  *
  * This function handles all these cases automatically internally

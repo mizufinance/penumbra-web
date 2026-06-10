@@ -10,16 +10,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { rootRouter } from './components/root-router';
-import { PenumbraUIProvider } from '@mizufinance/ui-deprecated/PenumbraUIProvider';
+import { ShielddUIProvider } from '@mizufinance/ui-deprecated/ShielddUIProvider';
 
 const Main = () => {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PenumbraUIProvider>
+      <ShielddUIProvider>
         <RouterProvider router={rootRouter} />
-      </PenumbraUIProvider>
+      </ShielddUIProvider>
     </QueryClientProvider>
   );
 };

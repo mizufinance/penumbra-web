@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import penumbraTheme from './penumbra-theme';
+import shielddTheme from './shieldd-theme';
 import { useState } from 'react';
 import { Density } from '../src/Density';
 import { Tabs } from '../src/Tabs';
@@ -51,7 +51,7 @@ const preview: Preview = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-      theme: penumbraTheme,
+      theme: shielddTheme,
     },
     backgrounds: {
       default: 'dark',

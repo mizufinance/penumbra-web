@@ -1,6 +1,6 @@
-use penumbra_proto::DomainType;
-use penumbra_sct::epoch::Epoch;
-use penumbra_wasm::tree::sct_position;
+use shieldd_proto::DomainType;
+use shieldd_sct::epoch::Epoch;
+use shieldd_wasm::tree::sct_position;
 
 #[test]
 fn gets_position() {

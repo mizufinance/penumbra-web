@@ -1,11 +1,11 @@
-# Penumbra node status page
+# Shieldd node status page
 
-![Screenshot 2024-02-22 at 1 21 54 PM](https://github.com/mizufinance/penumbra/assets/16624263/7422ff48-fe33-4f16-a13f-4e109998c7ec)
+![Screenshot 2024-02-22 at 1 21 54 PM](https://github.com/mizufinance/shieldd/assets/16624263/7422ff48-fe33-4f16-a13f-4e109998c7ec)
 
 ### Overview
 
-This static site serves as a status page for the Penumbra node,
-displaying output from [GetStatus](https://buf.build/mizufinance/penumbra/docs/main:penumbra.util.tendermint_proxy.v1#penumbra.util.tendermint_proxy.v1.TendermintProxyService.GetStatus) rpc method
+This static site serves as a status page for the Shieldd node,
+displaying output from [GetStatus](https://buf.build/mizufinance/shieldd/docs/main:shieldd.util.tendermint_proxy.v1#shieldd.util.tendermint_proxy.v1.TendermintProxyService.GetStatus) rpc method
 and linking to minifront. Designed to be hosted by PD.
 
 ### Run

@@ -1,38 +1,38 @@
 import type { ServiceType } from '@bufbuild/protobuf';
 import { Client, createClient, Transport } from '@connectrpc/connect';
-import { jsonOptions, PenumbraService } from '@mizufinance/protobuf';
+import { jsonOptions, ShielddService } from '@mizufinance/protobuf';
 import {
   ChannelTransportOptions,
   createChannelTransport,
 } from '@mizufinance/transport-dom/create';
 import { assertProviderConnected, assertProviderRecord } from './assert.js';
-import { PenumbraEventListener } from './event-listener.js';
-import { createPenumbraStateEvent, isPenumbraStateEvent, PenumbraEventDetail } from './event.js';
+import { ShielddEventListener } from './event-listener.js';
+import { createShielddStateEvent, isShielddStateEvent, ShielddEventDetail } from './event.js';
 import {
-  getPenumbraGlobalUnsafe,
-  getPenumbraManifest,
-  getPenumbraManifests,
-  getPenumbraUnsafe,
+  getShielddGlobalUnsafe,
+  getShielddManifest,
+  getShielddManifests,
+  getShielddUnsafe,
 } from './get.js';
-import { PenumbraManifest } from './manifest.js';
-import { PenumbraProvider } from './provider.js';
-import { PenumbraState } from './state.js';
+import { ShielddManifest } from './manifest.js';
+import { ShielddProvider } from './provider.js';
+import { ShielddState } from './state.js';
 
-interface PenumbraClientOptions {
+interface ShielddClientOptions {
   /** Custom options for this client's `Transport`. */
   transportOptions: Omit<ChannelTransportOptions, 'getPort'>;
 }
 
-interface PenumbraClientConnection {
+interface ShielddClientConnection {
   port: Promise<MessagePort>;
   transport: Transport;
 }
 
-interface PenumbraClientAttachment {
+interface ShielddClientAttachment {
   origin: string;
-  provider: PenumbraProvider;
-  confirmManifest: Promise<PenumbraManifest>;
-  manifest?: PenumbraManifest;
+  provider: ShielddProvider;
+  confirmManifest: Promise<ShielddManifest>;
+  manifest?: ShielddManifest;
 }
 
 interface ServiceClientMap<S extends ServiceType = ServiceType> extends Map<S, Client<S>> {
@@ -47,79 +47,79 @@ interface ServiceClientMap<S extends ServiceType = ServiceType> extends Map<S, C
 }
 
 /**
- * `PenumbraClient` is intended to be the 'entry' to the collection of service
- * APIs for dapp developers inspecting or interacting with a user's Penumbra
+ * `ShielddClient` is intended to be the 'entry' to the collection of service
+ * APIs for dapp developers inspecting or interacting with a user's Shieldd
  * chain state.
  *
- * PenumbraClient static methods will allow you to
+ * ShielddClient static methods will allow you to
  *
  * - inspect available providers
  * - verify the provider is present
  * - choose a provider to connect
  *
- * If you're developing a dapp using penumbra, you should likely:
+ * If you're developing a dapp using shieldd, you should likely:
  *
- * - gate penumbra features, if no providers are installed
+ * - gate shieldd features, if no providers are installed
  * - display a button to initiate connection, if no providers are connected
  * - display a modal choice, if multiple providers are present
  *
  * When you've selected a provider, you can provide its origin URI to
- * `createPenumbraClient` or `new PenumbraClient`. This will create a client
+ * `createShielddClient` or `new ShielddClient`. This will create a client
  * attached to that provider, and you can then:
  *
  * - request permission to connect and create an active connection with `connect`
  * - access the provider's services with `service` and a `ServiceType` parameter
  * - release your permissions with `disconnect`
  */
-export class PenumbraClient {
+export class ShielddClient {
   // static features
 
-  /** When using the `PenumbraClient` constructor directly, this is the default
+  /** When using the `ShielddClient` constructor directly, this is the default
    * value of the options parameter.
    *
-   * When using `createPenumbraClient`, this object is spread into the options
+   * When using `createShielddClient`, this object is spread into the options
    * parameter of the client constructor before the caller's options parameter.
    */
-  public static readonly defaultOptions: PenumbraClientOptions = {
+  public static readonly defaultOptions: ShielddClientOptions = {
     transportOptions: { jsonOptions },
   };
 
   /** Return the record of all present providers available in the page. */
-  public static getProviders(): Record<string, PenumbraProvider> {
-    return getPenumbraGlobalUnsafe() ?? {};
+  public static getProviders(): Record<string, ShielddProvider> {
+    return getShielddGlobalUnsafe() ?? {};
   }
 
   /** Return a record of all present providers, and fetch their manifests. */
-  public static getProviderManifests(): Record<string, Promise<PenumbraManifest>> {
-    return getPenumbraGlobalUnsafe() ? getPenumbraManifests() : {};
+  public static getProviderManifests(): Record<string, Promise<ShielddManifest>> {
+    return getShielddGlobalUnsafe() ? getShielddManifests() : {};
   }
 
   /** Fetch manifest of a specific provider, or return `undefined` if the
    * provider is not present. */
-  public static getProviderManifest(providerOrigin: string): Promise<PenumbraManifest> | undefined {
-    return getPenumbraUnsafe(providerOrigin) && getPenumbraManifest(providerOrigin);
+  public static getProviderManifest(providerOrigin: string): Promise<ShielddManifest> | undefined {
+    return getShielddUnsafe(providerOrigin) && getShielddManifest(providerOrigin);
   }
 
   /** Return boolean connection state of a specific provider, or `undefined` if
    * the provider is not present. */
   public static isProviderConnected(providerOrigin: string): boolean | undefined {
-    return getPenumbraUnsafe(providerOrigin)?.isConnected();
+    return getShielddUnsafe(providerOrigin)?.isConnected();
   }
 
   /** Return connection state enum of a specific provider, or `undefined` if the
    * provider is not present. */
-  public static getProviderState(providerOrigin: string): PenumbraState | undefined {
-    return getPenumbraUnsafe(providerOrigin)?.state();
+  public static getProviderState(providerOrigin: string): ShielddState | undefined {
+    return getShielddUnsafe(providerOrigin)?.state();
   }
 
   // instance features
 
-  private readonly serviceClients: ServiceClientMap<PenumbraService>;
-  private readonly stateListeners: Set<(detail: PenumbraEventDetail<'penumbrastate'>) => void>;
-  private readonly providerEventListener: PenumbraEventListener;
+  private readonly serviceClients: ServiceClientMap<ShielddService>;
+  private readonly stateListeners: Set<(detail: ShielddEventDetail<'shielddstate'>) => void>;
+  private readonly providerEventListener: ShielddEventListener;
 
-  private connection?: PenumbraClientConnection;
-  private attached?: PenumbraClientAttachment;
+  private connection?: ShielddClientConnection;
+  private attached?: ShielddClientAttachment;
 
   /** Construct a client instance but take no specific action. Will immediately
    * attach to a specified provider, or remain unconfigured. */
@@ -129,13 +129,13 @@ export class PenumbraClient {
      * report state information until `attach` is called to specify a provider
      * origin. */
     providerOrigin?: string,
-    private readonly options = PenumbraClient.defaultOptions,
+    private readonly options = ShielddClient.defaultOptions,
   ) {
     this.serviceClients = new Map();
     this.stateListeners = new Set();
     this.providerEventListener = evt => {
-      if (this.attached?.origin && isPenumbraStateEvent(evt, this.attached.origin)) {
-        if (evt.detail.state === PenumbraState.Disconnected) {
+      if (this.attached?.origin && isShielddStateEvent(evt, this.attached.origin)) {
+        if (evt.detail.state === ShielddState.Disconnected) {
           this.destroyConnection();
         }
         this.stateListeners.forEach(listener => listener(evt.detail));
@@ -161,7 +161,7 @@ export class PenumbraClient {
    * If called again with a matching provider, `attach` is a no-op. If called
    * again with a different provider, `attach` will throw.
    */
-  public async attach(providerOrigin: string): Promise<PenumbraManifest> {
+  public async attach(providerOrigin: string): Promise<ShielddManifest> {
     if (!this.attached) {
       this.attached ??= this.createAttached(providerOrigin);
       await this.attached.confirmManifest;
@@ -170,9 +170,9 @@ export class PenumbraClient {
       // unconfigured state, so emit a synthetic event reflecting the state of
       // the new provider.
       this.providerEventListener(
-        createPenumbraStateEvent(this.attached.origin, this.attached.provider.state()),
+        createShielddStateEvent(this.attached.origin, this.attached.provider.state()),
       );
-      this.attached.provider.addEventListener('penumbrastate', this.providerEventListener);
+      this.attached.provider.addEventListener('shielddstate', this.providerEventListener);
     }
 
     if (this.attached.origin !== providerOrigin) {
@@ -185,7 +185,7 @@ export class PenumbraClient {
   /** Attempt to connect to the attached provider. If this client is unattached,
    * a provider may be specified at this moment.
    *
-   * May reject with an enumerated `PenumbraRequestFailure`.
+   * May reject with an enumerated `ShielddRequestFailure`.
    *
    * The public `connected` field will report the provider's connected state, or
    * `undefined` if this client is not attached to a provider. The public
@@ -212,7 +212,7 @@ export class PenumbraClient {
    * If you call this method while this client is not `Connected`, this method
    * will throw.
    */
-  public service<T extends PenumbraService>(service: T): Client<T> {
+  public service<T extends ShielddService>(service: T): Client<T> {
     let serviceClient = this.serviceClients.get(service);
 
     if (!serviceClient) {
@@ -226,7 +226,7 @@ export class PenumbraClient {
   /** Simplified callback interface to the `EventTarget` interface of the
    * associated provider. */
   public onConnectionStateChange(
-    listener: (detail: PenumbraEventDetail<'penumbrastate'>) => void,
+    listener: (detail: ShielddEventDetail<'shielddstate'>) => void,
     removeListener?: AbortSignal,
   ) {
     if (removeListener?.aborted) {
@@ -257,7 +257,7 @@ export class PenumbraClient {
   }
 
   /** The attached provider, or `undefined` if this client is not attached. */
-  public get provider(): PenumbraProvider | undefined {
+  public get provider(): ShielddProvider | undefined {
     return this.attached?.provider;
   }
 
@@ -267,43 +267,43 @@ export class PenumbraClient {
     return this.attached?.provider.isConnected();
   }
 
-  /** The `PenumbraState` enumerated provider connection state, or `undefined` if
+  /** The `ShielddState` enumerated provider connection state, or `undefined` if
    * this client is not attached to a provider. */
-  public get state(): PenumbraState | undefined {
+  public get state(): ShielddState | undefined {
     return this.attached?.provider.state();
   }
 
-  /** The parsed `PenumbraManifest` associated with this provider, fetched at
+  /** The parsed `ShielddManifest` associated with this provider, fetched at
    * time of provider attach. This will be `undefined` if this client is not
    * attached to a provider, or if the manifest fetch has not yet resolved.
    *
    * If you have awaited the return of `attach` or `connect`, this should be
    * present.
    */
-  public get manifest(): PenumbraManifest | undefined {
+  public get manifest(): ShielddManifest | undefined {
     return this.attached?.manifest;
   }
 
   // private methods
 
   /** Assert an attached provider. */
-  private assertAttached(): PenumbraClientAttachment {
+  private assertAttached(): ShielddClientAttachment {
     assertProviderRecord(this.attached?.origin);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- TODO: justify
     return this.attached!;
   }
 
   /** Assert a connected provider, and potentially init this client's transport. */
-  private assertConnected(): PenumbraClientConnection {
+  private assertConnected(): ShielddClientConnection {
     assertProviderConnected(this.attached?.origin);
     this.connection ??= this.createConnection();
     return this.connection;
   }
 
   /** Create attachment to a specific provider, and return without waiting. */
-  private createAttached(providerOrigin: string): PenumbraClientAttachment {
-    const attached: PenumbraClientAttachment = {
-      confirmManifest: getPenumbraManifest(providerOrigin),
+  private createAttached(providerOrigin: string): ShielddClientAttachment {
+    const attached: ShielddClientAttachment = {
+      confirmManifest: getShielddManifest(providerOrigin),
       manifest: undefined,
       origin: providerOrigin,
       provider: assertProviderRecord(providerOrigin),
@@ -314,7 +314,7 @@ export class PenumbraClient {
 
   /** Request a connection to the attached provider, and return the pending
    * `MessagePort` and created `Transport` without waiting. */
-  private createConnection(): PenumbraClientConnection {
+  private createConnection(): ShielddClientConnection {
     const { confirmManifest, provider } = this.assertAttached();
 
     const portClosed = new AbortController();
@@ -347,7 +347,7 @@ export class PenumbraClient {
     const getTransport = () =>
       createChannelTransport({ ...this.options.transportOptions, getPort });
 
-    const connection: PenumbraClientConnection = {
+    const connection: ShielddClientConnection = {
       get port() {
         portClosed.signal.throwIfAborted();
         return getPort();
@@ -370,7 +370,7 @@ export class PenumbraClient {
 
 /** Construct a client instance but take no specific action. Will immediately
  * attach to a specified provider, or remain unconfigured. */
-export const createPenumbraClient = (
+export const createShielddClient = (
   providerOrigin?: string,
-  opt?: Partial<PenumbraClientOptions>,
-) => new PenumbraClient(providerOrigin, { ...PenumbraClient.defaultOptions, ...opt });
+  opt?: Partial<ShielddClientOptions>,
+) => new ShielddClient(providerOrigin, { ...ShielddClient.defaultOptions, ...opt });

@@ -2,16 +2,16 @@
   "name": "@mizufinance/configs",
   "version": "1.2.0",
   "license": "MIT",
-  "description": "Shared Penumbra configurations",
-  "repository": "mizufinance/penumbra",
+  "description": "Shared Shieldd configurations",
+  "repository": "mizufinance/shieldd",
   "type": "module",
   "exports": {
     "./eslint": "./eslint.config.js",
     "./tailwind-eslint": "./tailwind-eslint.js",
     "./prettier": "./prettier.config.js"
   },
-  "author": "Penumbra Labs",
-  "bugs": "https://github.com/mizufinance/penumbra/",
+  "author": "Shieldd Labs",
+  "bugs": "https://github.com/mizufinance/shieldd/",
   "dependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@eslint/compat": "^1.1.0",
@@ -32,5 +32,5 @@
     "prettier": "^3.4.2",
     "typescript": "5.5.3"
   },
-  "homepage": "https://github.com/mizufinance/penumbra/packages/configs#readme"
+  "homepage": "https://github.com/mizufinance/shieldd/packages/configs#readme"
 }

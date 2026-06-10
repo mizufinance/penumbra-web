@@ -4,7 +4,7 @@ import {
   Transaction,
   TransactionPlan,
   WitnessData,
-} from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+} from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import type { StateCommitmentTree } from '@mizufinance/types/state-commitment-tree';
 import {
   authorize,
@@ -13,7 +13,7 @@ import {
   build_parallel,
   witness,
 } from '../wasm/index.js';
-import { FullViewingKey, SpendKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { FullViewingKey, SpendKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ensureWasmInitialized } from './init.js';
 
 type ProofRequest = {
@@ -74,7 +74,7 @@ export const buildActionParallel = async (
 ): Promise<Action> => {
   await ensureWasmInitialized();
   if (!options.proverUrl) {
-    throw new Error('Penumbra prover URL is required for browser transaction building');
+    throw new Error('Shieldd prover URL is required for browser transaction building');
   }
 
   const actionPlan = txPlan.actions[actionId];
@@ -98,11 +98,11 @@ export const buildActionParallel = async (
   });
   const body = (await response.json().catch(() => ({}))) as ProverResponse;
   if (!response.ok || body.error) {
-    throw new Error(body.error || `Penumbra prover failed with HTTP ${response.status}`);
+    throw new Error(body.error || `Shieldd prover failed with HTTP ${response.status}`);
   }
   const proofResult = body.result || body.proof;
   if (!proofResult) {
-    throw new Error('Penumbra prover response did not include a proof result');
+    throw new Error('Shieldd prover response did not include a proof result');
   }
 
   const result = build_action_with_proof_result(

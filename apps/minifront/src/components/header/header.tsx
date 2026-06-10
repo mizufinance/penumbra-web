@@ -44,12 +44,12 @@ export const Header = () => {
 const HeaderLogo = () => (
   <div className='relative inset-x-0 mb-[30px] md:mb-0'>
     <img
-      src='./penumbra-logo.svg'
-      alt='Penumbra logo'
+      src='./shieldd-logo.svg'
+      alt='Shieldd logo'
       className='absolute inset-x-0 top-[-75px] mx-auto h-[141px] w-[136px] rotate-[320deg] md:left-[-100px] md:top-[-140px] md:mx-0 md:size-[234px]'
     />
     <Link to={PagePath.INDEX}>
-      <img src='./logo.svg' alt='Penumbra' className='relative mt-[20px] h-4 w-[171px] md:mt-0' />
+      <img src='./logo.svg' alt='Shieldd' className='relative mt-[20px] h-4 w-[171px] md:mt-0' />
     </Link>
   </div>
 );

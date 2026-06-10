@@ -1,4 +1,4 @@
-import { MemoView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { MemoView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { Translator } from './types.js';
 import { asOpaqueAddressView } from './address-view.js';
 

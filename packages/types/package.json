@@ -38,6 +38,7 @@
   "devDependencies": {
     "@bufbuild/protobuf": "^1.10.0",
     "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/getters": "workspace:*",
     "@mizufinance/protobuf": "workspace:*",
     "@tsconfig/strictest": "2.0.5",
     "@types/lodash": "^4.17.13",
@@ -46,6 +47,7 @@
   "peerDependencies": {
     "@bufbuild/protobuf": "^1.10.0",
     "@mizufinance/bech32m": "workspace:*",
+    "@mizufinance/getters": "workspace:*",
     "@mizufinance/protobuf": "workspace:*"
   }
 }

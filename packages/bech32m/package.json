@@ -2,7 +2,7 @@
   "name": "@mizufinance/bech32m",
   "version": "18.0.1-bankd-demo.1",
   "license": "(MIT OR Apache-2.0)",
-  "description": "Tools for manipulating Penumbra bech32m strings",
+  "description": "Tools for manipulating Shieldd bech32m strings",
   "type": "module",
   "engine": {
     "node": ">=22"

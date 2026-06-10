@@ -1,6 +1,6 @@
 import React from 'react';
-import { ActionView as PbActionView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
-import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ActionView as PbActionView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
+import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { ActionView } from '@mizufinance/ui/ActionView';
 import { Text } from '@mizufinance/ui/Text';
 import { Connector } from './Connector';

@@ -674,7 +674,7 @@
 
 ### Minor Changes
 
-- bump @penumbra-labs/registry
+- bump registry
 
 ## 6.2.1
 

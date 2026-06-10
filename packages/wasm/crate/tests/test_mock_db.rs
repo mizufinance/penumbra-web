@@ -1,8 +1,8 @@
-use penumbra_keys::keys::AddressIndex;
+use shieldd_keys::keys::AddressIndex;
 use wasm_bindgen_test::wasm_bindgen_test;
 
-use penumbra_wasm::database::interface::Database;
-use penumbra_wasm::database::mock::MockDb;
+use shieldd_wasm::database::interface::Database;
+use shieldd_wasm::database::mock::MockDb;
 
 wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 

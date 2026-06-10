@@ -2,7 +2,7 @@ import {
   Address,
   AddressView,
   FullViewingKey,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { getAddressIndexByAddress } from '@mizufinance/wasm/address';
 
 export const getAddressView = (address: Address, fullViewingKey: FullViewingKey): AddressView => {

@@ -1,8 +1,8 @@
 /**
- * PenumbraService - Centralized service for all Penumbra blockchain interactions
+ * ShielddService - Centralized service for all Shieldd blockchain interactions
  *
- * This service provides a clean interface to interact with the Penumbra blockchain
- * through the Penumbra client. It encapsulates all the service access logic,
+ * This service provides a clean interface to interact with the Shieldd blockchain
+ * through the Shieldd client. It encapsulates all the service access logic,
  * making it easy to use throughout the application.
  */
 
@@ -19,12 +19,12 @@ import {
   TransactionPlannerRequest,
   StatusRequest,
   StatusStreamRequest,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { TimestampByHeightRequest } from '@mizufinance/protobuf/penumbra/core/component/sct/v1/sct_pb';
-import { AddressIndex } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { penumbra } from '../lib/penumbra';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { TimestampByHeightRequest } from '@mizufinance/protobuf/shieldd/core/component/sct/v1/sct_pb';
+import { AddressIndex } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { shieldd } from '../lib/shieldd';
 
-import { ValidatorInfoRequest } from '@mizufinance/protobuf/penumbra/core/component/stake/v1/stake_pb';
+import { ValidatorInfoRequest } from '@mizufinance/protobuf/shieldd/core/component/stake/v1/stake_pb';
 
 // Error detection functions (from legacy minifront)
 // These are used in the transaction service
@@ -34,7 +34,7 @@ export const userDeniedTransaction = (e: unknown): boolean =>
 export const unauthenticated = (e: unknown): boolean =>
   e instanceof Error && e.message.includes('unauthenticated');
 
-export class PenumbraService {
+export class ShielddService {
   /**
    * Get a stream of balance responses
    * @param params - Optional parameters to filter balances
@@ -42,7 +42,7 @@ export class PenumbraService {
    */
   getBalancesStream(params?: Partial<BalancesRequest>) {
     const request = new BalancesRequest(params ?? {});
-    return penumbra.service(ViewService).balances(request);
+    return shieldd.service(ViewService).balances(request);
   }
 
   /**
@@ -52,7 +52,7 @@ export class PenumbraService {
    */
   getTransactionInfoStream(params?: Partial<TransactionInfoRequest>) {
     const request = new TransactionInfoRequest(params ?? {});
-    return penumbra.service(ViewService).transactionInfo(request);
+    return shieldd.service(ViewService).transactionInfo(request);
   }
 
   /**
@@ -68,7 +68,7 @@ export class PenumbraService {
       id: { inner: hashBytes },
     });
 
-    return penumbra.service(ViewService).transactionInfoByHash(request);
+    return shieldd.service(ViewService).transactionInfoByHash(request);
   }
 
   /**
@@ -78,7 +78,7 @@ export class PenumbraService {
    */
   getAssetsStream(params?: Partial<AssetsRequest>) {
     const request = new AssetsRequest(params ?? {});
-    return penumbra.service(ViewService).assets(request);
+    return shieldd.service(ViewService).assets(request);
   }
 
   /**
@@ -87,7 +87,7 @@ export class PenumbraService {
    */
   async getAppParameters() {
     const request = new AppParametersRequest({});
-    return penumbra.service(ViewService).appParameters(request);
+    return shieldd.service(ViewService).appParameters(request);
   }
 
   /**
@@ -96,7 +96,7 @@ export class PenumbraService {
    */
   async getGasPrices() {
     const request = new GasPricesRequest({});
-    return penumbra.service(ViewService).gasPrices(request);
+    return shieldd.service(ViewService).gasPrices(request);
   }
 
   /**
@@ -105,7 +105,7 @@ export class PenumbraService {
    */
   async getStatus() {
     const request = new StatusRequest({});
-    return penumbra.service(ViewService).status(request);
+    return shieldd.service(ViewService).status(request);
   }
 
   /**
@@ -114,7 +114,7 @@ export class PenumbraService {
    */
   getStatusStream() {
     const request = new StatusStreamRequest({});
-    return penumbra.service(ViewService).statusStream(request);
+    return shieldd.service(ViewService).statusStream(request);
   }
 
   /**
@@ -131,7 +131,7 @@ export class PenumbraService {
       addressIndex: new AddressIndex({ account }),
       filter,
     });
-    return penumbra.service(ViewService).delegationsByAddressIndex(request);
+    return shieldd.service(ViewService).delegationsByAddressIndex(request);
   }
 
   /**
@@ -141,7 +141,7 @@ export class PenumbraService {
    */
   getValidatorInfoStream(showInactive: boolean = true) {
     const request = new ValidatorInfoRequest({ showInactive });
-    return penumbra.service(StakeService).validatorInfo(request);
+    return shieldd.service(StakeService).validatorInfo(request);
   }
 
   /**
@@ -163,7 +163,7 @@ export class PenumbraService {
    * @returns The view service client
    */
   getViewClient() {
-    return penumbra.service(ViewService);
+    return shieldd.service(ViewService);
   }
 
   /**
@@ -171,7 +171,7 @@ export class PenumbraService {
    * @returns The stake service client
    */
   getStakeClient() {
-    return penumbra.service(StakeService);
+    return shieldd.service(StakeService);
   }
 
   /**
@@ -181,10 +181,10 @@ export class PenumbraService {
    */
   async getBlockTimestamp(height: bigint): Promise<Date | undefined> {
     const request = new TimestampByHeightRequest({ height });
-    const { timestamp } = await penumbra.service(SctService).timestampByHeight(request);
+    const { timestamp } = await shieldd.service(SctService).timestampByHeight(request);
     return timestamp?.toDate();
   }
 }
 
 // Export a singleton instance for convenience
-export const penumbraService = new PenumbraService();
+export const shielddService = new ShielddService();

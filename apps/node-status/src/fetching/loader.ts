@@ -1,5 +1,5 @@
 import { LoaderFunction } from 'react-router-dom';
-import { GetStatusResponse } from '@mizufinance/protobuf/penumbra/util/tendermint_proxy/v1/tendermint_proxy_pb';
+import { GetStatusResponse } from '@mizufinance/protobuf/shieldd/util/tendermint_proxy/v1/tendermint_proxy_pb';
 import { sha256HashStr } from '@mizufinance/crypto-web/sha256';
 import { tendermintClient } from '../clients/grpc';
 

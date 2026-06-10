@@ -1,8 +1,8 @@
 import { asOpaqueMemoView, asReceiverMemoView } from './memo-view.js';
 import { asPublicActionView, asReceiverActionView } from './action-view.js';
-import { TransactionView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { TransactionView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { Translator } from './types.js';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 export const asPublicTransactionView: Translator<TransactionView> = transactionView => {
   if (!transactionView?.bodyView) {

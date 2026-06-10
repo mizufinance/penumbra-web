@@ -1,6 +1,6 @@
-import { Address, AddressIndex } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { addressFromBech32m } from '@mizufinance/bech32m/penumbra';
-import { compatAddressFromBech32, isCompatAddress } from '@mizufinance/bech32m/penumbracompat1';
+import { Address, AddressIndex } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { addressFromBech32m } from '@mizufinance/bech32m/shieldd';
+import { compatAddressFromBech32, isCompatAddress } from '@mizufinance/bech32m/shielddcompat1';
 import { hexToUint8Array } from './hex.js';
 
 export const parseIntoAddr = (addrStr: string): Address => {

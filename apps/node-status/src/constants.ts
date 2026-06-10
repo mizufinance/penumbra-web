@@ -1,5 +1,5 @@
 export const prodBaseUrl = '/';
-export const devBaseUrl = 'https://grpc.testnet.penumbra.zone';
+export const devBaseUrl = '';
 
 export const prodFrontend = '/app/';
-export const devFrontend = 'https://app.testnet.penumbra.zone';
+export const devFrontend = '';

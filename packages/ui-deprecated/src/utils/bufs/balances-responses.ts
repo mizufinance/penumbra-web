@@ -1,14 +1,14 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { OSMO_VALUE_VIEW, PENUMBRA_VALUE_VIEW } from './value-view.ts';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { OSMO_VALUE_VIEW, SHIELDD_VALUE_VIEW } from './value-view.ts';
 import { ADDRESS2_VIEW_DECODED, ADDRESS_VIEW_DECODED } from './address-view.ts';
 
-export const PENUMBRA_BALANCE = new BalancesResponse({
-  balanceView: PENUMBRA_VALUE_VIEW,
+export const SHIELDD_BALANCE = new BalancesResponse({
+  balanceView: SHIELDD_VALUE_VIEW,
   accountAddress: ADDRESS_VIEW_DECODED,
 });
 
-export const PENUMBRA2_BALANCE = new BalancesResponse({
-  balanceView: PENUMBRA_VALUE_VIEW,
+export const SHIELDD2_BALANCE = new BalancesResponse({
+  balanceView: SHIELDD_VALUE_VIEW,
   accountAddress: ADDRESS2_VIEW_DECODED,
 });
 

@@ -3,27 +3,27 @@ import { AllSlices, Middleware, SliceCreator, useStore } from '..';
 import {
   BalancesResponse,
   TransactionPlannerRequest,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import BigNumber from 'bignumber.js';
-import { MemoPlaintext } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { MemoPlaintext } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { amountMoreThanBalance, isIncorrectDecimal, plan, planBuildBroadcast } from '../helpers';
 
-import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
+import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
 import {
   getAssetIdFromValueView,
   getDisplayDenomExponentFromValueView,
 } from '@mizufinance/getters/value-view';
 import { getAddress, getAddressIndex } from '@mizufinance/getters/address-view';
 import { toBaseUnit } from '@mizufinance/types/lo-hi';
-import { isAddress } from '@mizufinance/bech32m/penumbra';
+import { isAddress } from '@mizufinance/bech32m/shieldd';
 import {
   checkSendMaxInvariants,
   SpendOrOutput,
   transferableBalancesResponsesSelector,
 } from './helpers';
-import { Metadata, Value } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata, Value } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getAssetTokenMetadata } from '../../fetchers/registry';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { getGasPrices, hasStakingToken } from '../../fetchers/gas-prices.ts';
 
 export interface SendSlice {

@@ -5,25 +5,25 @@ use crate::utils;
 use crate::view_server::{load_tree, StoredTree};
 use anyhow::anyhow;
 use indexed_db_futures::IdbDatabase;
-use penumbra_auction::auction::dutch::actions::view::{
+use shieldd_auction::auction::dutch::actions::view::{
     ActionDutchAuctionScheduleView, ActionDutchAuctionWithdrawView,
 };
-use penumbra_dex::BatchSwapOutputData;
-use penumbra_dex::{swap::SwapView, swap_claim::SwapClaimView};
-use penumbra_keys::keys::SpendKey;
-use penumbra_keys::FullViewingKey;
-use penumbra_proto::core::transaction::v1::{TransactionPerspective, TransactionView};
-use penumbra_proto::DomainType;
-use penumbra_sct::{CommitmentSource, Nullifier};
-use penumbra_tct::{Position, Proof, StateCommitment};
-use penumbra_transaction::plan::TransactionPlan;
-use penumbra_transaction::txhash::TransactionId;
-use penumbra_transaction::view::action_view::{
+use shieldd_dex::BatchSwapOutputData;
+use shieldd_dex::{swap::SwapView, swap_claim::SwapClaimView};
+use shieldd_keys::keys::SpendKey;
+use shieldd_keys::FullViewingKey;
+use shieldd_proto::core::transaction::v1::{TransactionPerspective, TransactionView};
+use shieldd_proto::DomainType;
+use shieldd_sct::{CommitmentSource, Nullifier};
+use shieldd_tct::{Position, Proof, StateCommitment};
+use shieldd_transaction::plan::TransactionPlan;
+use shieldd_transaction::txhash::TransactionId;
+use shieldd_transaction::view::action_view::{
     ActionView, DelegatorVoteView, OutputView, SpendView,
 };
-use penumbra_transaction::Action;
-use penumbra_transaction::TransactionView as TransactionViewComponent;
-use penumbra_transaction::{AuthorizationData, Transaction, WitnessData};
+use shieldd_transaction::Action;
+use shieldd_transaction::TransactionView as TransactionViewComponent;
+use shieldd_transaction::{AuthorizationData, Transaction, WitnessData};
 use prost::Message;
 use rand_core::OsRng;
 use std::collections::{BTreeMap, BTreeSet};
@@ -161,7 +161,7 @@ async fn transaction_info_inner(
     let storage = init_idb_storage(idb_constants).await?;
 
     // First, create a TxP with the payload keys visible to our FVK and no other data.
-    let mut txp = penumbra_transaction::TransactionPerspective {
+    let mut txp = shieldd_transaction::TransactionPerspective {
         payload_keys: tx.payload_keys(&fvk)?,
         transaction_id: tx.id(),
         ..Default::default()
@@ -348,7 +348,7 @@ async fn transaction_info_inner(
 async fn add_swap_claim_txn_to_perspective(
     storage: &Storage<IdbDatabase>,
     fvk: &FullViewingKey,
-    txp: &mut penumbra_transaction::TransactionPerspective,
+    txp: &mut shieldd_transaction::TransactionPerspective,
     commitment: &StateCommitment,
     swap_position: Position,
 ) -> Result<(), WasmError> {
@@ -368,7 +368,7 @@ async fn add_swap_claim_txn_to_perspective(
                         .action
                         .as_ref()
                         .and_then(|action| match action {
-                            penumbra_proto::core::transaction::v1::action::Action::SwapClaim(
+                            shieldd_proto::core::transaction::v1::action::Action::SwapClaim(
                                 swap_claim,
                             ) => swap_claim.body.as_ref(),
                             _ => None,

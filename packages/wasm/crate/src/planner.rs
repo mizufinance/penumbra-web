@@ -1,17 +1,17 @@
 use anyhow::{anyhow, Context};
 use decaf377::Fr;
-use penumbra_asset::Value;
-use penumbra_keys::keys::AddressIndex;
-use penumbra_keys::{Address, FullViewingKey};
-use penumbra_num::Amount;
-use penumbra_proto::view::v1::TransactionPlannerRequest;
-use penumbra_proto::{DomainType, Message};
-use penumbra_shielded_pool::{
+use shieldd_asset::Value;
+use shieldd_keys::keys::AddressIndex;
+use shieldd_keys::{Address, FullViewingKey};
+use shieldd_num::Amount;
+use shieldd_proto::view::v1::TransactionPlannerRequest;
+use shieldd_proto::{DomainType, Message};
+use shieldd_shielded_pool::{
     Ics20Withdrawal, ShieldedIcs20WithdrawalFamilyId, ShieldedIcs20WithdrawalPlan,
     ShieldedInputPlan, ShieldedOutputPlan, TransferPlan,
 };
-use penumbra_transaction::memo::MemoPlaintext;
-use penumbra_transaction::{plan::MemoPlan, ActionPlan, TransactionParameters, TransactionPlan};
+use shieldd_transaction::memo::MemoPlaintext;
+use shieldd_transaction::{plan::MemoPlan, ActionPlan, TransactionParameters, TransactionPlan};
 use rand_core::OsRng;
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
@@ -262,11 +262,11 @@ async fn plan_ics20_withdrawal<Db: Database>(
 async fn select_notes<Db: Database>(
     storage: &Storage<Db>,
     source: AddressIndex,
-    asset_id: penumbra_asset::asset::Id,
+    asset_id: shieldd_asset::asset::Id,
     required: Amount,
 ) -> WasmResult<Vec<SpendableNoteRecord>> {
     let mut notes = storage
-        .get_notes(penumbra_proto::view::v1::NotesRequest {
+        .get_notes(shieldd_proto::view::v1::NotesRequest {
             include_spent: false,
             asset_id: Some(asset_id.into()),
             address_index: Some(source.into()),

@@ -6,12 +6,12 @@
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { TransactionInfo } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { TransactionInfo } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { uint8ArrayToHex } from '@mizufinance/types/hex';
 import { classifyTransaction } from '@mizufinance/perspective/transaction/classify';
 import { RootStore } from './root-store';
-import { penumbra } from '../lib/penumbra';
-import { PenumbraState } from '@mizufinance/client';
+import { shieldd } from '../lib/shieldd';
+import { ShielddState } from '@mizufinance/client';
 
 export class TransactionsStore {
   // Observable state
@@ -23,8 +23,8 @@ export class TransactionsStore {
     makeAutoObservable(this);
 
     // Listen for connection state changes to retry loading
-    penumbra.onConnectionStateChange(event => {
-      if (event.state === PenumbraState.Connected) {
+    shieldd.onConnectionStateChange(event => {
+      if (event.state === ShielddState.Connected) {
         void this.loadTransactions();
       }
     });
@@ -34,7 +34,7 @@ export class TransactionsStore {
    * Initialize the store and load initial data
    */
   async initialize() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       // Connection not ready yet, will retry when connection is established
       return;
     }
@@ -55,7 +55,7 @@ export class TransactionsStore {
    * Load transactions from the service using the same pattern as transactions-v2.ts
    */
   async loadTransactions() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
@@ -64,7 +64,7 @@ export class TransactionsStore {
 
     try {
       const txInfos: TransactionInfo[] = [];
-      const txInfoStream = this.rootStore.penumbraService.getTransactionInfoStream({});
+      const txInfoStream = this.rootStore.shielddService.getTransactionInfoStream({});
 
       for await (const txInfoResponse of txInfoStream) {
         if (txInfoResponse.txInfo) {

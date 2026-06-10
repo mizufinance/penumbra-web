@@ -48,7 +48,7 @@ type Story = StoryObj<typeof TextInput>;
 export const Basic: Story = {
   args: {
     actionType: 'default',
-    placeholder: 'penumbra1abc123...',
+    placeholder: 'shieldd1abc123...',
     value: '',
     disabled: false,
     type: 'text',

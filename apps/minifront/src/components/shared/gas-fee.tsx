@@ -1,11 +1,11 @@
-import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
+import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
 import {
   SegmentedPicker,
   SegmentedPickerOption,
 } from '@mizufinance/ui-deprecated/components/ui/segmented-picker';
 import { InputBlock } from './input-block';
 import { ValueViewComponent } from '@mizufinance/ui-deprecated/components/ui/value';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 const FEE_TIER_OPTIONS: SegmentedPickerOption<FeeTier_Tier>[] = [
   {

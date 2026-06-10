@@ -1,5 +1,5 @@
 [package]
-name = "penumbra-wasm"
+name = "shieldd-wasm"
 version = "2.0.0"
 edition = "2021"
 
@@ -11,19 +11,19 @@ default = ["console_error_panic_hook"]
 mock-database = []
 
 [dependencies]
-penumbra-asset = { path = "../../../vendor/penumbra/crates/core/asset", package = "penumbra-sdk-asset" }
-penumbra-compact-block = { path = "../../../vendor/penumbra/crates/core/component/compact-block", package = "penumbra-sdk-compact-block", default-features = false }
-penumbra-compliance = { path = "../../../vendor/penumbra/crates/core/component/compliance", package = "penumbra-sdk-compliance", default-features = false }
-penumbra-fee = { path = "../../../vendor/penumbra/crates/core/component/fee", package = "penumbra-sdk-fee", default-features = false }
-penumbra-governance = { path = "../../../vendor/penumbra/crates/core/component/governance", package = "penumbra-sdk-governance", default-features = false }
-penumbra-keys = { path = "../../../vendor/penumbra/crates/core/keys", package = "penumbra-sdk-keys" }
-penumbra-num = { path = "../../../vendor/penumbra/crates/core/num", package = "penumbra-sdk-num" }
-penumbra-proof-params = { path = "../../../vendor/penumbra/crates/crypto/proof-params", package = "penumbra-sdk-proof-params", default-features = false }
-penumbra-proto = { path = "../../../vendor/penumbra/crates/proto", package = "penumbra-sdk-proto", default-features = false }
-penumbra-sct = { path = "../../../vendor/penumbra/crates/core/component/sct", package = "penumbra-sdk-sct", default-features = false }
-penumbra-shielded-pool = { path = "../../../vendor/penumbra/crates/core/component/shielded-pool", package = "penumbra-sdk-shielded-pool", default-features = false }
-penumbra-tct = { path = "../../../vendor/penumbra/crates/crypto/tct", package = "penumbra-sdk-tct" }
-penumbra-transaction = { path = "../../../vendor/penumbra/crates/core/transaction", package = "penumbra-sdk-transaction", default-features = false }
+shieldd-asset = { path = "../../../vendor/shieldd/crates/core/asset", package = "shieldd-sdk-asset" }
+shieldd-compact-block = { path = "../../../vendor/shieldd/crates/core/component/compact-block", package = "shieldd-sdk-compact-block", default-features = false }
+shieldd-compliance = { path = "../../../vendor/shieldd/crates/core/component/compliance", package = "shieldd-sdk-compliance", default-features = false }
+shieldd-fee = { path = "../../../vendor/shieldd/crates/core/component/fee", package = "shieldd-sdk-fee", default-features = false }
+shieldd-governance = { path = "../../../vendor/shieldd/crates/core/component/governance", package = "shieldd-sdk-governance", default-features = false }
+shieldd-keys = { path = "../../../vendor/shieldd/crates/core/keys", package = "shieldd-sdk-keys" }
+shieldd-num = { path = "../../../vendor/shieldd/crates/core/num", package = "shieldd-sdk-num" }
+shieldd-proof-params = { path = "../../../vendor/shieldd/crates/crypto/proof-params", package = "shieldd-sdk-proof-params", default-features = false }
+shieldd-proto = { path = "../../../vendor/shieldd/crates/proto", package = "shieldd-sdk-proto", default-features = false }
+shieldd-sct = { path = "../../../vendor/shieldd/crates/core/component/sct", package = "shieldd-sdk-sct", default-features = false }
+shieldd-shielded-pool = { path = "../../../vendor/shieldd/crates/core/component/shielded-pool", package = "shieldd-sdk-shielded-pool", default-features = false }
+shieldd-tct = { path = "../../../vendor/shieldd/crates/crypto/tct", package = "shieldd-sdk-tct" }
+shieldd-transaction = { path = "../../../vendor/shieldd/crates/core/transaction", package = "shieldd-sdk-transaction", default-features = false }
 
 anyhow = "1.0.89"
 ark-ff = { version = "0.5.0", features = ["std"] }

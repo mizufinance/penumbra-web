@@ -6,8 +6,8 @@ import { AssetValueInput } from '@mizufinance/ui/AssetValueInput';
 import { Button } from '@mizufinance/ui/Button';
 import { Text } from '@mizufinance/ui/Text';
 import { ValueViewComponent } from '@mizufinance/ui/ValueView';
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { FeeTier_Tier } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { FeeTier_Tier } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
 import { Send, AlertCircle, Fuel } from 'lucide-react';
 import { Density } from '@mizufinance/ui/Density';
 

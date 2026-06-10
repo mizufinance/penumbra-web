@@ -106,7 +106,7 @@ const PALETTE = {
 
 /**
  * Call `theme.spacing(x)`, where `x` is the number of spacing units (in the
- * Penumbra theme, 1 spacing unit = 4px) that you want to interpolate into your
+ * Shieldd theme, 1 spacing unit = 4px) that you want to interpolate into your
  * CSS or JavaScript. By default, returns a string with the number of pixels
  * suffixed with `px` -- e.g., `theme.spacing(4)` returns `'16px'`. Pass
  * `number` as the second argument to get back a number of pixels -- e.g.,
@@ -268,7 +268,7 @@ export type TextColorVariant = keyof Theme['color']['text'];
 
 /**
  * Merge styled-components' `DefaultTheme` interface with our interface above.
- * Since we're defining this in a code file that consumers of PenumbraUI will
+ * Since we're defining this in a code file that consumers of ShielddUI will
  * import, they'll get the updated theme typings as well.
  */
 declare module 'styled-components' {

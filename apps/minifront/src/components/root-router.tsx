@@ -9,8 +9,6 @@ import { SendLayout } from './send/layout';
 import { SendForm } from './send/send-form';
 import { Receive } from './send/receive';
 import { ErrorBoundary } from './shared/error-boundary';
-import { SwapLayout } from './swap/layout';
-import { StakingLayout } from './staking/layout';
 import { IbcLayout } from './ibc/layout';
 import { abortLoader } from '../abort-loader';
 import type { Router } from '@remix-run/router';
@@ -52,17 +50,9 @@ export const rootRouter: Router = createHashRouter([
         ],
       },
       {
-        path: PagePath.SWAP,
-        element: <SwapLayout />,
-      },
-      {
         path: PagePath.TRANSACTION_DETAILS,
         element: <TxDetails />,
         errorElement: <TxDetailsErrorBoundary />,
-      },
-      {
-        path: PagePath.STAKING,
-        element: <StakingLayout />,
       },
       {
         path: PagePath.DEPOSIT_SKIP,
