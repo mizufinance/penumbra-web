@@ -1,7 +1,7 @@
 use anyhow::anyhow;
+use regex::Regex;
 use shieldd_asset::asset::Metadata as MetadataDomainType;
 use shieldd_proto::{core::asset::v1::Metadata, DomainType};
-use regex::Regex;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::{error::WasmResult, utils};

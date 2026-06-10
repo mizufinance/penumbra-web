@@ -1,6 +1,8 @@
 use std::collections::BTreeMap;
 
 use indexed_db_futures::IdbDatabase;
+use serde::{Deserialize, Serialize};
+use serde_wasm_bindgen::Serializer;
 use shieldd_compact_block::{CompactBlock, StatePayload};
 use shieldd_keys::{Address, FullViewingKey};
 use shieldd_proto::DomainType;
@@ -8,8 +10,6 @@ use shieldd_sct::Nullifier;
 use shieldd_shielded_pool::{note, Note};
 use shieldd_tct::Witness::*;
 use shieldd_tct::{self as tct, StateCommitment};
-use serde::{Deserialize, Serialize};
-use serde_wasm_bindgen::Serializer;
 use tct::storage::{StoreCommitment, StoreHash, StoredPosition, Updates};
 use tct::{Forgotten, Tree};
 use wasm_bindgen::prelude::wasm_bindgen;

@@ -1,8 +1,8 @@
+use rand_core::OsRng;
 use shieldd_keys::keys::{AddressIndex, Bip44Path, SeedPhrase, SpendKey};
 use shieldd_keys::{Address, FullViewingKey};
 use shieldd_proto::core::keys::v1 as pb;
 use shieldd_proto::DomainType;
-use rand_core::OsRng;
 use std::str::FromStr;
 use wasm_bindgen::prelude::*;
 

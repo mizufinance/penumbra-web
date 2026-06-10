@@ -1,5 +1,6 @@
 extern crate core;
 
+use rand_core::OsRng;
 use shieldd_keys::keys::{
     AddressIndex, Bip44Path, SeedPhrase, SpendKey, SpendKeyBytes, WalletId, SPENDKEY_LEN_BYTES,
 };
@@ -9,8 +10,6 @@ use shieldd_wasm::keys::{
     forwarding_addr_inner, generate_spend_key, get_address_by_index, get_full_viewing_key,
     get_wallet_id, is_controlled_address,
 };
-use rand_core::OsRng;
-use std::str::FromStr;
 
 const TEST_SEED_PHRASE: &str = "comfort ten front cycle churn burger oak absent rice ice urge result art couple benefit cabbage frequent obscure hurry trick segment cool job debate";
 

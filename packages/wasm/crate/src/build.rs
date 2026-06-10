@@ -3,6 +3,8 @@ use crate::utils;
 use crate::view_server::{load_tree, StoredTree};
 use anyhow::{anyhow, Context};
 use decaf377::Fq;
+use rand_core::OsRng;
+use serde::Serialize;
 use shieldd_keys::{keys::SpendKey, symmetric::PayloadKey, FullViewingKey};
 use shieldd_proto::DomainType;
 use shieldd_shielded_pool::{
@@ -17,8 +19,6 @@ use shieldd_transaction::{
     plan::{ActionPlan, TransactionPlan},
     Action, AuthorizationData, Transaction, WitnessData,
 };
-use rand_core::OsRng;
-use serde::Serialize;
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
 #[derive(Serialize)]

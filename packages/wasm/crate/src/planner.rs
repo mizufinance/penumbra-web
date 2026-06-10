@@ -1,5 +1,6 @@
 use anyhow::{anyhow, Context};
 use decaf377::Fr;
+use rand_core::OsRng;
 use shieldd_asset::Value;
 use shieldd_keys::keys::AddressIndex;
 use shieldd_keys::{Address, FullViewingKey};
@@ -12,7 +13,6 @@ use shieldd_shielded_pool::{
 };
 use shieldd_transaction::memo::MemoPlaintext;
 use shieldd_transaction::{plan::MemoPlan, ActionPlan, TransactionParameters, TransactionPlan};
-use rand_core::OsRng;
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 

@@ -1,8 +1,8 @@
 use std::num::TryFromIntError;
 
-use shieldd_tct::error::InsertError;
 use prost::DecodeError as ProstDecodeError;
 use serde_wasm_bindgen::Error;
+use shieldd_tct::error::InsertError;
 use thiserror::Error;
 use wasm_bindgen::{JsError, JsValue};
 use web_sys::DomException;

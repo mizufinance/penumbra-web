@@ -1,3 +1,4 @@
+#![allow(clippy::mutable_key_type, clippy::map_entry)]
 use anyhow::{anyhow, Result};
 use base64::{engine::general_purpose::STANDARD as BASE64_STANDARD, Engine as _};
 use decaf377::{Fq, Fr};
@@ -717,8 +718,7 @@ fn parse_merkle_path(path: Option<pb::MerklePath>) -> MerklePath {
 }
 
 fn default_unregulated_asset_proof() -> (MerklePath, u64, IndexedLeaf, bool) {
-    let default_leaf =
-        IndexedLeaf::with_default_policy(Fq::from(0u64), 0, indexed_tree::FQ_MAX.clone());
+    let default_leaf = IndexedLeaf::with_default_policy(Fq::from(0u64), 0, *indexed_tree::FQ_MAX);
     (MerklePath::default(), 0, default_leaf, false)
 }
 

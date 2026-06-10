@@ -2,6 +2,7 @@
 use std::future::IntoFuture;
 
 use indexed_db_futures::IdbDatabase;
+use serde::{Deserialize, Serialize};
 use shieldd_asset::asset::{Id, Metadata};
 use shieldd_fee::GasPrices;
 use shieldd_keys::keys::AddressIndex;
@@ -13,7 +14,6 @@ use shieldd_proto::{
 };
 use shieldd_sct::Nullifier;
 use shieldd_shielded_pool::{fmd, note, Note};
-use serde::{Deserialize, Serialize};
 
 use crate::database::indexed_db::open_idb_database;
 use crate::database::interface::Database;
