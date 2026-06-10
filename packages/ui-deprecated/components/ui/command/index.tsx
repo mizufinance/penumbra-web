@@ -33,8 +33,9 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   );
 };
 
-export interface CommandInputProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input> {
+export interface CommandInputProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Input
+> {
   ref?: React.Ref<HTMLInputElement>;
 }
 
@@ -56,8 +57,9 @@ const CommandInput = React.forwardRef<
 ));
 CommandInput.displayName = CommandPrimitive.Input.displayName;
 
-export interface CommandListProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.List> {
+export interface CommandListProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive.List
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -73,8 +75,9 @@ const CommandList = React.forwardRef<
 ));
 CommandList.displayName = CommandPrimitive.List.displayName;
 
-export interface CommandEmptyProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty> {
+export interface CommandEmptyProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Empty
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -87,8 +90,9 @@ const CommandEmpty = ({ ref, className, ...props }: CommandEmptyProps & { classN
 );
 CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
 
-export interface CommandGroupProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group> {
+export interface CommandGroupProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Group
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -104,8 +108,9 @@ const CommandGroup = React.forwardRef<
 ));
 CommandGroup.displayName = CommandPrimitive.Group.displayName;
 
-export interface CommandSeparatorProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator> {
+export interface CommandSeparatorProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Separator
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -118,8 +123,9 @@ const CommandSeparator = ({ className, ref, ...props }: CommandSeparatorProps) =
 );
 CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
 
-export interface CommandItemProps
-  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item> {
+export interface CommandItemProps extends React.ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Item
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 

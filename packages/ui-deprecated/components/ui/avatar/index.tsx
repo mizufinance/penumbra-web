@@ -19,8 +19,9 @@ const Avatar = ({ className, ref, ...props }: AvatarProps) => (
 Avatar.displayName = AvatarPrimitive.Root.displayName;
 
 // Define and Export Props interface including ref
-export interface AvatarImageProps
-  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {
+export interface AvatarImageProps extends React.ComponentPropsWithoutRef<
+  typeof AvatarPrimitive.Image
+> {
   ref?: React.Ref<HTMLImageElement>;
 }
 
@@ -34,8 +35,9 @@ const AvatarImage = ({ className, ref, ...props }: AvatarImageProps) => (
 AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
 // Define and Export Props interface including ref
-export interface AvatarFallbackProps
-  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> {
+export interface AvatarFallbackProps extends React.ComponentPropsWithoutRef<
+  typeof AvatarPrimitive.Fallback
+> {
   ref?: React.Ref<HTMLSpanElement>;
 }
 

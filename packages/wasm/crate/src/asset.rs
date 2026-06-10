@@ -1,6 +1,6 @@
 use crate::error::WasmResult;
-use penumbra_asset::asset::Id;
-use penumbra_proto::DomainType;
+use shieldd_asset::asset::Id;
+use shieldd_proto::DomainType;
 use wasm_bindgen::prelude::*;
 
 /// generate the appropriate AssetId for a binary-serialized protobuf

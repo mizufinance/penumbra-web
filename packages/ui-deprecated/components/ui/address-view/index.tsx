@@ -1,8 +1,8 @@
 import { AddressIcon } from '../address/address-icon';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { CopyToClipboardIconButton } from '../copy-to-clipboard/copy-to-clipboard-icon-button';
 import { AddressComponent } from '../address/address-component';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 
 interface AddressViewProps {
   view: AddressView | undefined;

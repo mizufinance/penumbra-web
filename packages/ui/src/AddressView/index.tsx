@@ -1,7 +1,7 @@
 import cn from 'clsx';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { getAddressIndex } from '@mizufinance/getters/address-view';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 import { CopyToClipboardButton } from '../CopyToClipboardButton';
 import { AddressIcon } from './AddressIcon';
 import { Text } from '../Text';

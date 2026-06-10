@@ -1,4 +1,4 @@
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 
 export const AMOUNT_ZERO = new Amount({
   hi: 0n,

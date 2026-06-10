@@ -5,8 +5,8 @@ import {
   AddressIndex,
   AddressView,
   FullViewingKey,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { addressFromBech32m } from '@mizufinance/bech32m/penumbra';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { addressFromBech32m } from '@mizufinance/bech32m/shieldd';
 
 const mockGetAddressIndexByAddress = vi.hoisted(() => vi.fn());
 
@@ -16,7 +16,7 @@ vi.mock('@mizufinance/wasm/address', () => ({
 
 describe('getAddressView()', () => {
   const addressAsBech32 =
-    'penumbra147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahh09cxmz';
+    'shieldd147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahh09cxmz';
   const address = new Address(addressFromBech32m(addressAsBech32));
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 /**
  * A default `ValueView` to render when we don't have any balance data for a
  * particular token.

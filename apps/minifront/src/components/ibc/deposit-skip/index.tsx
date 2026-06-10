@@ -3,12 +3,12 @@ import { Widget } from '@skip-go/widget';
 const defaultRoute = {
   srcChainId: 'noble-1',
   srcAssetDenom: 'ausdy',
-  destChainId: 'penumbra-1',
+  destChainId: 'shieldd-1',
 };
 
 const filter = {
   destination: {
-    'penumbra-1': undefined,
+    'shieldd-1': undefined,
   },
 };
 

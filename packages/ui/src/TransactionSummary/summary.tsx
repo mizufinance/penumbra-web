@@ -2,7 +2,7 @@ import { ElementType, Fragment, ReactNode } from 'react';
 import cn from 'clsx';
 import { Dot, ArrowRight } from 'lucide-react';
 
-import { TransactionInfo } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { TransactionInfo } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 
 import { GetMetadata } from '../ActionView/types';
 import { AddressViewComponent } from '../AddressView';

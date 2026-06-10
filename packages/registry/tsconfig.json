@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
+    "preserveWatchOutput": true,
+    "rootDir": "src",
+    "target": "ESNext",
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  },
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "include": ["src/**/*.ts", "src/**/*.json"],
+  "exclude": ["**/*.test.ts"]
+}

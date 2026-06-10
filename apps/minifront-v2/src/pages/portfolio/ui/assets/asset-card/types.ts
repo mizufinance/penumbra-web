@@ -1,5 +1,5 @@
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 /**
  * Represents an asset with its display information

@@ -1,12 +1,12 @@
-use penumbra_keys::{keys::AddressIndex, AddressView};
-use penumbra_proto::{view::v1 as pb, DomainType};
-use penumbra_sct::{CommitmentSource, Nullifier};
-use penumbra_shielded_pool::{note, Note};
-use penumbra_tct as tct;
 use serde::{Deserialize, Serialize};
+use shieldd_keys::{keys::AddressIndex, AddressView};
+use shieldd_proto::{view::v1 as pb, DomainType};
+use shieldd_sct::{CommitmentSource, Nullifier};
+use shieldd_shielded_pool::{note, Note};
+use shieldd_tct as tct;
 use std::convert::{TryFrom, TryInto};
 
-// We sadly have to vendor this code as penumbra-view package cannot be compiled with wasm-pack
+// We sadly have to vendor this code as shieldd-view package cannot be compiled with wasm-pack
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(try_from = "pb::SpendableNoteRecord", into = "pb::SpendableNoteRecord")]
 pub struct SpendableNoteRecord {

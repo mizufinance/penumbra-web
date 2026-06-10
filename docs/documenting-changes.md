@@ -5,7 +5,7 @@ documentation for the release notes.
 
 ```
 $ pnpm changeset
-> penumbra-web@changeset
+> shieldd-web@changeset
 
 🦋  Which packages would you like to include?
 ◯ changed packages

@@ -1,5 +1,5 @@
-use penumbra_proto::DomainType;
-use penumbra_stake::{DelegationToken, IdentityKey};
+use shieldd_proto::DomainType;
+use shieldd_stake::{DelegationToken, IdentityKey};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::error::WasmResult;
@@ -7,7 +7,7 @@ use crate::utils;
 
 /// get delegation asset by validator identity key
 /// Arguments:
-///     validator_identity_key: `penumbra_stake::IdentityKey`
+///     validator_identity_key: `shieldd_stake::IdentityKey`
 /// Returns: `Uint8Array` representing a `Metadata`
 #[wasm_bindgen]
 pub fn get_delegation_asset(validator_identity_key: &[u8]) -> WasmResult<Vec<u8>> {

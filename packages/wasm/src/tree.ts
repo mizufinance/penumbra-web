@@ -1,5 +1,5 @@
 import { sct_position } from '../wasm/index.js';
-import { Epoch } from '@mizufinance/protobuf/penumbra/core/component/sct/v1/sct_pb';
+import { Epoch } from '@mizufinance/protobuf/shieldd/core/component/sct/v1/sct_pb';
 
 /**
  * Returns a serialized representation of a SCT position

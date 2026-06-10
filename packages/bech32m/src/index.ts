@@ -2,32 +2,32 @@ import SPEC from './format/index.js';
 
 export default SPEC;
 
-export const PENUMBRA_BECH32M_ADDRESS_LENGTH = SPEC.penumbra.stringLength;
-export const PENUMBRA_BECH32M_ADDRESS_PREFIX = SPEC.penumbra.prefix;
+export const SHIELDD_BECH32M_ADDRESS_LENGTH = SPEC.shieldd.stringLength;
+export const SHIELDD_BECH32M_ADDRESS_PREFIX = SPEC.shieldd.prefix;
 
-export const PENUMBRA_BECH32M_ASSETID_LENGTH = SPEC.passet.stringLength;
-export const PENUMBRA_BECH32M_ASSETID_PREFIX = SPEC.passet.prefix;
+export const SHIELDD_BECH32M_ASSETID_LENGTH = SPEC.passet.stringLength;
+export const SHIELDD_BECH32M_ASSETID_PREFIX = SPEC.passet.prefix;
 
-export const PENUMBRA_BECH32M_AUCTION_LENGTH = SPEC.pauctid.stringLength;
-export const PENUMBRA_BECH32M_AUCTION_PREFIX = SPEC.pauctid.prefix;
+export const SHIELDD_BECH32M_AUCTION_LENGTH = SPEC.pauctid.stringLength;
+export const SHIELDD_BECH32M_AUCTION_PREFIX = SPEC.pauctid.prefix;
 
-export const PENUMBRA_BECH32M_FULLVIEWINGKEY_LENGTH = SPEC.penumbrafullviewingkey.stringLength;
-export const PENUMBRA_BECH32M_FULLVIEWINGKEY_PREFIX = SPEC.penumbrafullviewingkey.prefix;
+export const SHIELDD_BECH32M_FULLVIEWINGKEY_LENGTH = SPEC.shielddfullviewingkey.stringLength;
+export const SHIELDD_BECH32M_FULLVIEWINGKEY_PREFIX = SPEC.shielddfullviewingkey.prefix;
 
-export const PENUMBRA_BECH32M_GOVERNANCEID_LENGTH = SPEC.penumbragovern.stringLength;
-export const PENUMBRA_BECH32M_GOVERNANCEID_PREFIX = SPEC.penumbragovern.prefix;
+export const SHIELDD_BECH32M_GOVERNANCEID_LENGTH = SPEC.shielddgovern.stringLength;
+export const SHIELDD_BECH32M_GOVERNANCEID_PREFIX = SPEC.shielddgovern.prefix;
 
-export const PENUMBRA_BECH32M_SPENDKEY_LENGTH = SPEC.penumbraspendkey.stringLength;
-export const PENUMBRA_BECH32M_SPENDKEY_PREFIX = SPEC.penumbraspendkey.prefix;
+export const SHIELDD_BECH32M_SPENDKEY_LENGTH = SPEC.shielddspendkey.stringLength;
+export const SHIELDD_BECH32M_SPENDKEY_PREFIX = SPEC.shielddspendkey.prefix;
 
-export const PENUMBRA_BECH32M_IDENTITYKEY_LENGTH = SPEC.penumbravalid.stringLength;
-export const PENUMBRA_BECH32M_IDENTITYKEY_PREFIX = SPEC.penumbravalid.prefix;
+export const SHIELDD_BECH32M_IDENTITYKEY_LENGTH = SPEC.shielddvalid.stringLength;
+export const SHIELDD_BECH32M_IDENTITYKEY_PREFIX = SPEC.shielddvalid.prefix;
 
-export const PENUMBRA_BECH32M_WALLETID_LENGTH = SPEC.penumbrawalletid.stringLength;
-export const PENUMBRA_BECH32M_WALLETID_PREFIX = SPEC.penumbrawalletid.prefix;
+export const SHIELDD_BECH32M_WALLETID_LENGTH = SPEC.shielddwalletid.stringLength;
+export const SHIELDD_BECH32M_WALLETID_PREFIX = SPEC.shielddwalletid.prefix;
 
-export const PENUMBRA_BECH32M_POSITIONID_LENGTH = SPEC.plpid.stringLength;
-export const PENUMBRA_BECH32M_POSITIONID_PREFIX = SPEC.plpid.prefix;
+export const SHIELDD_BECH32M_POSITIONID_LENGTH = SPEC.plpid.stringLength;
+export const SHIELDD_BECH32M_POSITIONID_PREFIX = SPEC.plpid.prefix;
 
-export const PENUMBRA_BECH32M_TRANSPARENT_LENGTH = SPEC.tpenumbra.stringLength;
-export const PENUMBRA_BECH32M_TRANSPARENT_PREFIX = SPEC.tpenumbra.prefix;
+export const SHIELDD_BECH32M_TRANSPARENT_LENGTH = SPEC.tshieldd.stringLength;
+export const SHIELDD_BECH32M_TRANSPARENT_PREFIX = SPEC.tshieldd.prefix;

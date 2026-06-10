@@ -6,9 +6,9 @@ import { ZQueryState, createZQuery } from '@mizufinance/zquery';
 import {
   TransactionInfo,
   TransactionInfoResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getTxInfoByHash } from '../fetchers/tx-info-by-hash';
-import { penumbra } from '../penumbra';
+import { shieldd } from '../shieldd';
 
 export interface TransactionSummary {
   height: number;
@@ -22,7 +22,7 @@ const getHash = (tx: TransactionInfoResponse) =>
 
 export const { summaries, useSummaries } = createZQuery({
   name: 'summaries',
-  fetch: () => penumbra.service(ViewService).transactionInfo({}),
+  fetch: () => shieldd.service(ViewService).transactionInfo({}),
   stream: () => {
     const txIdsToKeep = new Set<string>();
     return {

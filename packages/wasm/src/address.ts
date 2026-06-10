@@ -3,7 +3,7 @@ import {
   Address,
   AddressIndex,
   FullViewingKey,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { JsonValue } from '@bufbuild/protobuf';
 
 export const getAddressIndexByAddress = (

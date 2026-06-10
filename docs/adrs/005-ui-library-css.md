@@ -2,13 +2,13 @@
 
 As we prepare to build out our new library of UI components, we need to decide from the get-go how we'll style our components with CSS -- specifically, whether to use Tailwind (which is used throughout Prax and minifront) vs. some other system like CSS modules or CSS-in-JS.
 
-The new UI library will not only be consumed by minifront (and possibly Prax); it will also be consumed by other clients in the Penumbra ecosystem as they build UIs for Penumbra.
+The new UI library will not only be consumed by minifront (and possibly Prax); it will also be consumed by other clients in the Shieldd ecosystem as they build UIs for Shieldd.
 
 ## Pros of using Tailwind
 
 - Tailwind integrates nicely with the code we already have.
-- We could export a Penumbra Tailwind config file that others could use throughout their app, not just for the components we define.
-  - Counterpoint #1: Without using Tailwind, our UI library could just export all needed components and CSS variables for others to build a UI with it. That is, a Tailwind config file isn't necessary for consumers to build a UI with Penumbra UI primitives.
+- We could export a Shieldd Tailwind config file that others could use throughout their app, not just for the components we define.
+  - Counterpoint #1: Without using Tailwind, our UI library could just export all needed components and CSS variables for others to build a UI with it. That is, a Tailwind config file isn't necessary for consumers to build a UI with Shieldd UI primitives.
   - Counterpoint #2: Even if we use e.g. CSS-in-JS for the UI library's styling, we can still export a Tailwind config for others to use.
 - Requiring consumers to use Tailwind does not cause a production performance hit, since Tailwind runs at build-time, not runtime.
 - Using CSS modules or CSS-in-JS for our UI library _might_ require us to have duplicate code -- e.g., defining our colors, typefaces, etc. in both Tailwind (for minifront/Prax) and in CSS modules (for the UI library). Using Tailwind negates this issue.
@@ -27,7 +27,7 @@ The new UI library will not only be consumed by minifront (and possibly Prax); i
   - This relates to the first point: if consumers are required to _install and configure_ Tailwind just to use our library, they won't be happy about having to install a dependency they can't actually use.
 - Consumers have to import `.css` files alongside our component files.
 - Even if we figured out a way to compile our Tailwind CSS with our components so that consumers didn't need to install Tailwind, the resultant CSS would be inefficiently big.
-  - For example, if three different Penumbra UI library components use `bg-card-radial`, then either A) for each component that uses that class, the class will need to be defined in that component's CSS file (resulting in code duplication), or B) we'll export a single kitchen-sink CSS file containing all the styles for _all_ the Penumbra UI library components, including all of those that the consumer doesn't use. Both of these result in overhead.
+  - For example, if three different Shieldd UI library components use `bg-card-radial`, then either A) for each component that uses that class, the class will need to be defined in that component's CSS file (resulting in code duplication), or B) we'll export a single kitchen-sink CSS file containing all the styles for _all_ the Shieldd UI library components, including all of those that the consumer doesn't use. Both of these result in overhead.
   - Counterpoint: The same will be true even if we use CSS modules or native CSS.
 
 ## CSS-in-JS
@@ -67,4 +67,4 @@ Still others include a global CSS file that you need to import to use their UI l
 
 ## Decision
 
-Given the downsides of A) requiring consumers to import CSS files alongside component files (if we went with the CSS modules or native CSS route), and B) requiring users to use Tailwind (if we went the Tailwind route), we've decided to use CSS-in-JS so that consumers can import components out of the box with the styling they want. We've further decided to export a Tailwind configuration for the Penumbra UI, so that consumers who use Tailwind can use the same theme values as the Penumbra UI library. The Penumbra UI library will also use the Tailwind configuration for its CSS-in-JS values.
+Given the downsides of A) requiring consumers to import CSS files alongside component files (if we went with the CSS modules or native CSS route), and B) requiring users to use Tailwind (if we went the Tailwind route), we've decided to use CSS-in-JS so that consumers can import components out of the box with the styling they want. We've further decided to export a Tailwind configuration for the Shieldd UI, so that consumers who use Tailwind can use the same theme values as the Shieldd UI library. The Shieldd UI library will also use the Tailwind configuration for its CSS-in-JS values.

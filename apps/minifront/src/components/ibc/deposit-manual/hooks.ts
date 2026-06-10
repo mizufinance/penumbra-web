@@ -6,7 +6,7 @@ import { augmentToAsset, toDisplayAmount } from './asset-utils';
 import { Asset } from '@chain-registry/types';
 import { useRegistry } from '../../../fetchers/registry.ts';
 import { sha256HashStr } from '@mizufinance/crypto-web/sha256';
-import { Chain } from '@penumbra-labs/registry';
+import { Chain } from '@mizufinance/registry';
 import { Coin, StargateClient } from '@cosmjs/stargate';
 
 export const useChainConnector = () => {
@@ -58,7 +58,7 @@ export interface CosmosAssetBalance {
   displayAmount: string;
   icon?: string;
   assetType?: AssetType;
-  isPenumbra: boolean;
+  isShieldd: boolean;
 }
 
 interface UseCosmosChainBalancesRes {
@@ -83,12 +83,12 @@ const getIconFromAsset = (asset: Asset): string | undefined => {
   return undefined;
 };
 
-// Generates penumbra token addresses on counterparty chains.
+// Generates shieldd token addresses on counterparty chains.
 // IBC address derived from sha256 has of path: https://tutorials.cosmos.network/tutorials/6-ibc-dev/
-const generatePenumbraIbcDenoms = async (chains: Chain[]): Promise<string[]> => {
+const generateShielddIbcDenoms = async (chains: Chain[]): Promise<string[]> => {
   const ibcAddrs: string[] = [];
   for (const c of chains) {
-    const ibcStr = `transfer/${c.counterpartyChannelId}/upenumbra`;
+    const ibcStr = `transfer/${c.counterpartyChannelId}/ushieldd`;
     const encoder = new TextEncoder();
     const encodedString = encoder.encode(ibcStr);
 
@@ -98,7 +98,7 @@ const generatePenumbraIbcDenoms = async (chains: Chain[]): Promise<string[]> => 
   return ibcAddrs;
 };
 
-const usePenumbraIbcDenoms = () => {
+const useShielddIbcDenoms = () => {
   const { data: registry, isLoading: registryIsLoading, error: registryErr } = useRegistry();
 
   const {
@@ -106,8 +106,8 @@ const usePenumbraIbcDenoms = () => {
     isLoading: ibcAddrsLoading,
     error: ibcAddrssErr,
   } = useQuery({
-    queryKey: ['penumbraIbcDenoms', registry],
-    queryFn: async () => generatePenumbraIbcDenoms(registry?.ibcConnections ?? []),
+    queryKey: ['shielddIbcDenoms', registry],
+    queryFn: async () => generateShielddIbcDenoms(registry?.ibcConnections ?? []),
     enabled: Boolean(registry),
   });
 
@@ -123,10 +123,10 @@ export const useCosmosChainBalances = (): UseCosmosChainBalancesRes => {
   const { data, isLoading: balancesIsLoading, error: balancesError } = useCosmosChainBalance();
 
   const {
-    data: penumbraIbcAddrs,
-    isLoading: penumbraIbcAddrsLoading,
-    error: penumbraIbcAddrsErr,
-  } = usePenumbraIbcDenoms();
+    data: shielddIbcAddrs,
+    isLoading: shielddIbcAddrsLoading,
+    error: shielddIbcAddrsErr,
+  } = useShielddIbcDenoms();
 
   const augmentedAssets = data?.map(coin => {
     const asset = augmentToAsset(coin.denom, chain.chain_name);
@@ -136,14 +136,14 @@ export const useCosmosChainBalances = (): UseCosmosChainBalancesRes => {
       displayAmount: toDisplayAmount(asset, coin),
       icon: getIconFromAsset(asset),
       assetType: assetTypeCheck(asset.type_asset),
-      isPenumbra: (penumbraIbcAddrs ?? []).includes(coin.denom),
+      isShieldd: (shielddIbcAddrs ?? []).includes(coin.denom),
     };
   });
 
   return {
     data: augmentedAssets,
-    isLoading: balancesIsLoading || penumbraIbcAddrsLoading,
-    error: balancesError ?? penumbraIbcAddrsErr,
+    isLoading: balancesIsLoading || shielddIbcAddrsLoading,
+    error: balancesError ?? shielddIbcAddrsErr,
   };
 };
 

@@ -2,7 +2,7 @@
   "name": "@mizufinance/protobuf",
   "version": "11.0.1-bankd-demo.1",
   "license": "(MIT OR Apache-2.0)",
-  "description": "Exports a `@bufbuild/protobuf` type registry with all message types necessary to communicate with a Penumbra extension",
+  "description": "Exports a `@bufbuild/protobuf` type registry with all message types necessary to communicate with a Shieldd extension",
   "type": "module",
   "engine": {
     "node": ">=22"
@@ -16,11 +16,11 @@
     "gen:ibc": "buf generate buf.build/cosmos/ibc:7ab44ae956a0488ea04e04511efa5f70",
     "gen:ics23": "buf generate buf.build/cosmos/ics23:55085f7c710a45f58fa09947208eb70b",
     "gen:noble": "buf generate buf.build/noble-assets/forwarding:5a8609a6772d417584a9c60cd8b80881",
-    "gen:penumbra": "buf generate buf.build/mizufinance/penumbra:28fde75bf1b64d49ad953f4105d7da66",
+    "gen:shieldd": "buf generate ../../vendor/shieldd/proto/shieldd",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "lint:strict": "tsc --noEmit && eslint src --max-warnings 0",
-    "proto": "$npm_execpath run gen:cosmos-sdk --clean && $npm_execpath run gen:ibc && $npm_execpath run gen:ics23 && $npm_execpath run gen:penumbra && $npm_execpath run gen:noble && touch gen/.npmignore",
+    "proto": "$npm_execpath run gen:cosmos-sdk --clean && $npm_execpath run gen:ibc && $npm_execpath run gen:ics23 && $npm_execpath run gen:shieldd && $npm_execpath run gen:noble && touch gen/.npmignore",
     "test": "vitest run"
   },
   "files": [

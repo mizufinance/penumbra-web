@@ -3,7 +3,7 @@ import { CosmosAssetBalance } from '../../components/ibc/deposit-manual/hooks';
 import { ChainWalletContext } from '@cosmos-kit/core';
 import { AllSlices, SliceCreator } from '..';
 import { getAddrByIndex } from '../../fetchers/address';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 import { Toast } from '@mizufinance/ui-deprecated/lib/toast/toast';
 import { shorten } from '@mizufinance/types/string';
 import { calculateFee, GasPrice, SigningStargateClient } from '@cosmjs/stargate';
@@ -17,7 +17,7 @@ import { currentTimePlusTwoDaysRounded } from '../ibc-out';
 import { EncodeObject } from '@cosmjs/proto-signing';
 import { MsgTransfer } from 'cosmjs-types/ibc/applications/transfer/v1/tx';
 import { parseRevisionNumberFromChainId } from './parse-revision-number-from-chain-id';
-import { penumbra } from '../../penumbra.ts';
+import { shieldd } from '../../shieldd.ts';
 import { TendermintProxyService } from '@mizufinance/protobuf';
 
 export interface IbcInSlice {
@@ -63,10 +63,10 @@ export const createIbcInSlice = (): SliceCreator<IbcInSlice> => (set, get) => {
     address: undefined,
     setAddress: async () => {
       const { selectedChain, account } = get().ibcIn;
-      const penumbraAddress = await getPenumbraAddress(account, selectedChain?.chainId);
-      if (penumbraAddress) {
+      const shielddAddress = await getShielddAddress(account, selectedChain?.chainId);
+      if (shielddAddress) {
         set(state => {
-          state.ibcIn.address = penumbraAddress;
+          state.ibcIn.address = shielddAddress;
         });
       }
     },
@@ -132,7 +132,7 @@ const getExplorerPage = (txHash: string, chainId?: string) => {
   return txPage.replace('${txHash}', txHash);
 };
 
-export const getPenumbraAddress = async (
+export const getShielddAddress = async (
   account: number,
   chainId?: string,
 ): Promise<string | undefined> => {
@@ -186,26 +186,26 @@ async function execute(
     throw new Error('No chain has been selected');
   }
 
-  const penumbraChainId = await getChainId();
-  if (!penumbraChainId) {
-    throw new Error('Penumbra chain id could not be retrieved');
+  const shielddChainId = await getChainId();
+  if (!shielddChainId) {
+    throw new Error('Shieldd chain id could not be retrieved');
   }
 
-  const penumbraAddress = await getPenumbraAddress(account, selectedChain.chainId);
-  if (!penumbraAddress) {
-    throw new Error('Penumbra address not available');
+  const shielddAddress = await getShielddAddress(account, selectedChain.chainId);
+  if (!shielddAddress) {
+    throw new Error('Shieldd address not available');
   }
 
-  const { timeoutHeight, timeoutTimestamp } = await getTimeout(penumbraChainId);
+  const { timeoutHeight, timeoutTimestamp } = await getTimeout(shielddChainId);
   const assetMetadata = augmentToAsset(coin.raw.denom, selectedChain.chainName);
 
   const transferToken = fromDisplayAmount(assetMetadata, coin.displayDenom, amount);
 
   const params: MsgTransfer = {
     sourcePort: 'transfer',
-    sourceChannel: await getCounterpartyChannelId(selectedChain, penumbraChainId),
+    sourceChannel: await getCounterpartyChannelId(selectedChain, shielddChainId),
     sender,
-    receiver: penumbraAddress,
+    receiver: shielddAddress,
     token: transferToken,
     timeoutHeight,
     timeoutTimestamp,
@@ -227,9 +227,9 @@ async function execute(
 
 const getCounterpartyChannelId = async (
   counterpartyChain: ChainInfo,
-  penumbraChainId: string,
+  shielddChainId: string,
 ): Promise<string> => {
-  const registry = await chainRegistryClient.remote.get(penumbraChainId);
+  const registry = await chainRegistryClient.remote.get(shielddChainId);
 
   const counterpartyChannelId = registry.ibcConnections.find(
     c => c.chainId === counterpartyChain.chainId,
@@ -243,9 +243,9 @@ const getCounterpartyChannelId = async (
   return counterpartyChannelId;
 };
 
-// Get timeout from penumbra chain blocks
+// Get timeout from shieldd chain blocks
 const getTimeout = async (chainId: string) => {
-  const { syncInfo } = await penumbra.service(TendermintProxyService).getStatus({});
+  const { syncInfo } = await shieldd.service(TendermintProxyService).getStatus({});
   const height = syncInfo?.latestBlockHeight;
   if (height === undefined) {
     throw new Error('Could not retrieve latest block height from Tendermint');
@@ -253,7 +253,7 @@ const getTimeout = async (chainId: string) => {
 
   const timeoutHeight = {
     revisionNumber: parseRevisionNumberFromChainId(chainId),
-    // We don't know the average block times for the counterparty chain, so just putting in the Penumbra average
+    // We don't know the average block times for the counterparty chain, so just putting in the Shieldd average
     revisionHeight: height + BLOCKS_PER_HOUR * 3n,
   };
   const timeoutTimestamp = currentTimePlusTwoDaysRounded(Date.now());
@@ -278,7 +278,7 @@ export const ibcErrorSelector = (state: AllSlices) => {
     // Testnet coins don't seem to have assetType field. Checking manually for ibc address first.
     isUnsupportedAsset:
       coin &&
-      !coin.isPenumbra &&
+      !coin.isShieldd &&
       (isIbcAsset(coin.raw.denom) || (coin.assetType && coin.assetType !== 'sdk.coin')),
   };
 };

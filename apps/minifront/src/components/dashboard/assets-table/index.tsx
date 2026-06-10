@@ -1,4 +1,4 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { AddressComponent, AddressIcon } from '@mizufinance/ui-deprecated/components/ui/address';
 import { Button } from '@mizufinance/ui-deprecated/components/ui/button';
 import {

@@ -1,7 +1,7 @@
 import { IdbConstants } from '@mizufinance/types/indexed-db';
-import { AddressIndex, IdentityKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressIndex, IdentityKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { get_voting_notes } from '../wasm/index.js';
-import { SpendableNoteRecord } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { SpendableNoteRecord } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { Jsonified } from '@mizufinance/types/jsonified';
 
 /**

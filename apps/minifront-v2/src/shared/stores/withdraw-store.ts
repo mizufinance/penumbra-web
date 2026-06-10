@@ -3,8 +3,8 @@ import { RootStore } from './root-store';
 import {
   BalancesResponse,
   TransactionPlannerRequest,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { ChainRegistryClient } from '@penumbra-labs/registry';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { ChainRegistryClient } from '@mizufinance/registry';
 import { chains } from 'chain-registry';
 import { bech32, bech32m } from 'bech32';
 import { BigNumber } from 'bignumber.js';
@@ -14,11 +14,8 @@ import {
   IbcConnectionService,
   IbcClientService,
 } from '@mizufinance/protobuf';
-import { penumbra } from '../lib/penumbra';
-import {
-  getDisplayDenomExponentFromValueView,
-  getMetadata,
-} from '@mizufinance/getters/value-view';
+import { shieldd } from '../lib/shieldd';
+import { getDisplayDenomExponentFromValueView, getMetadata } from '@mizufinance/getters/value-view';
 import { getAddressIndex } from '@mizufinance/getters/address-view';
 import { toBaseUnit } from '@mizufinance/types/lo-hi';
 import { Height } from '@mizufinance/protobuf/ibc/core/client/v1/client_pb';
@@ -301,7 +298,7 @@ export class WithdrawStore {
     channelId: string,
   ): Promise<{ timeoutTime: bigint; timeoutHeight: Height }> {
     try {
-      const { channel } = await penumbra.service(IbcChannelService).channel({
+      const { channel } = await shieldd.service(IbcChannelService).channel({
         portId: 'transfer',
         channelId,
       });
@@ -315,7 +312,7 @@ export class WithdrawStore {
         throw new Error('No connectionId found in channel');
       }
 
-      const { connection } = await penumbra.service(IbcConnectionService).connection({
+      const { connection } = await shieldd.service(IbcConnectionService).connection({
         connectionId,
       });
 
@@ -324,7 +321,7 @@ export class WithdrawStore {
         throw new Error('No clientId found in connection');
       }
 
-      const { clientState: anyClientState } = await penumbra
+      const { clientState: anyClientState } = await shieldd
         .service(IbcClientService)
         .clientState({ clientId });
 
@@ -386,7 +383,7 @@ export class WithdrawStore {
       addressIndex.randomizer = new Uint8Array();
     }
 
-    const { address: returnAddress } = await penumbra.service(ViewService).ephemeralAddress({
+    const { address: returnAddress } = await shieldd.service(ViewService).ephemeralAddress({
       addressIndex,
     });
 
@@ -402,10 +399,10 @@ export class WithdrawStore {
     let channelId: string | undefined;
 
     if (denom.startsWith('transfer/')) {
-      // IBC voucher coming *into* Penumbra – channel encoded in denom
+      // IBC voucher coming *into* Shieldd – channel encoded in denom
       channelId = denom.split('/')[1];
     } else {
-      // Native Penumbra asset – use the channel configured for the destination chain
+      // Native Shieldd asset – use the channel configured for the destination chain
       channelId = selectedChain.channelId;
     }
 

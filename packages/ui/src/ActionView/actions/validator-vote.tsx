@@ -1,4 +1,4 @@
-import { ValidatorVote } from '@mizufinance/protobuf/penumbra/core/component/governance/v1/governance_pb';
+import { ValidatorVote } from '@mizufinance/protobuf/shieldd/core/component/governance/v1/governance_pb';
 import { UnknownAction } from './unknown';
 
 export interface ValidatorVoteActionProps {

@@ -1,8 +1,8 @@
-import { theme } from './PenumbraUIProvider/theme';
+import { theme } from './ShielddUIProvider/theme';
 
 /**
  * For consumers using Tailwind, this file exports a Tailwind config based on
- * the Penumbra UI theme values.
+ * the Shieldd UI theme values.
  */
 export const tailwindConfig = {
   content: [],
@@ -22,7 +22,7 @@ export const tailwindConfig = {
       ),
 
       // No need to customize spacing, since Tailwind's default is the same as
-      // Penumbra UI's.
+      // Shieldd UI's.
     },
   },
 } as const;

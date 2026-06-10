@@ -1,4 +1,4 @@
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ReactNode } from 'react';
 import { AddressViewComponent } from '../../address-view';
 

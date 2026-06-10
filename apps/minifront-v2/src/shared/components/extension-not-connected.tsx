@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  PenumbraClient,
-  PenumbraNotInstalledError,
-  PenumbraRequestFailure,
+  ShielddClient,
+  ShielddNotInstalledError,
+  ShielddRequestFailure,
 } from '@mizufinance/client';
-import { penumbra } from '../lib/penumbra';
+import { shieldd } from '../lib/shieldd';
 import { FallbackPage } from './fallback-page';
 
 const handleErr = (e: unknown) => {
   if (e instanceof Error && e.cause) {
     switch (e.cause) {
-      case PenumbraRequestFailure.Denied:
+      case ShielddRequestFailure.Denied:
         alert('Connection denied. You may need to un-ignore this site in your extension settings.');
         break;
-      case PenumbraRequestFailure.NeedsLogin:
+      case ShielddRequestFailure.NeedsLogin:
         alert('Not logged in. Please login into the extension and reload the page.');
         break;
       default:
@@ -32,7 +32,7 @@ export const ExtensionNotConnected = () => {
 
   const connect = async (provider: string) => {
     try {
-      await penumbra.connect(provider);
+      await shieldd.connect(provider);
       navigate(0);
     } catch (e) {
       handleErr(e);
@@ -42,7 +42,7 @@ export const ExtensionNotConnected = () => {
   };
 
   const checkProviders = () => {
-    const providers = PenumbraClient.getProviders();
+    const providers = ShielddClient.getProviders();
     const length = Object.keys(providers).length;
     const first = Object.keys(providers)[0];
 
@@ -53,7 +53,7 @@ export const ExtensionNotConnected = () => {
       // TODO: Add provider selection dialog
       void connect(first!);
     } else {
-      throw new PenumbraNotInstalledError();
+      throw new ShielddNotInstalledError();
     }
   };
 
@@ -67,7 +67,7 @@ export const ExtensionNotConnected = () => {
 
   return (
     <FallbackPage
-      title='Welcome to Penumbra'
+      title='Welcome to Shieldd'
       description='Connect to Minifront to view your balances, transfer funds, stake UM, and more.'
       buttonText={!result ? 'Connect Wallet' : 'Reload'}
       onButtonClick={handleButtonClick}

@@ -4,8 +4,10 @@ export interface AbridgedZQueryState<DataType> {
   error?: unknown;
 }
 
-export interface ZQueryState<DataType, FetchArgs extends unknown[] = []>
-  extends AbridgedZQueryState<DataType> {
+export interface ZQueryState<
+  DataType,
+  FetchArgs extends unknown[] = [],
+> extends AbridgedZQueryState<DataType> {
   revalidate: (...args: FetchArgs) => void;
 
   _zQueryInternal: {
@@ -362,16 +364,15 @@ export type UseStore<State> = (<T>(selector: (state: State) => T) => T) & { getS
 export type ZQuery<Name extends string, DataType, FetchArgs extends unknown[]> = Record<
   `use${Capitalize<Name>}`,
   <
-    SelectorType extends
-      | ((zQueryState: AbridgedZQueryState<DataType>) => unknown)
-      | undefined = undefined,
+    SelectorType extends ((zQueryState: AbridgedZQueryState<DataType>) => unknown) | undefined =
+      undefined,
   >(
     options?: UseHookOptions<DataType, SelectorType>,
     ...fetchArgs: FetchArgs
   ) => SelectorType extends (zQueryState: AbridgedZQueryState<DataType>) => infer ReturnType
     ? // Must include `| undefined` in the return type because the first pass
-      // through `useStore` doesn't return a value at all.
-      ReturnType | undefined
+        // through `useStore` doesn't return a value at all.
+        ReturnType | undefined
     : AbridgedZQueryState<DataType>
 > &
   Record<`useRevalidate${Capitalize<Name>}`, () => (...fetchArgs: FetchArgs) => void> &

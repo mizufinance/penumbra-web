@@ -1,7 +1,7 @@
 import type { MouseEventHandler } from 'react';
 import { styled, type DefaultTheme } from 'styled-components';
 import { Wallet } from 'lucide-react';
-import type { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import type { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getFormattedAmtFromValueView } from '@mizufinance/types/value-view';
 import {
   getAddressIndex,

@@ -1,5 +1,5 @@
-import { AssetId, Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { AssetId, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { uint8ArrayToHex } from '@mizufinance/types/hex';
 import { AssetSelectorValue } from './types.ts';
 

@@ -6,12 +6,12 @@
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { AssetsResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AssetsResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getDenomMetadata } from '@mizufinance/getters/assets-response';
 import { RootStore } from './root-store';
-import { penumbra } from '../lib/penumbra';
-import { PenumbraState } from '@mizufinance/client';
+import { shieldd } from '../lib/shieldd';
+import { ShielddState } from '@mizufinance/client';
 
 export class AssetsStore {
   // Observable state
@@ -23,8 +23,8 @@ export class AssetsStore {
     makeAutoObservable(this);
 
     // Listen for connection state changes to retry loading
-    penumbra.onConnectionStateChange(event => {
-      if (event.state === PenumbraState.Connected) {
+    shieldd.onConnectionStateChange(event => {
+      if (event.state === ShielddState.Connected) {
         void this.loadAssets();
       }
     });
@@ -34,7 +34,7 @@ export class AssetsStore {
    * Initialize the store and load initial data
    */
   async initialize() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       // Connection not ready yet, will retry when connection is established
       return;
     }
@@ -55,7 +55,7 @@ export class AssetsStore {
    * Load assets from the service
    */
   async loadAssets() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
@@ -63,7 +63,7 @@ export class AssetsStore {
     this.error = null;
 
     try {
-      const assetsStream = this.rootStore.penumbraService.getAssetsStream();
+      const assetsStream = this.rootStore.shielddService.getAssetsStream();
       const newAssets: AssetsResponse[] = [];
 
       for await (const response of assetsStream) {
@@ -95,7 +95,7 @@ export class AssetsStore {
    * Get asset metadata by asset ID
    */
   getAssetById(assetId: string): Metadata | undefined {
-    return this.allAssets.find(asset => asset.penumbraAssetId?.inner.toString() === assetId);
+    return this.allAssets.find(asset => asset.shielddAssetId?.inner.toString() === assetId);
   }
 
   /**
@@ -122,10 +122,10 @@ export class AssetsStore {
   }
 
   /**
-   * Get the native token metadata (penumbra)
+   * Get the native token metadata (shieldd)
    */
   get nativeToken(): Metadata | undefined {
     // This would need to be implemented based on how native token is identified
-    return this.allAssets.find(asset => asset.symbol === 'UM' || asset.display === 'penumbra');
+    return this.allAssets.find(asset => asset.symbol === 'UM' || asset.display === 'shieldd');
   }
 }

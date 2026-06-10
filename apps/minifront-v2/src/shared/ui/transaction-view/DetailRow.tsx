@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { AddressViewComponent } from '@mizufinance/ui/AddressView';
 import { CopyToClipboardButton } from '@mizufinance/ui/CopyToClipboardButton';
 import { Text, TextProps } from '@mizufinance/ui/Text';

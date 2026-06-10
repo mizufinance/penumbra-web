@@ -1,4 +1,4 @@
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { customize_symbol } from '../wasm/index.js';
 
 /**

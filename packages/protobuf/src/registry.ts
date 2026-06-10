@@ -1,11 +1,11 @@
 import { createRegistry, IMessageTypeRegistry } from '@bufbuild/protobuf';
 
 import * as ibcCore from './services/cosmos-ibc-core.js';
-import * as penumbraCnidarium from './services/penumbra-cnidarium.js';
-import * as penumbraCore from './services/penumbra-core.js';
-import * as penumbraCustody from './services/penumbra-custody.js';
-import * as penumbraUtil from './services/penumbra-util.js';
-import * as penumbraView from './services/penumbra-view.js';
+import * as shielddCnidarium from './services/shieldd-cnidarium.js';
+import * as shielddCore from './services/shieldd-core.js';
+import * as shielddCustody from './services/shieldd-custody.js';
+import * as shielddUtil from './services/shieldd-util.js';
+import * as shielddView from './services/shieldd-view.js';
 import { ClientState, Header } from '../gen/ibc/lightclients/tendermint/v1/tendermint_pb.js';
 
 /**
@@ -15,17 +15,17 @@ import { ClientState, Header } from '../gen/ibc/lightclients/tendermint/v1/tende
  * annotation URLs resolved with this registry.
  *
  * This registry currently contains types for all services used in communication
- * with a Penumbra extension, and should be able to resolve any message type
+ * with a Shieldd extension, and should be able to resolve any message type
  * encountered.
  */
 
 export const typeRegistry: IMessageTypeRegistry = createRegistry(
   ...Object.values(ibcCore),
-  ...Object.values(penumbraCnidarium),
-  ...Object.values(penumbraCore),
-  ...Object.values(penumbraCustody),
-  ...Object.values(penumbraUtil),
-  ...Object.values(penumbraView),
+  ...Object.values(shielddCnidarium),
+  ...Object.values(shielddCore),
+  ...Object.values(shielddCustody),
+  ...Object.values(shielddUtil),
+  ...Object.values(shielddView),
 
   // Types not explicitly referenced by any above services should be added here.
   // Otherwise, it will not be possible to serialize/deserialize these types if,

@@ -3,7 +3,7 @@
   "version": "22.0.2",
   "private": true,
   "license": "(MIT OR Apache-2.0)",
-  "description": "UI components for Penumbra",
+  "description": "UI components for Shieldd",
   "type": "module",
   "engine": {
     "node": ">=22"
@@ -32,7 +32,7 @@
     "./tailwind": "./src/tailwindConfig.ts",
     "./postcss.config.js": "./postcss.config.js",
     "./styles/*": "./styles/*",
-    "./theme": "./src/PenumbraUIProvider/theme.ts",
+    "./theme": "./src/ShielddUIProvider/theme.ts",
     "./utils/*": "./src/utils/*.ts",
     "./hooks/*": "./src/hooks/*/index.ts",
     "./*": "./src/*/index.tsx"

@@ -1,8 +1,8 @@
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { WalletIcon } from '../icons/wallet';
 import { getAmount, getDisplayDenomExponentFromValueView } from '@mizufinance/getters/value-view';
 import { formatAmount } from '@mizufinance/types/amount';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import { cn } from '../../../lib/utils';
 
 /**

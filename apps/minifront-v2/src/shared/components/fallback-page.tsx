@@ -66,8 +66,8 @@ export const FallbackPage = ({
         </Card>
         <div className='mt-4 flex px-3 lg:px-6'>
           <Text detail color='text.secondary' align='center'>
-            Minifront is a minimal frontend for interacting with the Penumbra blockchain—embedded
-            into every Penumbra RPC endpoint.
+            Minifront is a minimal frontend for interacting with the Shieldd blockchain—embedded
+            into every Shieldd RPC endpoint.
           </Text>
         </div>
       </div>

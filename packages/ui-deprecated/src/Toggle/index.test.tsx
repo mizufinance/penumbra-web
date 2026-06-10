@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
 import { Toggle } from '.';
 import { fireEvent, render } from '@testing-library/react';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<Toggle />', () => {
   it('toggles from false to true', () => {
     const onChange = vi.fn();
 
     const { getByLabelText } = render(<Toggle label='Toggle' value={false} onChange={onChange} />, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     fireEvent.click(getByLabelText('Toggle'));
@@ -19,7 +19,7 @@ describe('<Toggle />', () => {
     const onChange = vi.fn();
 
     const { getByLabelText } = render(<Toggle label='Toggle' value={true} onChange={onChange} />, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     fireEvent.click(getByLabelText('Toggle'));

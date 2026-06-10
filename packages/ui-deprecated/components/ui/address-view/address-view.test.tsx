@@ -3,7 +3,7 @@ import {
   AddressIndex,
   AddressView,
   AddressView_Decoded,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { AddressViewComponent } from '.';
 import { describe, expect, test } from 'vitest';
 import { render } from '@testing-library/react';

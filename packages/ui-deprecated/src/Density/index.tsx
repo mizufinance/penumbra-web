@@ -12,7 +12,7 @@ export type DensityProps<SelectedDensity extends TDensity> = {
  * Use the `<Density />` component to set the density for all descendants in the
  * component tree that support density variants.
  *
- * In Penumbra UI, density is never set as a prop directly on a component.
+ * In Shieldd UI, density is never set as a prop directly on a component.
  * Instead, it's set indirectly via a React context, so that entire regions of a
  * UI can have a matching density.
  *

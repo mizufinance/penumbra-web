@@ -16,19 +16,19 @@ export const ShieldingInfoDialog = ({ className = '' }: ShieldingInfoDialogProps
       icon: <Shield size={20} className='text-primary-light' />,
       title: 'Shield Assets',
       content:
-        "Shielding moves your assets from transparent chains (like Ethereum, Cosmos Hub) into Penumbra's shielded pool, where they become private and can be used for private transactions, swaps, and staking.",
+        "Shielding moves your assets from transparent chains (like Ethereum, Cosmos Hub) into Shieldd's shielded pool, where they become private and can be used for private transactions, swaps, and staking.",
     },
     {
       icon: <ShieldOff size={20} className='text-unshield-light' />,
       title: 'Unshield Assets',
       content:
-        "Unshielding moves your assets from Penumbra's shielded pool back to transparent chains. This makes your assets visible on the destination chain and allows you to use them in transparent DeFi protocols.",
+        "Unshielding moves your assets from Shieldd's shielded pool back to transparent chains. This makes your assets visible on the destination chain and allows you to use them in transparent DeFi protocols.",
     },
     {
       icon: <ShieldAlert size={20} className='text-text-primary' />,
       title: 'Privacy Note',
       content:
-        'Shielded assets on Penumbra are completely private. Only you can see your balances and transaction history. When you unshield, the destination address and amount become visible on the target chain.',
+        'Shielded assets on Shieldd are completely private. Only you can see your balances and transaction history. When you unshield, the destination address and amount become visible on the target chain.',
     },
   ];
 

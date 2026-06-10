@@ -6,10 +6,10 @@ export const ExtensionTransportDisconnected = () => {
   return (
     <>
       <HeadTag />
-      <SplashPage title='Penumbra disconnected'>
+      <SplashPage title='Shieldd disconnected'>
         <div className='flex items-center justify-between gap-[1em] text-lg'>
           <div>
-            Communication with your Penumbra extension has been interrupted. Reloading the page may
+            Communication with your Shieldd extension has been interrupted. Reloading the page may
             re-establish the conneciton.
           </div>
           <Button variant='gradient' onClick={() => location.reload()}>

@@ -4,14 +4,14 @@ import {
   Metadata,
   Value,
   ValueView,
-} from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { GasPrices } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
+} from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { GasPrices } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
 import { checkSendMaxInvariants, SpendOrOutput } from './helpers.js';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import { getAssetIdFromValueView } from '@mizufinance/getters/value-view';
 import { base64ToUint8Array } from '@mizufinance/types/base64';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 describe('sendMax', () => {
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: assetId1.inner },
+              shielddAssetId: { inner: assetId1.inner },
             }),
           },
         },
@@ -72,7 +72,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: assetId1.inner },
+              shielddAssetId: { inner: assetId1.inner },
             }),
           },
         },
@@ -115,7 +115,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: assetId3.inner },
+              shielddAssetId: { inner: assetId3.inner },
             }),
           },
         },
@@ -158,7 +158,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: assetId3.inner },
+              shielddAssetId: { inner: assetId3.inner },
             }),
           },
         },
@@ -201,7 +201,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: stakingAssetId.inner },
+              shielddAssetId: { inner: stakingAssetId.inner },
             }),
           },
         },
@@ -244,7 +244,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: stakingAssetId.inner },
+              shielddAssetId: { inner: stakingAssetId.inner },
             }),
           },
         },
@@ -287,7 +287,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: assetId1.inner },
+              shielddAssetId: { inner: assetId1.inner },
             }),
           },
         },
@@ -330,7 +330,7 @@ describe('sendMax', () => {
               hi: 20000n,
             }),
             metadata: new Metadata({
-              penumbraAssetId: { inner: assetId1.inner },
+              shielddAssetId: { inner: assetId1.inner },
             }),
           },
         },

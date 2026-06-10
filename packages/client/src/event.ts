@@ -1,39 +1,39 @@
-import { PenumbraState } from './state.js';
+import { ShielddState } from './state.js';
 
 // custom event utility types
-export type PenumbraEventTypeName = 'penumbrastate'; // may eventually contain more members
-export type PenumbraEventDetail<T extends PenumbraEventTypeName> = {
-  penumbrastate: {
+export type ShielddEventTypeName = 'shielddstate'; // may eventually contain more members
+export type ShielddEventDetail<T extends ShielddEventTypeName> = {
+  shielddstate: {
     origin: string;
-    state: PenumbraState;
+    state: ShielddState;
   };
 }[T];
 
 // custom event type
-export type PenumbraEvent<T extends PenumbraEventTypeName> = CustomEvent<PenumbraEventDetail<T>>;
+export type ShielddEvent<T extends ShielddEventTypeName> = CustomEvent<ShielddEventDetail<T>>;
 
 // custom event tools
-export const createPenumbraStateEvent = (penumbraOrigin: string, penumbraState: PenumbraState) =>
-  new CustomEvent('penumbrastate', {
+export const createShielddStateEvent = (shielddOrigin: string, shielddState: ShielddState) =>
+  new CustomEvent('shielddstate', {
     detail: {
-      origin: penumbraOrigin,
-      state: penumbraState,
+      origin: shielddOrigin,
+      state: shielddState,
     },
-  }) satisfies PenumbraEvent<'penumbrastate'>;
+  }) satisfies ShielddEvent<'shielddstate'>;
 
 // custom event type guards
-/** Type guard for `PenumbraStateEvent`. The `restrictOrigin` parameter is purely
+/** Type guard for `ShielddStateEvent`. The `restrictOrigin` parameter is purely
  * informational - anyone may create an event with any origin label. */
-export const isPenumbraStateEvent = (
+export const isShielddStateEvent = (
   evt: unknown,
   restrictOrigin?: string,
-): evt is PenumbraEvent<'penumbrastate'> =>
-  evt instanceof CustomEvent && isPenumbraStateEventDetail(evt.detail, restrictOrigin);
+): evt is ShielddEvent<'shielddstate'> =>
+  evt instanceof CustomEvent && isShielddStateEventDetail(evt.detail, restrictOrigin);
 
-export const isPenumbraStateEventDetail = (
+export const isShielddStateEventDetail = (
   detail: unknown,
   restrictOrigin?: string,
-): detail is PenumbraEventDetail<'penumbrastate'> =>
+): detail is ShielddEventDetail<'shielddstate'> =>
   typeof detail === 'object' &&
   detail !== null &&
   'origin' in detail &&
@@ -41,4 +41,4 @@ export const isPenumbraStateEventDetail = (
   (!restrictOrigin || detail.origin === restrictOrigin) &&
   'state' in detail &&
   typeof detail.state === 'string' &&
-  Object.keys(PenumbraState).includes(detail.state);
+  Object.keys(ShielddState).includes(detail.state);

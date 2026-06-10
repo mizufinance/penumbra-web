@@ -1,0 +1,211 @@
+{
+  "assetById": {
+    "/inU2KEbppuh61p1gX1Vt1aZtgd02xEz/nPAQjd6+gw=": {
+      "base": "wtest_usd",
+      "denomUnits": [
+        {
+          "denom": "test_usd",
+          "exponent": 6
+        },
+        {
+          "denom": "wtest_usd",
+          "exponent": 0
+        }
+      ],
+      "display": "test_usd",
+      "shielddAssetId": {
+        "inner": "/inU2KEbppuh61p1gX1Vt1aZtgd02xEz/nPAQjd6+gw="
+      },
+      "symbol": ""
+    },
+    "0Kp7JZHSfpBSYp/mDtlw0t435eDriqJHN8dYSUFLNQI=": {
+      "base": "ushieldd",
+      "denomUnits": [
+        {
+          "denom": "shieldd",
+          "exponent": 6
+        },
+        {
+          "denom": "mshieldd",
+          "exponent": 3
+        },
+        {
+          "denom": "ushieldd",
+          "exponent": 0
+        }
+      ],
+      "display": "shieldd",
+      "shielddAssetId": {
+        "inner": "0Kp7JZHSfpBSYp/mDtlw0t435eDriqJHN8dYSUFLNQI="
+      },
+      "symbol": ""
+    },
+    "8vEDylMzH0IAt5xd3S9kTOSWVUZjFv7jeUwEmtEXHgs=": {
+      "base": "ugn",
+      "denomUnits": [
+        {
+          "denom": "gn",
+          "exponent": 6
+        },
+        {
+          "denom": "mgn",
+          "exponent": 3
+        },
+        {
+          "denom": "ugn",
+          "exponent": 0
+        }
+      ],
+      "display": "gn",
+      "shielddAssetId": {
+        "inner": "8vEDylMzH0IAt5xd3S9kTOSWVUZjFv7jeUwEmtEXHgs="
+      },
+      "symbol": ""
+    },
+    "AhPjxoSObAa/pchQ9DcPK0+m5gidkrwCCA5eQ04e4Qg=": {
+      "base": "ucube",
+      "denomUnits": [
+        {
+          "denom": "cube",
+          "exponent": 1
+        },
+        {
+          "denom": "ucube",
+          "exponent": 0
+        }
+      ],
+      "display": "cube",
+      "shielddAssetId": {
+        "inner": "AhPjxoSObAa/pchQ9DcPK0+m5gidkrwCCA5eQ04e4Qg="
+      },
+      "symbol": ""
+    },
+    "BNsoW59RV1JcwE9b87eP+Ltxy89VoWlBnu8ZSPuC8xE=": {
+      "base": "utest_osmo",
+      "denomUnits": [
+        {
+          "denom": "test_osmo",
+          "exponent": 6
+        },
+        {
+          "denom": "mtest_osmo",
+          "exponent": 3
+        },
+        {
+          "denom": "utest_osmo",
+          "exponent": 0
+        }
+      ],
+      "display": "test_osmo",
+      "shielddAssetId": {
+        "inner": "BNsoW59RV1JcwE9b87eP+Ltxy89VoWlBnu8ZSPuC8xE="
+      },
+      "symbol": ""
+    },
+    "P3tVFAl7iNvDL8StruWtfq4d489MurTivDCj+JgDrQc=": {
+      "base": "unala",
+      "denomUnits": [
+        {
+          "denom": "nala",
+          "exponent": 6
+        },
+        {
+          "denom": "mnala",
+          "exponent": 3
+        },
+        {
+          "denom": "unala",
+          "exponent": 0
+        }
+      ],
+      "display": "nala",
+      "shielddAssetId": {
+        "inner": "P3tVFAl7iNvDL8StruWtfq4d489MurTivDCj+JgDrQc="
+      },
+      "symbol": ""
+    },
+    "cdBoovf4szZQFmFE04iwt0lmrFGNeLo/WC7IG0TOWww=": {
+      "base": "test_sat",
+      "denomUnits": [
+        {
+          "denom": "test_btc",
+          "exponent": 8
+        },
+        {
+          "denom": "test_sat",
+          "exponent": 0
+        }
+      ],
+      "display": "test_btc",
+      "shielddAssetId": {
+        "inner": "cdBoovf4szZQFmFE04iwt0lmrFGNeLo/WC7IG0TOWww="
+      },
+      "symbol": ""
+    },
+    "fzlon9ElZDLNMkUMQlqz9RGVvCx6SnRba1J0ujysvBA=": {
+      "base": "ugm",
+      "denomUnits": [
+        {
+          "denom": "gm",
+          "exponent": 6
+        },
+        {
+          "denom": "mgm",
+          "exponent": 3
+        },
+        {
+          "denom": "ugm",
+          "exponent": 0
+        }
+      ],
+      "display": "gm",
+      "shielddAssetId": {
+        "inner": "fzlon9ElZDLNMkUMQlqz9RGVvCx6SnRba1J0ujysvBA="
+      },
+      "symbol": ""
+    },
+    "mw6meItxEruvvI2lcZP9zrpAWf0HSPVXEI/ZVYq+mgs=": {
+      "base": "uubtc",
+      "denomUnits": [
+        {
+          "denom": "ubtc",
+          "exponent": 6
+        },
+        {
+          "denom": "uubtc",
+          "exponent": 0
+        }
+      ],
+      "display": "ubtc",
+      "shielddAssetId": {
+        "inner": "mw6meItxEruvvI2lcZP9zrpAWf0HSPVXEI/ZVYq+mgs="
+      },
+      "symbol": ""
+    },
+    "nZLLQ41XFInzWnYIGqHxhPbCl7kQDvQYiaRPsakBuAc=": {
+      "base": "utest_atom",
+      "denomUnits": [
+        {
+          "denom": "test_atom",
+          "exponent": 6
+        },
+        {
+          "denom": "mtest_atom",
+          "exponent": 3
+        },
+        {
+          "denom": "utest_atom",
+          "exponent": 0
+        }
+      ],
+      "display": "test_atom",
+      "shielddAssetId": {
+        "inner": "nZLLQ41XFInzWnYIGqHxhPbCl7kQDvQYiaRPsakBuAc="
+      },
+      "symbol": ""
+    }
+  },
+  "chainId": "shieldd-local-devnet",
+  "ibcConnections": [],
+  "numeraires": []
+}

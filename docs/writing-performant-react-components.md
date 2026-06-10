@@ -8,7 +8,7 @@ Instead, we should use Zustand selectors that only return the properties that th
 
 ## Use inline selectors when a component only needs a single property from Zustand state.
 
-See [this example](https://github.com/mizufinance/penumbra/pull/705/files?diff=split&w=1#diff-964bf15a0e1f337ecd16caf03b5b5878828b4ad2e6c95004a85affe5ce2390a7R25-R27). Since we're only using a single property from the state, we can just inline the selector, and the component will only re-render when the output of that selector changes.
+See [this example](https://github.com/mizufinance/shieldd/pull/705/files?diff=split&w=1#diff-964bf15a0e1f337ecd16caf03b5b5878828b4ad2e6c95004a85affe5ce2390a7R25-R27). Since we're only using a single property from the state, we can just inline the selector, and the component will only re-render when the output of that selector changes.
 
 ## Use `useShallow()` when a component needs multiple properties from Zustand state.
 

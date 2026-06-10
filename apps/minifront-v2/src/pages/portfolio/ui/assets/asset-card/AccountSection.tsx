@@ -1,7 +1,7 @@
 import { AssetListItem } from './AssetListItem';
 import { AccountData } from './types';
 import { AddressViewComponent } from '@mizufinance/ui/AddressView';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 export interface AccountSectionProps {
   /**

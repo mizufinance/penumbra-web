@@ -4,18 +4,18 @@ import { getChainId } from '../../../fetchers/chain-id';
 import { useEffect, useState } from 'react';
 import { itemStyle, triggerStyle, dropdownStyle, linkStyle, viewportStyle } from './nav-style';
 import { LinkBreak1Icon } from '@radix-ui/react-icons';
-import { penumbra } from '../../../penumbra';
+import { shieldd } from '../../../shieldd';
 
 export const ProviderMenu = () => {
   const [chainId, setChainId] = useState<string | undefined>();
 
-  const disconnect = () => void penumbra.disconnect().then(() => window.location.reload());
+  const disconnect = () => void shieldd.disconnect().then(() => window.location.reload());
 
   useEffect(() => {
     void getChainId().then(setChainId);
   }, []);
 
-  if (!penumbra.manifest) {
+  if (!shieldd.manifest) {
     return null;
   }
 
@@ -32,8 +32,8 @@ export const ProviderMenu = () => {
           <img
             id='provider-icon'
             className={cn('w-[1.5em]', 'max-w-none', 'h-[1.5em]')}
-            src={URL.createObjectURL(penumbra.manifest.icons['128'])}
-            alt={`${penumbra.manifest.name} Icon`}
+            src={URL.createObjectURL(shieldd.manifest.icons['128'])}
+            alt={`${shieldd.manifest.name} Icon`}
           />
           {chainId}
         </NavigationMenu.Trigger>
@@ -43,9 +43,9 @@ export const ProviderMenu = () => {
               <NavigationMenu.Link className={cn(...linkStyle, 'p-0', 'leading-normal')}>
                 <div className='ml-4 text-muted-foreground'>
                   <span className='font-headline text-muted'>
-                    {penumbra.manifest.name} {penumbra.manifest.version}
+                    {shieldd.manifest.name} {shieldd.manifest.version}
                   </span>
-                  <p>{penumbra.manifest.description}</p>
+                  <p>{shieldd.manifest.description}</p>
                 </div>
               </NavigationMenu.Link>
             </NavigationMenu.Item>

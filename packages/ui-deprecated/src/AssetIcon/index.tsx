@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getDisplay } from '@mizufinance/getters/metadata';
 import { assetPatterns } from '@mizufinance/types/assets';
 import { Identicon } from '../Identicon';

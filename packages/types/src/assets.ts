@@ -60,16 +60,16 @@ export class RegexMatcher<T = never> {
  *
  * NOTE - SECURITY IMPLICATIONS: These RegExps each assert that the given prefix
  * is at the _beginning_ of the string. This ensures that they are
- * differentiated from IBC deposits with the same asset name. Penumbra prefixes
+ * differentiated from IBC deposits with the same asset name. Shieldd prefixes
  * IBC deposit assets with the provenance of the token, so that if someone
  * creates a token called, e.g., `delegation_whatever` and sends it to a
- * Penumbra user via IBC, it will show up in Penumbra as
+ * Shieldd user via IBC, it will show up in Shieldd as
  * `transfer/channel-1234/delegation_whatever`. Thus, asserting that the
  * `delegation_` prefix occurs at the _beginning_ of the string, as we're doing
  * below, ensures that it's actually the type we expect it to be.
  *
  * Source of truth for regex patterns:
- * https://github.com/mizufinance/penumbra/blob/main/crates/core/asset/src/asset/registry.rs
+ * https://github.com/mizufinance/shieldd/blob/main/crates/core/asset/src/asset/registry.rs
  */
 export const assetPatterns: AssetPatterns = {
   auctionNft: new RegexMatcher(
@@ -81,11 +81,11 @@ export const assetPatterns: AssetPatterns = {
   lpNftWithdrawn: new RegexMatcher(/^lpnft_withdrawn_/),
   // TODO: This should be a regex on the base denom and not the display denom
   delegationToken: new RegexMatcher(
-    /^delegation_(?<idKey>penumbravalid1(?<id>[a-zA-HJ-NP-Z0-9]+))$/,
+    /^delegation_(?<idKey>shielddvalid1(?<id>[a-zA-HJ-NP-Z0-9]+))$/,
   ),
   proposalNft: new RegexMatcher(/^proposal_/),
   unbondingToken: new RegexMatcher(
-    /^unbonding_start_at_(?<startAt>[0-9]+)_(?<idKey>penumbravalid1(?<id>[a-zA-HJ-NP-Z0-9]+))$/,
+    /^unbonding_start_at_(?<startAt>[0-9]+)_(?<idKey>shielddvalid1(?<id>[a-zA-HJ-NP-Z0-9]+))$/,
   ),
   votingReceipt: new RegexMatcher(/^voted_on_/),
   ibc: new RegexMatcher(/^transfer\/(?<channel>channel-\d+)\/(?<denom>.*)/),

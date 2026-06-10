@@ -9,16 +9,11 @@ inputs:
     description: Restore prefix for the cache
     required: false
     default: turbo-${{ runner.os }}-
-  backend:
-    description: Backend to use for caching
-    required: false
-    default: buildjet
-
 runs:
   using: composite
   steps:
     - name: Setup turbo cache
-      uses: buildjet/cache@v4
+      uses: actions/cache@v4
       with:
         path: |
           .turbo

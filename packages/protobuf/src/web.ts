@@ -6,8 +6,8 @@ import {
   IbcConnectionMsgService,
   IbcConnectionService,
 } from './services/cosmos-ibc-core.js';
-import type { CustodyService } from './services/penumbra-custody.js';
-import type { ViewService } from './services/penumbra-view.js';
+import type { CustodyService } from './services/shieldd-custody.js';
+import type { ViewService } from './services/shieldd-view.js';
 import type {
   AppService,
   CompactBlockService,
@@ -15,10 +15,10 @@ import type {
   GovernanceService,
   SctService,
   ShieldedPoolService,
-} from './services/penumbra-core.js';
-import type { TendermintProxyService } from './services/penumbra-util.js';
+} from './services/shieldd-core.js';
+import type { TendermintProxyService } from './services/shieldd-util.js';
 
-export type PenumbraService =
+export type ShielddService =
   | typeof AppService
   | typeof CompactBlockService
   | typeof CustodyService

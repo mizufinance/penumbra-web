@@ -2,7 +2,7 @@ import React from 'react';
 import { JsonViewer } from '@mizufinance/ui/JsonViewer';
 import { typeRegistry } from '@mizufinance/protobuf';
 import type { Jsonified } from '@mizufinance/types/jsonified';
-import { TransactionView as PbTransactionView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { TransactionView as PbTransactionView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { SectionComponentProps } from './TransactionView';
 
 // Use SectionComponentProps

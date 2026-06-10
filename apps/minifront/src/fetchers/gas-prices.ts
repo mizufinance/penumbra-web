@@ -1,15 +1,15 @@
 import { ViewService } from '@mizufinance/protobuf';
-import { GasPrices } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { GasPrices } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getAssetIdFromValueView } from '@mizufinance/getters/value-view';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getAddressIndex } from '@mizufinance/getters/balances-response';
 import { getAssetId } from '@mizufinance/getters/metadata';
-import { penumbra } from '../penumbra';
+import { shieldd } from '../shieldd';
 
 // Fetches gas prices
 export const getGasPrices = async (): Promise<GasPrices[]> => {
-  const res = await penumbra.service(ViewService).gasPrices({});
+  const res = await shieldd.service(ViewService).gasPrices({});
   return res.altGasPrices;
 };
 

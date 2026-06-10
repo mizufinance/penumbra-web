@@ -1,9 +1,9 @@
-import type { PenumbraEventTarget } from './event-listener.js';
-import type { PenumbraState } from './state.js';
+import type { ShielddEventTarget } from './event-listener.js';
+import type { ShielddState } from './state.js';
 
 /**
  * If you are simply interested in using a connection, you will probably prefer
- * to use `PenumbraClient` instead of directly manipulating the provider.
+ * to use `ShielddClient` instead of directly manipulating the provider.
  *
  * This interface describes the simple API to connect or disconnect a provider.
  * These methods allow a page to obtain a `MessagePort` to a provider for client
@@ -14,7 +14,7 @@ import type { PenumbraState } from './state.js';
  * - `false`: no connection is active
  *
  *  Calling `state` will also indicate a 'pending' state, enumerated by
- *  `PenumbraState`.
+ *  `ShielddState`.
  *
  * Any script in page scope may create an object like this, so clients should
  * confirm a provider is actually present. Presence can be verified by fetching
@@ -33,11 +33,11 @@ import type { PenumbraState } from './state.js';
  * `MessagePort` represents an active, type-safe communication channel to the
  * provider. It is convenient to provide the `connect` method as the `getPort`
  * option for `createChannelTransport` from `@mizufinance/transport-dom`, but
- * it is recommended to use `PenumbraClient` to manage this process.
+ * it is recommended to use `ShielddClient` to manage this process.
  *
  */
 
-export interface PenumbraProvider extends Readonly<PenumbraEventTarget> {
+export interface ShielddProvider extends Readonly<ShielddEventTarget> {
   /** Should contain a URI at the provider's origin, serving a manifest
    * describing this provider. */
   readonly manifest: string;
@@ -55,14 +55,14 @@ export interface PenumbraProvider extends Readonly<PenumbraEventTarget> {
   readonly isConnected: () => boolean;
 
   /** Synchronously return present state. */
-  readonly state: () => PenumbraState;
+  readonly state: () => ShielddState;
 
   /** Like a standard `EventTarget.addEventListener`, but providers should only
-   * emit `PenumbraEvent`s (currently only `PenumbraStateEvent` with typename
-   * `'penumbrastate'`.)  Event types and type guards are available from
+   * emit `ShielddEvent`s (currently only `ShielddStateEvent` with typename
+   * `'shielddstate'`.)  Event types and type guards are available from
    * `@mizufinance/client/event` or the root export.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
    */
-  readonly addEventListener: PenumbraEventTarget['addEventListener'];
-  readonly removeEventListener: PenumbraEventTarget['addEventListener'];
+  readonly addEventListener: ShielddEventTarget['addEventListener'];
+  readonly removeEventListener: ShielddEventTarget['addEventListener'];
 }

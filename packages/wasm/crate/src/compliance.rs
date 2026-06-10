@@ -1,16 +1,17 @@
+#![allow(clippy::mutable_key_type, clippy::map_entry)]
 use anyhow::{anyhow, Result};
 use base64::{engine::general_purpose::STANDARD as BASE64_STANDARD, Engine as _};
 use decaf377::{Fq, Fr};
-use penumbra_asset::asset;
-use penumbra_compliance::{
+use shieldd_asset::asset;
+use shieldd_compliance::{
     indexed_tree, AssetPolicy, ComplianceLeaf, IndexedLeaf, MerklePath, MerklePathLayer,
 };
-use penumbra_keys::Address;
-use penumbra_proto::core::component::compliance::v1 as pb;
-use penumbra_proto::Message;
-use penumbra_shielded_pool::ShieldedIcs20WithdrawalPlan;
-use penumbra_tct::StateCommitment;
-use penumbra_transaction::{ActionPlan, TransactionPlan};
+use shieldd_keys::Address;
+use shieldd_proto::core::component::compliance::v1 as pb;
+use shieldd_proto::Message;
+use shieldd_shielded_pool::ShieldedIcs20WithdrawalPlan;
+use shieldd_tct::StateCommitment;
+use shieldd_transaction::{ActionPlan, TransactionPlan};
 use std::collections::{BTreeMap, BTreeSet};
 use wasm_bindgen::JsCast;
 use wasm_bindgen::JsValue;
@@ -417,11 +418,11 @@ fn apply_withdrawal_compliance_body(withdrawal: &mut ShieldedIcs20WithdrawalPlan
 
     if first_spend.is_regulated
         && !first_spend.compliance_ciphertext.is_empty()
-        && !penumbra_compliance::IbcComplianceMetadata::is_compliance_memo(
+        && !shieldd_compliance::IbcComplianceMetadata::is_compliance_memo(
             &withdrawal.withdrawal.ics20_memo,
         )
     {
-        let metadata = penumbra_compliance::IbcComplianceMetadata {
+        let metadata = shieldd_compliance::IbcComplianceMetadata {
             compliance_ciphertext: first_spend.compliance_ciphertext.clone(),
             asset_id: first_spend.note.asset_id(),
         };
@@ -487,7 +488,7 @@ async fn fetch_batch_response(
     };
     let response = grpc_web_unary(
         grpc_url,
-        "/penumbra.core.component.compliance.v1.QueryService/ComplianceBatchMerkleProofs",
+        "/shieldd.core.component.compliance.v1.QueryService/ComplianceBatchMerkleProofs",
         request.encode_to_vec(),
     )
     .await?;
@@ -502,7 +503,7 @@ async fn fetch_asset_policy(grpc_url: &str, asset_id: asset::Id) -> Result<Optio
     };
     let response = grpc_web_unary(
         grpc_url,
-        "/penumbra.core.component.compliance.v1.QueryService/ComplianceAssetStatus",
+        "/shieldd.core.component.compliance.v1.QueryService/ComplianceAssetStatus",
         request.encode_to_vec(),
     )
     .await?;
@@ -568,13 +569,7 @@ async fn parse_batch_response(
                     .try_into()?;
                 user_proofs.insert(key, (compliance_path, result.compliance_position, leaf));
             } else if !result.is_regulated {
-                let b_d_fq = address.diversified_generator().vartime_compress_to_field();
-                let d = penumbra_compliance::derive_compliance_scalar(b_d_fq);
-                let leaf = ComplianceLeaf {
-                    address,
-                    asset_id,
-                    d,
-                };
+                let leaf = ComplianceLeaf::synthetic_unregulated(address, asset_id);
                 user_proofs.insert(key, (MerklePath::default(), 0, leaf));
             } else {
                 return Err(anyhow!(
@@ -723,8 +718,7 @@ fn parse_merkle_path(path: Option<pb::MerklePath>) -> MerklePath {
 }
 
 fn default_unregulated_asset_proof() -> (MerklePath, u64, IndexedLeaf, bool) {
-    let default_leaf =
-        IndexedLeaf::with_default_policy(Fq::from(0u64), 0, indexed_tree::FQ_MAX.clone());
+    let default_leaf = IndexedLeaf::with_default_policy(Fq::from(0u64), 0, *indexed_tree::FQ_MAX);
     (MerklePath::default(), 0, default_leaf, false)
 }
 

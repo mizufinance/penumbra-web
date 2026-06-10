@@ -4,7 +4,7 @@ import type { JsonObject, JsonValue } from '@bufbuild/protobuf';
 
 export const customTheme: NamedColorspace = {
   scheme: 'custom',
-  author: 'penumbra',
+  author: 'shieldd',
   base00: '#000000', // Background Color
   base01: '#ffffff',
   base02: '#212121', // Nested section border color

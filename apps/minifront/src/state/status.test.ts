@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { useStore } from '.';
 import { syncPercentSelector } from './status';
 import { PlainMessage } from '@bufbuild/protobuf';
-import { StatusStreamResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { StatusStreamResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 
 describe('Status Slice', () => {
   describe('stream state', () => {

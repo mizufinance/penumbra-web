@@ -1,8 +1,8 @@
-import { penumbra } from './penumbra';
+import { shieldd } from './shieldd';
 import {
-  PenumbraClient,
-  PenumbraNotInstalledError,
-  PenumbraProviderNotConnectedError,
+  ShielddClient,
+  ShielddNotInstalledError,
+  ShielddProviderNotConnectedError,
 } from '@mizufinance/client';
 
 /**
@@ -29,14 +29,14 @@ const retry = async (fn: () => boolean, ms = 500, rate = Math.max(ms / 10, 50)) 
   });
 
 const throwIfProviderNotConnected = () => {
-  if (!penumbra.connected) {
-    throw new PenumbraProviderNotConnectedError();
+  if (!shieldd.connected) {
+    throw new ShielddProviderNotConnectedError();
   }
 };
 
 const throwIfProviderNotInstalled = () => {
-  if (!Object.keys(PenumbraClient.getProviders()).length) {
-    throw new PenumbraNotInstalledError();
+  if (!Object.keys(ShielddClient.getProviders()).length) {
+    throw new ShielddNotInstalledError();
   }
 };
 
@@ -47,7 +47,7 @@ const throwIfProviderNotInstalled = () => {
  */
 export const abortLoader = async (): Promise<null> => {
   throwIfProviderNotInstalled();
-  await retry(() => Boolean(penumbra.connected), 500);
+  await retry(() => Boolean(shieldd.connected), 500);
   throwIfProviderNotConnected();
 
   // Loaders are required to return a value, even if it's null. By returning

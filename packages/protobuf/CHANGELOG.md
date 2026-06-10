@@ -47,7 +47,7 @@
 ### Minor Changes
 
 - 29dd11a: - storage: add subaccount filter to `getOwnedPositionIds` method
-  - protobuf: sync latest changes in penumbra protobufs
+  - protobuf: sync latest changes in shieldd protobufs
   - services: add subaccount filter to `ownedPositionIds` method in ViewService
   - types: update indexedDB schema
 
@@ -61,7 +61,7 @@
 
 ### Minor Changes
 
-- 3269282: Updating to latest penumbra definitions (with new badges field on Metadata)
+- 3269282: Updating to latest shieldd definitions (with new badges field on Metadata)
 
 ## 6.2.0
 
@@ -97,7 +97,7 @@
 
 ### Minor Changes
 
-- 22bf02c: Add additional query services to PenumbraService
+- 22bf02c: Add additional query services to ShielddService
 
 ## 5.4.0
 

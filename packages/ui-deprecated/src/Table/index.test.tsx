@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Table } from '.';
 import { render } from '@testing-library/react';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<Table />', () => {
   it('renders a title if one is passed', () => {
@@ -9,7 +9,7 @@ describe('<Table />', () => {
       <Table title='Table title'>
         <Table.Tbody />
       </Table>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(container).toHaveTextContent('Table title');

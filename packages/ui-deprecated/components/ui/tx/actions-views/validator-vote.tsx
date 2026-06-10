@@ -1,9 +1,25 @@
 import { ViewBox } from '../viewbox';
 import { ActionDetails } from './action-details';
-import { ValidatorVote } from '@mizufinance/protobuf/penumbra/core/component/governance/v1/governance_pb';
-import { VoteToString } from './delegator-vote.tsx';
-import { bech32mIdentityKey } from '@mizufinance/bech32m/penumbravalid';
-import { bech32mGovernanceId } from '@mizufinance/bech32m/penumbragovern';
+import {
+  ValidatorVote,
+  Vote,
+  Vote_Vote,
+} from '@mizufinance/protobuf/shieldd/core/component/governance/v1/governance_pb';
+import { bech32mIdentityKey } from '@mizufinance/bech32m/shielddvalid';
+import { bech32mGovernanceId } from '@mizufinance/bech32m/shielddgovern';
+
+const VoteToString = (vote: Vote): string => {
+  switch (vote.vote) {
+    case Vote_Vote.YES:
+      return 'Yes';
+    case Vote_Vote.NO:
+      return 'No';
+    case Vote_Vote.ABSTAIN:
+      return 'Abstain';
+    default:
+      return 'Unspecified';
+  }
+};
 
 export const ValidatorVoteComponent = ({ value }: { value: ValidatorVote }) => {
   return (

@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Popover } from '.';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<Popover />', () => {
   it('opens when trigger is clicked', () => {
@@ -12,7 +12,7 @@ describe('<Popover />', () => {
         </Popover.Trigger>
         <Popover.Content>Content</Popover.Content>
       </Popover>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(queryByText('Content')).toBeFalsy();
@@ -28,7 +28,7 @@ describe('<Popover />', () => {
         </Popover.Trigger>
         <Popover.Content>Content</Popover.Content>
       </Popover>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(queryByText('Content')).toBeTruthy();

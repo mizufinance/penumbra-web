@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { assetIdFromBaseDenom } from './asset.js';
-import { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { randomBytes } from 'crypto';
 import { assetIdFromBech32m } from '@mizufinance/bech32m/passet';
 
@@ -10,13 +10,13 @@ const randomString = (byteLength = 32) =>
 
 describe('assetIdFromBaseDenom', () => {
   test('should return the correct asset id for a known asset id', async () => {
-    const upenumbraFromBech32m = new AssetId(
-      assetIdFromBech32m('passet1984fctenw8m2fpl8a9wzguzp7j34d7vravryuhft808nyt9fdggqxmanqm'),
+    const ushielddFromBech32m = new AssetId(
+      assetIdFromBech32m('passet16z48kfv36flfq5nznlnqakts6t0r0e0qaw92y3ehcavyjs2tx5pqy04fm7'),
     );
 
-    const upenumbraFromBaseDenom = await assetIdFromBaseDenom('upenumbra');
+    const ushielddFromBaseDenom = await assetIdFromBaseDenom('ushieldd');
 
-    expect(AssetId.equals(upenumbraFromBech32m, upenumbraFromBaseDenom)).toBeTruthy();
+    expect(AssetId.equals(ushielddFromBech32m, ushielddFromBaseDenom)).toBeTruthy();
   });
 
   test('should return a 32-byte asset id for any string', async () => {

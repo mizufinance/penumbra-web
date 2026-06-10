@@ -79,9 +79,9 @@ export const ReceiveForm = observer(() => {
               </Popover.Trigger>
               <Popover.Content side='top' align='start'>
                 <Text xs>
-                  IBC transfers into Penumbra post the destination address in public on the source
+                  IBC transfers into Shieldd post the destination address in public on the source
                   chain. Use this randomized IBC deposit address to preserve privacy when
-                  transferring funds into Penumbra.
+                  transferring funds into Shieldd.
                 </Text>
               </Popover.Content>
             </Popover>

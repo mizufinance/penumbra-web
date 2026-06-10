@@ -72,9 +72,9 @@ const isIconOnly = (props: ButtonGroupProps<boolean>): props is ButtonGroupProps
  * Use a `<ButtonGroup />` to render multiple buttons in a group with the same
  * `actionType`.
  *
- * When rendering multiple Penumbra UI buttons together, always use a
+ * When rendering multiple Shieldd UI buttons together, always use a
  * `<ButtonGroup />` rather than individual `<Button />`s. This ensures that
- * they always meet Penumbra UI guidelines. (For example, all buttons in a group
+ * they always meet Shieldd UI guidelines. (For example, all buttons in a group
  * should have the same `actionType`; and the first button in a group can have
  * the `primary` priority, while subsequent buttons have the `secondary`
  * priority.)

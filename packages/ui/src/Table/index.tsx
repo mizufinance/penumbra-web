@@ -40,7 +40,7 @@ export interface TableProps {
  *
  * By design, `<Table.* />` elements have limited props. No styling or
  * customization is permitted. This ensures that all tables look consistent
- * throughout the Penumbra UI.
+ * throughout the Shieldd UI.
  *
  * To render title content above the table, pass a `title` prop:
  *

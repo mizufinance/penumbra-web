@@ -1,12 +1,12 @@
-use penumbra_dex::{swap::SwapPlaintext, BatchSwapOutputData};
-use penumbra_proto::{view::v1 as pb, DomainType};
-use penumbra_sct::{CommitmentSource, Nullifier};
-use penumbra_tct as tct;
+use shieldd_dex::{swap::SwapPlaintext, BatchSwapOutputData};
+use shieldd_proto::{view::v1 as pb, DomainType};
+use shieldd_sct::{CommitmentSource, Nullifier};
+use shieldd_tct as tct;
 use std::convert::{TryFrom, TryInto};
 
 use serde::{Deserialize, Serialize};
 
-// We sadly have to vendor this code as penumbra-view package cannot be compiled with wasm-pack
+// We sadly have to vendor this code as shieldd-view package cannot be compiled with wasm-pack
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(try_from = "pb::SwapRecord", into = "pb::SwapRecord")]
 pub struct SwapRecord {

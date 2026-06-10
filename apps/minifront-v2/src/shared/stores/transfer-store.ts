@@ -3,22 +3,22 @@ import { RootStore } from './root-store';
 import {
   BalancesResponse,
   TransactionPlannerRequest,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
-import { Metadata, Value } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { MemoPlaintext } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { Fee, FeeTier_Tier } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
+import { Metadata, Value } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { MemoPlaintext } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import {
   getAssetIdFromValueView,
   getDisplayDenomExponentFromValueView,
 } from '@mizufinance/getters/value-view';
 import { getAddress, getAddressIndex } from '@mizufinance/getters/address-view';
 import { toBaseUnit } from '@mizufinance/types/lo-hi';
-import { isAddress, bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { isAddress, bech32mAddress } from '@mizufinance/bech32m/shieldd';
 import { uint8ArrayToBase64 } from '@mizufinance/types/base64';
 import BigNumber from 'bignumber.js';
 import { ViewService } from '@mizufinance/protobuf';
-import { penumbra } from '../lib/penumbra';
+import { shieldd } from '../lib/shieldd';
 
 export interface SendState {
   recipient: string;
@@ -202,8 +202,8 @@ export class TransferStore {
     });
 
     try {
-      // Check if penumbra service is available
-      if (!penumbra?.service) {
+      // Check if shieldd service is available
+      if (!shieldd?.service) {
         this.resetFee();
         return;
       }
@@ -232,7 +232,7 @@ export class TransferStore {
         );
       }
 
-      const { plan } = await penumbra.service(ViewService).transactionPlanner(request);
+      const { plan } = await shieldd.service(ViewService).transactionPlanner(request);
 
       if (!plan) {
         this.resetFee();
@@ -248,14 +248,14 @@ export class TransferStore {
       if (!fee?.assetId?.inner) {
         // Find UM token in assets
         feeAssetMetadata = this.rootStore.assetsStore.allAssets.find(
-          asset => asset.symbol === 'UM' || asset.display === 'penumbra',
+          asset => asset.symbol === 'UM' || asset.display === 'shieldd',
         );
       } else {
         const assetIdBase64 = uint8ArrayToBase64(fee.assetId.inner);
         // Search through all assets to find matching metadata
         for (const asset of this.rootStore.assetsStore.allAssets) {
-          if (asset.penumbraAssetId?.inner) {
-            const currentAssetIdBase64 = uint8ArrayToBase64(asset.penumbraAssetId.inner);
+          if (asset.shielddAssetId?.inner) {
+            const currentAssetIdBase64 = uint8ArrayToBase64(asset.shielddAssetId.inner);
             if (currentAssetIdBase64 === assetIdBase64) {
               feeAssetMetadata = asset;
               break;
@@ -296,7 +296,7 @@ export class TransferStore {
 
     // If no balances, generate a dummy address using account 0
     try {
-      const response = await penumbra.service(ViewService).addressByIndex({
+      const response = await shieldd.service(ViewService).addressByIndex({
         addressIndex: { account: 0 },
       });
 
@@ -416,14 +416,14 @@ export class TransferStore {
   }
 
   private async loadAccountAddress() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
     try {
       if (this.receiveState.ibcDepositEnabled) {
         // Generate randomized IBC deposit address
-        const response = await penumbra.service(ViewService).ephemeralAddress({
+        const response = await shieldd.service(ViewService).ephemeralAddress({
           addressIndex: { account: this.receiveState.selectedAccountIndex },
         });
 
@@ -434,7 +434,7 @@ export class TransferStore {
         }
       } else {
         // Get regular address for the selected account index
-        const response = await penumbra.service(ViewService).addressByIndex({
+        const response = await shieldd.service(ViewService).addressByIndex({
           addressIndex: { account: this.receiveState.selectedAccountIndex },
         });
 
@@ -462,7 +462,7 @@ export class TransferStore {
   }
 
   async initialize() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       // Connection not ready yet, will be called again when connected
       return;
     }

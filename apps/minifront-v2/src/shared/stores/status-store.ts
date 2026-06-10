@@ -9,10 +9,10 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import {
   StatusResponse,
   StatusStreamResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { RootStore } from './root-store';
-import { penumbra } from '../lib/penumbra';
-import { PenumbraState } from '@mizufinance/client';
+import { shieldd } from '../lib/shieldd';
+import { ShielddState } from '@mizufinance/client';
 
 export interface SyncStatus {
   syncHeight: bigint;
@@ -36,8 +36,8 @@ export class StatusStore {
     makeAutoObservable(this);
 
     // Listen for connection state changes to retry loading
-    penumbra.onConnectionStateChange(event => {
-      if (event.state === PenumbraState.Connected) {
+    shieldd.onConnectionStateChange(event => {
+      if (event.state === ShielddState.Connected) {
         // Clear errors and reload fresh data when reconnecting
         runInAction(() => {
           this.error = null;
@@ -54,7 +54,7 @@ export class StatusStore {
    * Initialize the store and load initial data
    */
   async initialize() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       // Connection not ready yet, will retry when connection is established
       return;
     }
@@ -80,7 +80,7 @@ export class StatusStore {
    * Load initial status from the service
    */
   async loadInitialStatus() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
@@ -88,7 +88,7 @@ export class StatusStore {
     this.error = null;
 
     try {
-      const response = await this.rootStore.penumbraService.getStatus();
+      const response = await this.rootStore.shielddService.getStatus();
 
       runInAction(() => {
         this.initialStatus = response;
@@ -108,7 +108,7 @@ export class StatusStore {
    * Start the status stream
    */
   async startStatusStream() {
-    if (!penumbra.connected || this.streamRunning) {
+    if (!shieldd.connected || this.streamRunning) {
       return;
     }
 
@@ -118,7 +118,7 @@ export class StatusStore {
     });
 
     try {
-      const stream = this.rootStore.penumbraService.getStatusStream();
+      const stream = this.rootStore.shielddService.getStatusStream();
 
       for await (const response of stream) {
         runInAction(() => {

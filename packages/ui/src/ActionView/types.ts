@@ -1,5 +1,5 @@
-import { ActionView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
-import { AssetId, Metadata, Denom } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ActionView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
+import { AssetId, Metadata, Denom } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 export type ActionViewType = Exclude<ActionView['actionView']['case'], undefined>;
 

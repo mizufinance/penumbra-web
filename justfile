@@ -35,11 +35,11 @@ lint:
 
 # Lint the turbo resources
 lint-turbo:
-  pnpm turbo lint:strict
+  pnpm lint:strict
 
 # List Rust code
 lint-rust:
-  pnpm turbo lint:rust
+  pnpm turbo lint:rust --filter=@mizufinance/wasm
 
 # Build top-level debug container
 container:
@@ -67,12 +67,12 @@ test: playwright-setup
 
 # Run the turbo test suite
 test-turbo: playwright-setup
-   pnpm turbo test
+   pnpm test
 
 # Run the Rust test suite
 test-rust: playwright-setup
-   pnpm turbo test:cargo
-   pnpm turbo test:wasm
+   pnpm turbo test:cargo --filter=@mizufinance/wasm
+   pnpm turbo test:wasm --filter=@mizufinance/wasm
 
 # Run test suites locally and gather timing information
 benchmark-tests:

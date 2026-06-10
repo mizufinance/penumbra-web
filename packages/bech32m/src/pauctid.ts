@@ -21,4 +21,4 @@ export const isAuctionId = (check: string): check is `${typeof prefix}1${string}
   }
 };
 
-export { PENUMBRA_BECH32M_AUCTION_LENGTH, PENUMBRA_BECH32M_AUCTION_PREFIX } from './index.js';
+export { SHIELDD_BECH32M_AUCTION_LENGTH, SHIELDD_BECH32M_AUCTION_PREFIX } from './index.js';

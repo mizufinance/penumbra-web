@@ -1,4 +1,4 @@
-import { NoteView } from '@mizufinance/protobuf/penumbra/core/component/shielded_pool/v1/shielded_pool_pb';
+import { NoteView } from '@mizufinance/protobuf/shieldd/core/component/shielded_pool/v1/shielded_pool_pb';
 import { createGetter } from './utils/create-getter.js';
 
 export const getValue = createGetter((noteView?: NoteView) => noteView?.value);

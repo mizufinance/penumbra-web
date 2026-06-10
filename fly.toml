@@ -11,8 +11,8 @@ primary_region = "iad"
 
 [env]
   NODE_ENV = "production"
-  PENUMBRA_GRPC_ENDPOINT = "https://penumbra.crouton.digital/"
-  PENUMBRA_CHAIN_ID = "penumbra-1"
+  SHIELDD_GRPC_ENDPOINT = "https://shieldd.crouton.digital/"
+  SHIELDD_CHAIN_ID = "shieldd-1"
 
 [http_service]
   internal_port = 3000

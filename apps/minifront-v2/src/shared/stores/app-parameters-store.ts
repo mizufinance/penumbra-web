@@ -9,10 +9,10 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import {
   AppParametersResponse,
   GasPricesResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { RootStore } from './root-store';
-import { penumbra } from '../lib/penumbra';
-import { PenumbraState } from '@mizufinance/client';
+import { shieldd } from '../lib/shieldd';
+import { ShielddState } from '@mizufinance/client';
 
 export class AppParametersStore {
   // Observable state
@@ -25,8 +25,8 @@ export class AppParametersStore {
     makeAutoObservable(this);
 
     // Listen for connection state changes to retry loading
-    penumbra.onConnectionStateChange(event => {
-      if (event.state === PenumbraState.Connected) {
+    shieldd.onConnectionStateChange(event => {
+      if (event.state === ShielddState.Connected) {
         void this.initialize();
       }
     });
@@ -36,7 +36,7 @@ export class AppParametersStore {
    * Initialize the store and load initial data
    */
   async initialize() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       // Connection not ready yet, will retry when connection is established
       return;
     }
@@ -58,7 +58,7 @@ export class AppParametersStore {
    * Load app parameters from the service
    */
   async loadAppParameters() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
@@ -66,7 +66,7 @@ export class AppParametersStore {
     this.error = null;
 
     try {
-      const response = await this.rootStore.penumbraService.getAppParameters();
+      const response = await this.rootStore.shielddService.getAppParameters();
 
       runInAction(() => {
         this.appParameters = response;
@@ -84,12 +84,12 @@ export class AppParametersStore {
    * Load gas prices from the service
    */
   async loadGasPrices() {
-    if (!penumbra.connected) {
+    if (!shieldd.connected) {
       return;
     }
 
     try {
-      const response = await this.rootStore.penumbraService.getGasPrices();
+      const response = await this.rootStore.shielddService.getGasPrices();
 
       runInAction(() => {
         this.gasPrices = response;

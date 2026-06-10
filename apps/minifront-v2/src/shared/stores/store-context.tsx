@@ -76,8 +76,8 @@ export const useStatusStore = () => {
   return rootStore.statusStore;
 };
 
-// Hook for the Penumbra service
-export const usePenumbraService = () => {
+// Hook for the Shieldd service
+export const useShielddService = () => {
   const rootStore = useRootStore();
-  return rootStore.penumbraService;
+  return rootStore.shielddService;
 };

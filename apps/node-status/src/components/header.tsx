@@ -10,14 +10,14 @@ export const Header = () => {
     <header className='z-10 flex w-full flex-col items-center justify-between px-6 md:h-[82px] md:flex-row md:gap-12 md:px-12'>
       <div className='mb-[30px] md:mb-0'>
         <img
-          src='./penumbra-rays.svg'
-          alt='Penumbra logo'
+          src='./shieldd-rays.svg'
+          alt='Shieldd logo'
           className='absolute inset-x-0 top-[-75px] mx-auto h-[141px] w-[136px] rotate-[320deg] md:left-[-100px] md:top-[-140px] md:mx-0 md:size-[234px]'
         />
         <Link to='/'>
           <img
-            src='./penumbra-text-logo.svg'
-            alt='Penumbra logo'
+            src='./shieldd-text-logo.svg'
+            alt='Shieldd logo'
             className='relative z-10 mt-[20px] h-4 w-[171px] md:mt-0'
           />
         </Link>

@@ -3,7 +3,7 @@ import { asOpaqueMemoView, asReceiverMemoView } from './memo-view.js';
 import {
   MemoView,
   MemoView_Visible,
-} from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+} from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { asOpaqueAddressView } from './address-view.js';
 
 describe('asOpaqueMemoView()', () => {

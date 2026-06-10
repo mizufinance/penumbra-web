@@ -1,5 +1,5 @@
-import type { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import type { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 import { styled, DefaultTheme } from 'styled-components';
 import { useDensity } from '../hooks/useDensity';
 import { Density } from '../types/Density';
@@ -48,7 +48,7 @@ export const AccountSelectorAddress = ({
           truncate={density === 'compact'}
           color={getAddressColor(loading, ephemeral)}
         >
-          {deferredAddress ? bech32mAddress(deferredAddress) : `penumbra1...`}
+          {deferredAddress ? bech32mAddress(deferredAddress) : `shieldd1...`}
         </Text>
       </TextWrapper>
 

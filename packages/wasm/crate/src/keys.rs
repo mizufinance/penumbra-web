@@ -1,8 +1,8 @@
-use penumbra_keys::keys::{AddressIndex, Bip44Path, SeedPhrase, SpendKey};
-use penumbra_keys::{Address, FullViewingKey};
-use penumbra_proto::core::keys::v1 as pb;
-use penumbra_proto::DomainType;
 use rand_core::OsRng;
+use shieldd_keys::keys::{AddressIndex, Bip44Path, SeedPhrase, SpendKey};
+use shieldd_keys::{Address, FullViewingKey};
+use shieldd_proto::core::keys::v1 as pb;
+use shieldd_proto::DomainType;
 use std::str::FromStr;
 use wasm_bindgen::prelude::*;
 
@@ -123,9 +123,9 @@ pub struct ForwardingAddrResponse {
     pub noble_addr_bech32: String,
     /// Byte representation of the noble forwarding address. Used for broadcasting cosmos message.
     pub noble_addr_bytes: Vec<u8>,
-    /// The penumbra address that a deposit to the noble address with forward to
+    /// The shieldd address that a deposit to the noble address with forward to
     /// Vec encoded `pb::Address`
-    pub penumbra_addr_bytes: Vec<u8>,
+    pub shieldd_addr_bytes: Vec<u8>,
 }
 
 /// Generates an address that can be used as a forwarding address for Noble
@@ -138,12 +138,12 @@ pub fn get_noble_forwarding_addr(
     account: Option<u32>,
 ) -> WasmResult<ForwardingAddrResponse> {
     let fvk: FullViewingKey = FullViewingKey::decode(full_viewing_key)?;
-    let penumbra_addr = forwarding_addr_inner(sequence, account, &fvk);
-    let noble_addr = penumbra_addr.noble_forwarding_address(channel);
+    let shieldd_addr = forwarding_addr_inner(sequence, account, &fvk);
+    let noble_addr = shieldd_addr.noble_forwarding_address(channel);
     Ok(ForwardingAddrResponse {
         noble_addr_bech32: noble_addr.to_string(),
         noble_addr_bytes: noble_addr.bytes(),
-        penumbra_addr_bytes: penumbra_addr.encode_to_vec(),
+        shieldd_addr_bytes: shieldd_addr.encode_to_vec(),
     })
 }
 

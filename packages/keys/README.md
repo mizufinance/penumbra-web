@@ -1,10 +1,10 @@
 # `@mizufinance/keys`
 
-This package contains cryptographic keys relevant to the Penumbra blockchain.
+This package contains cryptographic keys relevant to the Shieldd blockchain.
 
 ## Exports
 
-The default export is a JSON mapping of Penumbra `Action` names to their
+The default export is a JSON mapping of Shieldd `Action` names to their
 relevant key, necessary for building cryptographic proofs for those actions.
 
 Individual keys are also exported at `@mizufinance/keys/[key_name]_pk.bin`.
@@ -24,7 +24,7 @@ For a more generic technique, the root export maps action type names to the
 relevant key filename. Note that not every action has an associated proving key.
 
 ```ts
-import { Action } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { Action } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import actionKeys from '@mizufinance/keys';
 
 async function getActionProvingKey({ action }: Action) {
