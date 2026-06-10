@@ -3,11 +3,7 @@ import { useState } from 'react';
 
 import { AssetValueInput } from '.';
 import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
-import {
-  SHIELDD_BALANCE,
-  SHIELDD2_BALANCE,
-  OSMO_BALANCE,
-} from '../utils/bufs/balances-responses';
+import { SHIELDD_BALANCE, SHIELDD2_BALANCE, OSMO_BALANCE } from '../utils/bufs/balances-responses';
 import {
   SHIELDD_METADATA,
   OSMO_METADATA,

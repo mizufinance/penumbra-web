@@ -1,10 +1,7 @@
 import type { ServiceType } from '@bufbuild/protobuf';
 import { Client, createClient, Transport } from '@connectrpc/connect';
 import { jsonOptions, ShielddService } from '@mizufinance/protobuf';
-import {
-  ChannelTransportOptions,
-  createChannelTransport,
-} from '@mizufinance/transport-dom/create';
+import { ChannelTransportOptions, createChannelTransport } from '@mizufinance/transport-dom/create';
 import { assertProviderConnected, assertProviderRecord } from './assert.js';
 import { ShielddEventListener } from './event-listener.js';
 import { createShielddStateEvent, isShielddStateEvent, ShielddEventDetail } from './event.js';
@@ -370,7 +367,5 @@ export class ShielddClient {
 
 /** Construct a client instance but take no specific action. Will immediately
  * attach to a specified provider, or remain unconfigured. */
-export const createShielddClient = (
-  providerOrigin?: string,
-  opt?: Partial<ShielddClientOptions>,
-) => new ShielddClient(providerOrigin, { ...ShielddClient.defaultOptions, ...opt });
+export const createShielddClient = (providerOrigin?: string, opt?: Partial<ShielddClientOptions>) =>
+  new ShielddClient(providerOrigin, { ...ShielddClient.defaultOptions, ...opt });

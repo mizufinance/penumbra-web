@@ -15,10 +15,7 @@ import {
   IbcClientService,
 } from '@mizufinance/protobuf';
 import { shieldd } from '../lib/shieldd';
-import {
-  getDisplayDenomExponentFromValueView,
-  getMetadata,
-} from '@mizufinance/getters/value-view';
+import { getDisplayDenomExponentFromValueView, getMetadata } from '@mizufinance/getters/value-view';
 import { getAddressIndex } from '@mizufinance/getters/address-view';
 import { toBaseUnit } from '@mizufinance/types/lo-hi';
 import { Height } from '@mizufinance/protobuf/ibc/core/client/v1/client_pb';

@@ -10,8 +10,9 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverClose = PopoverPrimitive.Close;
 
-export interface PopoverContentProps
-  extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
+export interface PopoverContentProps extends React.ComponentPropsWithoutRef<
+  typeof PopoverPrimitive.Content
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 

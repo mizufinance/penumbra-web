@@ -2,11 +2,7 @@ import { TransactionView } from '@mizufinance/protobuf/shieldd/core/transaction/
 import { MemoViewComponent } from './memo-view';
 import { ActionViewComponent } from './action-view';
 import { ViewBox, ViewSection } from './viewbox';
-import {
-  AssetId,
-  Metadata,
-  ValueView,
-} from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { AssetId, Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { ValueViewComponent } from '../value';
 import { useEffect, useState } from 'react';
 

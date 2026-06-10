@@ -29,7 +29,6 @@ Currently, the key material is stored only in the extension's session storage up
 While this behavior is correct and expected, there are additional potential privacy-related leaks to consider:
 
 1. The full viewing key material is generated from the spend key, and the plaintext JSON of the full viewing key is stored in local state storage. When the extension is locked, a potential attacker with access to the console can still execute `chrome.storage.local.get().then(console.log)` and access the full viewing key in the clear. To mitigate this, we should:
-
    - Ensure that all access to sensitive data in state storage is gated behind an authentication check to ensure user has logged in,
    - Consider storing the encrypted full viewing key in local storage / not storing the full viewing key at all, and decrypting / deriving it in session storage from the spend key each time it is needed. **_update_**: the non-encrypted FVK is stored in local storage, which enables block syncing when the extension is logged out. This is an explicit design goal where _read_ access happens when logged out and _write_ access requires login and explicit user authentication.
 

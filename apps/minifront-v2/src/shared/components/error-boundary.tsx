@@ -1,9 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import { Code, ConnectError } from '@connectrpc/connect';
-import {
-  ShielddNotInstalledError,
-  ShielddProviderNotConnectedError,
-} from '@mizufinance/client';
+import { ShielddNotInstalledError, ShielddProviderNotConnectedError } from '@mizufinance/client';
 import { Button } from '@mizufinance/ui/Button';
 import { Text } from '@mizufinance/ui/Text';
 import { Card } from '@mizufinance/ui/Card';

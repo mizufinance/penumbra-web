@@ -44,8 +44,10 @@ interface ForceTransportOptions {
   interceptors: [];
 }
 
-export interface ChannelTransportOptions
-  extends Omit<CommonTransportOptions, keyof ForceTransportOptions> {
+export interface ChannelTransportOptions extends Omit<
+  CommonTransportOptions,
+  keyof ForceTransportOptions
+> {
   jsonOptions?: CommonTransportOptions['jsonOptions'] & {
     typeRegistry: NonNullable<(JsonReadOptions & JsonWriteOptions)['typeRegistry']>;
   };

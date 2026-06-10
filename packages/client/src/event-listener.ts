@@ -5,8 +5,10 @@ interface SpecificEventListener<T extends Event> extends EventListener {
   (evt: T): void;
 }
 // like EventTarget, but restricts possible event types
-interface SpecificEventTarget<SpecificTypeName extends string, SpecificEvent extends Event = Event>
-  extends EventTarget {
+interface SpecificEventTarget<
+  SpecificTypeName extends string,
+  SpecificEvent extends Event = Event,
+> extends EventTarget {
   addEventListener: (
     type: SpecificTypeName,
     listener: SpecificEventListener<SpecificEvent> | EventListenerObject | null,

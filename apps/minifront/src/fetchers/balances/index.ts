@@ -1,7 +1,4 @@
-import {
-  BalancesRequest,
-  BalancesResponse,
-} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { BalancesRequest, BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { AddressIndex } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ViewService } from '@mizufinance/protobuf';

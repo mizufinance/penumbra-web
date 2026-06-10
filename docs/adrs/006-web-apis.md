@@ -259,4 +259,3 @@ Shieldd's proto specs are published to the Buf Schema Registry at [buf.build/miz
 Web developers will be interested in the documentation of `@mizufinance/client` (discussed in this ADR) and `@mizufinance/react`.
 
 The `@mizufinance/protobuf` package exports several services, but technically, the `ShielddClient` interface is flexible enough that a provider could implement and provide any service they wish. Documentation on any uniquely available services should be sought from the developers of the provider.
-

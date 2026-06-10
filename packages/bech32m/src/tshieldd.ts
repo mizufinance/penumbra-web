@@ -21,7 +21,4 @@ export const isAddress = (check: string): check is `${typeof prefix}1${string}` 
   }
 };
 
-export {
-  SHIELDD_BECH32M_TRANSPARENT_LENGTH,
-  SHIELDD_BECH32M_TRANSPARENT_PREFIX,
-} from './index.js';
+export { SHIELDD_BECH32M_TRANSPARENT_LENGTH, SHIELDD_BECH32M_TRANSPARENT_PREFIX } from './index.js';

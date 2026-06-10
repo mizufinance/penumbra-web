@@ -57,9 +57,9 @@ describe('assetPatterns', () => {
 
   describe('unbondingToken', () => {
     it('matches when a string is a valid unbonding token name', () => {
-      expect(
-        assetPatterns.unbondingToken.matches('unbonding_start_at_1_shielddvalid1abc123'),
-      ).toBe(true);
+      expect(assetPatterns.unbondingToken.matches('unbonding_start_at_1_shielddvalid1abc123')).toBe(
+        true,
+      );
     });
 
     it('captures the unbonding start height', () => {

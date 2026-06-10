@@ -129,16 +129,16 @@ export class RootStore {
 
 ### Technical Stack Evolution
 
-| Aspect               | Original Minifront           | Minifront v2            | Reasoning                                            |
-| -------------------- | ---------------------------- | ----------------------- | ---------------------------------------------------- |
-| **Routing**          | React Router (hash)          | React Router (hash)     | ✅ **Parity**: Maintains deployment flexibility      |
-| **Build Tool**       | Vite                         | Vite                    | ✅ **Parity**: Continues fast development experience |
-| **State Management** | Zustand + TanStack Query     | MobX                    | 🔄 **Evolution**: Better performance & DX            |
-| **Architecture**     | Component-based              | Feature-Sliced Design   | 🔄 **Evolution**: Improved scalability               |
-| **Services**         | Direct in components         | Dedicated service layer | ➕ **Addition**: Better separation of concerns       |
-| **UI Library**       | @mizufinance/ui-deprecated | @mizufinance/ui       | 🔄 **Migration**: Complete UI library change         |
-| **CSS Framework**    | Tailwind                     | Tailwind                | ✅ **Parity**: Consistent styling approach           |
-| **TypeScript**       | TypeScript                   | TypeScript              | ✅ **Parity**: Type safety maintained                |
+| Aspect               | Original Minifront         | Minifront v2            | Reasoning                                            |
+| -------------------- | -------------------------- | ----------------------- | ---------------------------------------------------- |
+| **Routing**          | React Router (hash)        | React Router (hash)     | ✅ **Parity**: Maintains deployment flexibility      |
+| **Build Tool**       | Vite                       | Vite                    | ✅ **Parity**: Continues fast development experience |
+| **State Management** | Zustand + TanStack Query   | MobX                    | 🔄 **Evolution**: Better performance & DX            |
+| **Architecture**     | Component-based            | Feature-Sliced Design   | 🔄 **Evolution**: Improved scalability               |
+| **Services**         | Direct in components       | Dedicated service layer | ➕ **Addition**: Better separation of concerns       |
+| **UI Library**       | @mizufinance/ui-deprecated | @mizufinance/ui         | 🔄 **Migration**: Complete UI library change         |
+| **CSS Framework**    | Tailwind                   | Tailwind                | ✅ **Parity**: Consistent styling approach           |
+| **TypeScript**       | TypeScript                 | TypeScript              | ✅ **Parity**: Type safety maintained                |
 
 ### UI Component Strategy
 
@@ -245,7 +245,6 @@ This represents a **complete UI library migration**, not preservation of existin
 ### Remaining Work
 
 1. **Phase 1 Completion**: Add production build configuration
-
    - Configure `vite build` script
    - Ensure static output works with PD node deployment
    - Verify privacy constraints are maintained in production build

@@ -54,8 +54,10 @@ const findMatchingAddressView = (
   return undefined;
 };
 
-interface ActionDisplayProps
-  extends Omit<SectionComponentProps, 'fullTxInfo' | 'transactionToDisplay'> {
+interface ActionDisplayProps extends Omit<
+  SectionComponentProps,
+  'fullTxInfo' | 'transactionToDisplay'
+> {
   actionView: CoreActionView;
 }
 

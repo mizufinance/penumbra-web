@@ -21,7 +21,4 @@ export const isIdentityKey = (check: string): check is `${typeof prefix}1${strin
   }
 };
 
-export {
-  SHIELDD_BECH32M_IDENTITYKEY_LENGTH,
-  SHIELDD_BECH32M_IDENTITYKEY_PREFIX,
-} from './index.js';
+export { SHIELDD_BECH32M_IDENTITYKEY_LENGTH, SHIELDD_BECH32M_IDENTITYKEY_PREFIX } from './index.js';

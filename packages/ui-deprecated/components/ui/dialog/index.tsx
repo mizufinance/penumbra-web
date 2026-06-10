@@ -56,8 +56,9 @@ const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
 
-export interface DialogOverlayProps
-  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> {
+export interface DialogOverlayProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Overlay
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
@@ -115,7 +116,8 @@ const dialogContentVariants = cva(
 );
 
 export interface DialogContentProps
-  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
+  extends
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
     VariantProps<typeof dialogContentVariants> {
   children?: React.ReactNode;
   layoutId?: string;
@@ -167,8 +169,9 @@ const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 );
 DialogFooter.displayName = 'DialogFooter';
 
-export interface DialogTitleProps
-  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> {
+export interface DialogTitleProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Title
+> {
   ref?: React.Ref<HTMLHeadingElement>;
 }
 
@@ -181,8 +184,9 @@ const DialogTitle = ({ className, ref, ...props }: DialogTitleProps) => (
 );
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-export interface DialogDescriptionProps
-  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> {
+export interface DialogDescriptionProps extends React.ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Description
+> {
   ref?: React.Ref<HTMLParagraphElement>;
 }
 

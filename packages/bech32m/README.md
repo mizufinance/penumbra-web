@@ -59,9 +59,7 @@ const partialPositionId: PartialMessage<PositionId> = plpidFromBech32(
 // available on the @bufbuild/protobuf Message class
 
 const realSpendKey: SpendKey = new SpendKey(
-  spendKeyFromBech32m(
-    'shielddspendkey1qul0huewkcmemljd5m3vz3awqt7442tjg2dudahvzu6eyj9qf0eszrnguh',
-  ),
+  spendKeyFromBech32m('shielddspendkey1qul0huewkcmemljd5m3vz3awqt7442tjg2dudahvzu6eyj9qf0eszrnguh'),
 );
 
 // marshal to protojson

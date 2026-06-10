@@ -8,11 +8,7 @@ import {
 import { MsgUpdateClient } from '@mizufinance/protobuf/ibc/core/client/v1/tx_pb';
 import { IbcRelay } from '@mizufinance/protobuf/shieldd/core/component/ibc/v1/ibc_pb';
 import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
-import {
-  Denom,
-  ValueView,
-  Metadata,
-} from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { Denom, ValueView, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { unpackIbcRelay } from '@mizufinance/perspective/action-view/ibc';
 import { fromString } from '@mizufinance/types/amount';
 import { useDensity } from '../../utils/density';

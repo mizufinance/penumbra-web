@@ -71,8 +71,9 @@ export const mockEvent = <E extends ChromeEvent>(
  *
  * Create with {@link mockEvent}
  */
-export interface MockedChromeEvent<T extends ChromeEvent = ChromeEvent>
-  extends Mocked<ChromeEvent<ChromeEventListener<T>>> {
+export interface MockedChromeEvent<T extends ChromeEvent = ChromeEvent> extends Mocked<
+  ChromeEvent<ChromeEventListener<T>>
+> {
   /** inspectable set of attached listeners */
   listeners: Set<ChromeEventListener<T>>;
   /** dispatch the event to activate attached listeners */

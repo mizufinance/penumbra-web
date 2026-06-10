@@ -1,9 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import { Code, ConnectError } from '@connectrpc/connect';
-import {
-  ShielddNotInstalledError,
-  ShielddProviderNotConnectedError,
-} from '@mizufinance/client';
+import { ShielddNotInstalledError, ShielddProviderNotConnectedError } from '@mizufinance/client';
 import { SplashPage } from '@mizufinance/ui-deprecated/components/ui/splash-page';
 import { NotFound } from '../not-found';
 import { ExtensionTransportDisconnected } from '../extension-transport-disconnected';

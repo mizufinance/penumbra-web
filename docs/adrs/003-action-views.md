@@ -62,7 +62,6 @@ This specification is intended to inform what information should be comprehended
 ## 5. [Delegate View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.stake.v1#shieldd.core.component.stake.v1.Delegate)
 
 - `Delegate`
-
   - `IdentityKey`: <u>**_opaque_**</u> field since the validator's identity (decaf377-rdsa spendauth verification key) is supposed to be public, while individual delegators are kept private.
   - `Epoch`: <u>**_opaque_**</u> field since this is included as part of the chain state.
   - `Amount`: <u>**_opaque_**</u> field since the unbounded amount is public until flow encryption is supported to only display batched amounts per block.
