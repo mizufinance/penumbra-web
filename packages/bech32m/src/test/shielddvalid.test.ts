@@ -9,7 +9,7 @@ describe('validator id conversion', () => {
     46, 58, 148, 196, 175, 59, 251, 179, 127, 129, 196, 184, 185, 223, 27, 243, 46, 113, 201, 57,
     96, 186, 251, 132, 209, 136, 103, 239, 205, 105, 211, 8,
   ]);
-  const okBech32 = 'shielddvalid19caff39080amxlupcjutnhcm7vh8rjfevza0hpx33pn7lntf6vyqvuekzh';
+  const okBech32 = 'shielddvalid19caff39080amxlupcjutnhcm7vh8rjfevza0hpx33pn7lntf6vyqfw39w7';
 
   generateTests(
     Prefixes.shielddvalid,

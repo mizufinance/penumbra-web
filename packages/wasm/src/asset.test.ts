@@ -11,7 +11,7 @@ const randomString = (byteLength = 32) =>
 describe('assetIdFromBaseDenom', () => {
   test('should return the correct asset id for a known asset id', async () => {
     const ushielddFromBech32m = new AssetId(
-      assetIdFromBech32m('passet1984fctenw8m2fpl8a9wzguzp7j34d7vravryuhft808nyt9fdggqxmanqm'),
+      assetIdFromBech32m('passet16z48kfv36flfq5nznlnqakts6t0r0e0qaw92y3ehcavyjs2tx5pqy04fm7'),
     );
 
     const ushielddFromBaseDenom = await assetIdFromBaseDenom('ushieldd');

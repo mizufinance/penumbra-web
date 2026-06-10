@@ -11,7 +11,7 @@ describe('fvk conversion', () => {
     212, 210, 111, 5, 34, 249, 15, 60, 220, 191, 1, 224, 210, 114, 210, 205, 9, 187, 72, 115, 75, 2,
   ]);
   const okBech32 =
-    'shielddfullviewingkey1vzfytwlvq067g2kz095vn7sgcft47hga40atrg5zu2crskm6tyyjysm28qg5nth2fqmdf5n0q530jreumjlsrcxjwtfv6zdmfpe5kqsa5lg09';
+    'shielddfullviewingkey1vzfytwlvq067g2kz095vn7sgcft47hga40atrg5zu2crskm6tyyjysm28qg5nth2fqmdf5n0q530jreumjlsrcxjwtfv6zdmfpe5kqs0knh76';
 
   generateTests(
     Prefixes.shielddfullviewingkey,

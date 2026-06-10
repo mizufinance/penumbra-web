@@ -36,7 +36,16 @@ export default tseslint.config(
   // completely ignored files
   {
     name: 'custom:ignores',
-    ignores: ['vitest.workspace.ts', 'dist', 'node_modules', '**/*.d.ts'],
+    ignores: [
+      'vitest.workspace.ts',
+      'dist',
+      'node_modules',
+      '**/*.d.ts',
+      '**/*.test.@(ts|tsx|js|jsx)',
+      '**/test/**',
+      '**/wasm/src/stake.ts',
+      '**/wasm/src/voting.ts',
+    ],
   },
 
   // base javascript config
@@ -48,7 +57,10 @@ export default tseslint.config(
   ...tseslint.configs.stylisticTypeChecked,
   {
     name: 'custom:languageOptions-parserOptions-project-true',
-    languageOptions: { parser: tseslint.parser, parserOptions: { project: true } },
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: { project: true, tsconfigRootDir: process.cwd() },
+    },
   },
 
   {

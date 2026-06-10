@@ -15,7 +15,6 @@ import { SctFrontierResponse } from '@mizufinance/protobuf/shieldd/core/componen
 import { ensureWasmInitialized } from './init.js';
 
 declare global {
-  // eslint-disable-next-line no-var -- TODO: explain
   var __DEV__: boolean | undefined;
 }
 

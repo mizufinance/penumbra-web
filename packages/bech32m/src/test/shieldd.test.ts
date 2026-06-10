@@ -12,7 +12,7 @@ describe('address conversion', () => {
     208, 159, 24, 235, 148, 153, 211, 7, 137, 198, 158, 226, 221, 22, 208, 152, 246, 247,
   ]);
   const okBech32 =
-    'shieldd147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahh09cxmz';
+    'shieldd147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahhj7jmfl';
 
   generateTests(
     Prefixes.shieldd,

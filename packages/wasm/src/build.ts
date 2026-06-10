@@ -16,20 +16,20 @@ import {
 import { FullViewingKey, SpendKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ensureWasmInitialized } from './init.js';
 
-type ProofRequest = {
+interface ProofRequest {
   family: string;
   witness: number[] | Uint8Array;
-};
+}
 
-type ProverResponse = {
+interface ProverResponse {
   proof?: string;
   result?: string;
   error?: string;
-};
+}
 
-export type BuildActionOptions = {
+export interface BuildActionOptions {
   proverUrl: string;
-};
+}
 
 export const authorizePlan = async (
   spendKey: SpendKey,
@@ -98,9 +98,9 @@ export const buildActionParallel = async (
   });
   const body = (await response.json().catch(() => ({}))) as ProverResponse;
   if (!response.ok || body.error) {
-    throw new Error(body.error || `Shieldd prover failed with HTTP ${response.status}`);
+    throw new Error(body.error ?? `Shieldd prover failed with HTTP ${response.status}`);
   }
-  const proofResult = body.result || body.proof;
+  const proofResult = body.result ?? body.proof;
   if (!proofResult) {
     throw new Error('Shieldd prover response did not include a proof result');
   }
