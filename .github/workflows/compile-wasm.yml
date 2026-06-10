@@ -5,7 +5,7 @@ on:
 
 jobs:
   wasm:
-    runs-on: buildjet-16vcpu-ubuntu-2204
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:

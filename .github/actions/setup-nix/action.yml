@@ -9,10 +9,6 @@ inputs:
     description: Restore prefix for the cache
     required: false
     default: nix-${{ runner.os }}-
-  backend:
-    description: Backend to use for caching
-    required: false
-    default: buildjet
 
 runs:
   using: composite
@@ -25,7 +21,6 @@ runs:
       with:
         primary-key: ${{ inputs.primary-key }}
         restore-prefixes-first-match: ${{ inputs.restore-prefix }}
-        backend: ${{ inputs.backend }}
 
     - name: Pre-build development shell
       shell: bash
