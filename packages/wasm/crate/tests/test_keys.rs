@@ -23,7 +23,7 @@ fn generates_spend_key() {
     let spend_key = SpendKey::from(SpendKeyBytes::from(bytes));
     assert_eq!(
         spend_key.to_string(),
-        "shielddspendkey1pgsphqgnltgy7hdspe4v74qefx2slp0v50szuup9fqutw5959gkq97v54y"
+        "shielddspendkey1pgsphqgnltgy7hdspe4v74qefx2slp0v50szuup9fqutw5959gkq7j55fx"
     );
 }
 
@@ -32,7 +32,7 @@ fn generates_fvk() {
     let spend_key = generate_spend_key(TEST_SEED_PHRASE).unwrap();
     let fvk_bytes = get_full_viewing_key(spend_key.as_slice()).unwrap();
     let fvk = FullViewingKey::decode(fvk_bytes.as_slice()).unwrap();
-    assert_eq!(fvk.to_string(), "shielddfullviewingkey1vzfytwlvq067g2kz095vn7sgcft47hga40atrg5zu2crskm6tyyjysm28qg5nth2fqmdf5n0q530jreumjlsrcxjwtfv6zdmfpe5kqsa5lg09");
+    assert_eq!(fvk.to_string(), "shielddfullviewingkey1m3409f50z92qajpkw93wp7d5yumdyfvqqz2pj5h8dp0v28z8svzqh7awek4q262g500pswwd5fmg6u4dv0n4rnag0mvcwjudr5p3grqnhg43u");
 }
 
 #[test]
@@ -43,7 +43,7 @@ fn generates_wallet_id() {
     let wallet_id = WalletId::decode(wallet_id_bytes.as_slice()).unwrap();
     assert_eq!(
         wallet_id.to_string(),
-        "shielddwalletid172c36rsht9483decguzwg3x3p50kjxz9yh4f9luwdz8qyemc9vpsdw5j4m"
+        "shielddwalletid1hz3vq7alehqcxe4kd4xmmw3ue85me7ft90qa72zkc776cenyt58sw558re"
     );
 }
 
@@ -55,7 +55,7 @@ fn gets_address_by_index() {
     let address = Address::decode(address_bytes.as_slice()).unwrap();
     assert_eq!(
         address.to_string(),
-        "shieldd147mfall0zr6am5r45qkwht7xqqrdsp50czde7empv7yq2nk3z8yyfh9k9520ddgswkmzar22vhz9dwtuem7uxw0qytfpv7lk3q9dp8ccaw2fn5c838rfackazmgf3ahh09cxmz"
+        "shieldd1072tem53f9z7nr45egssuuuq7zgn406e4ps75ksh6t2pf3k5smtvp93fv52u7dlasfgfxhzkkc2mmgjhwrc8w2q388qfkg5tp35pws7h6ud85yl23fnaprgnk9zskpzwykl2lh"
     );
 }
 
@@ -71,14 +71,18 @@ fn raises_if_fvk_invalid() {
 
 #[test]
 fn detects_controlled_addr() {
-    let fvk = FullViewingKey::from_str("shielddfullviewingkey1sjeaceqzgaeye2ksnz8q73mp6rpx2ykdtzs8wurrnhwdn8vqwuxhxtjdndrjc74udjh0uch0tatnrd93q50wp9pfk86h3lgpew8lsqsz2a6la").unwrap();
+    let spend_key = generate_spend_key(TEST_SEED_PHRASE).unwrap();
+    let fvk_bytes = get_full_viewing_key(spend_key.as_slice()).unwrap();
+    let fvk = FullViewingKey::decode(fvk_bytes.as_slice()).unwrap();
     let (addr, _) = fvk.payment_address(AddressIndex::new(0));
     assert!(is_controlled_address(&fvk.encode_to_vec(), &addr.encode_to_vec()).unwrap());
 }
 
 #[test]
 fn returns_false_on_unknown_addr() {
-    let fvk = FullViewingKey::from_str("shielddfullviewingkey1sjeaceqzgaeye2ksnz8q73mp6rpx2ykdtzs8wurrnhwdn8vqwuxhxtjdndrjc74udjh0uch0tatnrd93q50wp9pfk86h3lgpew8lsqsz2a6la").unwrap();
+    let spend_key = generate_spend_key(TEST_SEED_PHRASE).unwrap();
+    let fvk_bytes = get_full_viewing_key(spend_key.as_slice()).unwrap();
+    let fvk = FullViewingKey::decode(fvk_bytes.as_slice()).unwrap();
     let other_address =
         SpendKey::from_seed_phrase_bip44(SeedPhrase::generate(OsRng), &Bip44Path::new(0))
             .full_viewing_key()
