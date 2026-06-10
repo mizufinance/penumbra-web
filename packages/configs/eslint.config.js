@@ -36,7 +36,7 @@ export default tseslint.config(
   // completely ignored files
   {
     name: 'custom:ignores',
-    ignores: ['vitest.workspace.ts', 'dist', 'node_modules', 'vite-env.d.ts'],
+    ignores: ['vitest.workspace.ts', 'dist', 'node_modules', '**/*.d.ts'],
   },
 
   // base javascript config

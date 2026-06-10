@@ -19,7 +19,7 @@ set -euo pipefail
 # This is a hardcoded value that matches exactly the path Playwright
 # will check within its browser cache dir. This value must be updated
 # whenever the `playwright` npm dependency is changed. If it breaks, mention @conorsch.
-_PLAYWRIGHT_CHROMIUM_HEADLESS_VERSION="1169"
+_PLAYWRIGHT_CHROMIUM_HEADLESS_VERSION="1217"
 
 
 # If we're not in a nix shell, then just do the simple thing:
