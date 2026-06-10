@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "tsc --build --verbose",
-    "gen:data": "cargo run --release --manifest-path gen/Cargo.toml",
     "clean": "rm -rfv dist *.tsbuildinfo package mizufinance-*.tgz",
+    "gen:data": "cargo run --release --manifest-path gen/Cargo.toml",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "lint:strict": "tsc --noEmit && eslint src --max-warnings 0"
