@@ -175,7 +175,7 @@ type TextType =
        * Renders a styled `<p />` tag with a bottom-margin (unless it's the last
        * child). Aside from the margin, `<P />` is identical to `<Body />`.
        *
-       * Note that this is the only component in the entire Penumbra UI library
+       * Note that this is the only component in the entire Shieldd UI library
        * that renders an external margin. It's a convenience for developers who
        * don't want to wrap each `<Text p />` in a `<div />` with the
        * appropriate margin, or a flex columnn with a gap.
@@ -290,7 +290,7 @@ const omit = <ObjectType extends Record<string, unknown>>(
 };
 
 /**
- * All-purpose text wrapper for quickly styling text per the Penumbra UI
+ * All-purpose text wrapper for quickly styling text per the Shieldd UI
  * guidelines.
  *
  * Use with a _single_ text style name:

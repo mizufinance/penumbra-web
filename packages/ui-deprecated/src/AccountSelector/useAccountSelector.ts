@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { AccountSelectorProps } from '.';
-import type { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import type { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 const MAX_INDEX = 2 ** 32;
 

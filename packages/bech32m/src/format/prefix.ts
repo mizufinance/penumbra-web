@@ -1,15 +1,15 @@
 export const Prefixes = {
   passet: 'passet',
   pauctid: 'pauctid',
-  penumbra: 'penumbra',
-  penumbrafullviewingkey: 'penumbrafullviewingkey',
-  penumbragovern: 'penumbragovern',
-  penumbraspendkey: 'penumbraspendkey',
-  penumbravalid: 'penumbravalid',
-  penumbrawalletid: 'penumbrawalletid',
+  shieldd: 'shieldd',
+  shielddfullviewingkey: 'shielddfullviewingkey',
+  shielddgovern: 'shielddgovern',
+  shielddspendkey: 'shielddspendkey',
+  shielddvalid: 'shielddvalid',
+  shielddwalletid: 'shielddwalletid',
   plpid: 'plpid',
-  penumbracompat1: 'penumbracompat1',
-  tpenumbra: 'tpenumbra',
+  shielddcompat1: 'shielddcompat1',
+  tshieldd: 'tshieldd',
 } as const;
 
 export type Prefix = keyof typeof Prefixes;

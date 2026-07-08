@@ -2,3 +2,6 @@ flake.lock
 pnpm-lock.yaml
 packages/wasm/crate
 packages/wasm/wasm
+packages/registry/gen
+packages/registry/src/data
+vendor

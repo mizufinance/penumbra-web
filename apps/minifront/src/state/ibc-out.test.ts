@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 import { AllSlices, initializeStore } from '.';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import { sendValidationErrors } from './send';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { produce } from 'immer';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { addressFromBech32m } from '@mizufinance/bech32m/penumbra';
-import { Chain } from '@penumbra-labs/registry';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { addressFromBech32m } from '@mizufinance/bech32m/shieldd';
+import { Chain } from '@mizufinance/registry';
 import { currentTimePlusTwoDaysRounded, ibcValidationErrors } from './ibc-out';
 
 describe('IBC Slice', () => {
@@ -30,7 +30,7 @@ describe('IBC Slice', () => {
         case: 'opaque',
         value: {
           address: addressFromBech32m(
-            'penumbra1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
+            'shieldd1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
           ),
         },
       },

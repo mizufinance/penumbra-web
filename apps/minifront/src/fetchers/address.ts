@@ -1,7 +1,7 @@
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ViewService } from '@mizufinance/protobuf';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
-import { penumbra } from '../penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
+import { shieldd } from '../shieldd';
 
 type Index = number;
 type Bech32Address = string;
@@ -26,7 +26,7 @@ export const getAddresses = async (accounts: (number | undefined)[]): Promise<In
 };
 
 export const getAddressByIndex = async (account = 0): Promise<Address> => {
-  const { address } = await penumbra
+  const { address } = await shieldd
     .service(ViewService)
     .addressByIndex({ addressIndex: { account } });
   if (!address) {
@@ -36,7 +36,7 @@ export const getAddressByIndex = async (account = 0): Promise<Address> => {
 };
 
 export const getEphemeralAddress = async (account = 0): Promise<Address> => {
-  const { address } = await penumbra
+  const { address } = await shieldd
     .service(ViewService)
     .ephemeralAddress({ addressIndex: { account } });
   if (!address) {

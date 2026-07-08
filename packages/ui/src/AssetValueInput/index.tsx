@@ -1,5 +1,5 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { TextInput } from '../TextInput';
 import { AssetSelector, AssetSelectorValue } from '../AssetSelector';
 import { Text } from '../Text';
@@ -107,9 +107,9 @@ const validateAmount = (amount: string, selectedAsset?: BalancesResponse) => {
  * <AssetValueInput
  *   amount="100"
  *   onAmountChange={handleAmountChange}
- *   selectedAsset={penumbraBalance}
+ *   selectedAsset={shielddBalance}
  *   onAssetChange={handleAssetChange}
- *   balances={[penumbraBalance, osmoBalance]}
+ *   balances={[shielddBalance, osmoBalance]}
  *   error="Custom validation error"
  * />
  */

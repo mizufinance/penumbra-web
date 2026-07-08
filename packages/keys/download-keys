@@ -17,7 +17,7 @@ shaFile="${keysVersion}.shasum"
 ## main ##
 
 ./check-keys "${shaFile}" || (
-    keysUrl="https://github.com/mizufinance/penumbra/raw/${keysVersion}/crates/crypto/proof-params/src/gen/"
+    keysUrl="https://github.com/mizufinance/shieldd/raw/${keysVersion}/crates/crypto/proof-params/src/gen/"
     keysGlob="{convert,delegator_vote,nullifier_derivation,output,spend,swap,swapclaim}_pk.bin"
     curl --location --parallel --remote-name \
         --output-dir "${cacheDir}/${keysVersion}" --create-dirs \

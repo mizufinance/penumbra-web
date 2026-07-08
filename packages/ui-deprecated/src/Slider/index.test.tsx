@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { Slider } from '.';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 window.ResizeObserver = vi.fn().mockImplementation(() => ({
   disconnect: vi.fn(),
@@ -14,7 +14,7 @@ describe('<Slider />', () => {
     const { container } = render(
       <Slider min={0} max={10} step={1} defaultValue={5} leftLabel='left' rightLabel='right' />,
       {
-        wrapper: PenumbraUIProvider,
+        wrapper: ShielddUIProvider,
       },
     );
 
@@ -28,7 +28,7 @@ describe('<Slider />', () => {
     const { container } = render(
       <Slider min={0} max={10} step={1} defaultValue={5} onChange={onChange} />,
       {
-        wrapper: PenumbraUIProvider,
+        wrapper: ShielddUIProvider,
       },
     );
 

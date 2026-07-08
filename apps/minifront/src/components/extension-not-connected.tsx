@@ -7,26 +7,26 @@ import { Toaster } from '@mizufinance/ui-deprecated/components/ui/toaster';
 import { SplashPage } from '@mizufinance/ui-deprecated/components/ui/splash-page';
 import { errorToast, warningToast } from '@mizufinance/ui-deprecated/lib/toast/presets';
 import {
-  PenumbraClient,
-  PenumbraManifest,
-  PenumbraNotInstalledError,
-  PenumbraRequestFailure,
+  ShielddClient,
+  ShielddManifest,
+  ShielddNotInstalledError,
+  ShielddRequestFailure,
 } from '@mizufinance/client';
 
-import { penumbra } from '../penumbra.ts';
+import { shieldd } from '../shieldd.ts';
 import { HeadTag } from './metadata/head-tag';
 import { LoadingIndicator } from './shared/selectors/loading-indicator';
 
 const handleErr = (e: unknown) => {
   if (e instanceof Error && e.cause) {
     switch (e.cause) {
-      case PenumbraRequestFailure.Denied:
+      case ShielddRequestFailure.Denied:
         errorToast(
           'You may need to un-ignore this site in your extension settings.',
           'Connection denied',
         ).render();
         break;
-      case PenumbraRequestFailure.NeedsLogin:
+      case ShielddRequestFailure.NeedsLogin:
         warningToast(
           'Not logged in',
           'Please login into the extension and reload the page',
@@ -49,20 +49,20 @@ export const ExtensionNotConnected = () => {
   const { data: providers, isLoading } = useQuery({
     queryKey: ['provider-manifests'],
     queryFn: async () => {
-      const providers = PenumbraClient.getProviderManifests();
+      const providers = ShielddClient.getProviderManifests();
       const resolvedManifests = await Promise.all(
         Object.entries(providers).map(async ([key, promise]) => {
           const value = await promise;
           return [key, value];
         }),
       );
-      return Object.fromEntries(resolvedManifests) as Record<string, PenumbraManifest>;
+      return Object.fromEntries(resolvedManifests) as Record<string, ShielddManifest>;
     },
   });
 
   const connect = async (provider: string) => {
     try {
-      await penumbra.connect(provider);
+      await shieldd.connect(provider);
       navigate(0);
     } catch (e) {
       handleErr(e);
@@ -72,7 +72,7 @@ export const ExtensionNotConnected = () => {
   };
 
   const checkProviders = () => {
-    const providers = PenumbraClient.getProviders();
+    const providers = ShielddClient.getProviders();
     const length = Object.keys(providers).length;
     const first = Object.keys(providers)[0];
 
@@ -81,7 +81,7 @@ export const ExtensionNotConnected = () => {
     } else if (length === 1 && first) {
       void connect(first);
     } else {
-      throw new PenumbraNotInstalledError();
+      throw new ShielddNotInstalledError();
     }
   };
 
@@ -90,7 +90,7 @@ export const ExtensionNotConnected = () => {
       <HeadTag />
       <Toaster />
 
-      <SplashPage title='Connect to Penumbra'>
+      <SplashPage title='Connect to Shieldd'>
         <div className='flex items-center justify-between gap-[1em] text-lg'>
           <div>To get started, connect to Prax Wallet.</div>
           {!result ? (

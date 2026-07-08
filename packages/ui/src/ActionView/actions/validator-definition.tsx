@@ -1,4 +1,4 @@
-import { ValidatorDefinition } from '@mizufinance/protobuf/penumbra/core/component/stake/v1/stake_pb';
+import { ValidatorDefinition } from '@mizufinance/protobuf/shieldd/core/component/validator/v1/validator_pb';
 import { UnknownAction } from './unknown';
 
 export interface ValidatorDefinitionActionProps {

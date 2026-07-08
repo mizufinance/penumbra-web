@@ -420,7 +420,6 @@
 ### Minor Changes
 
 - 74e89e0: UI:
-
   - Add new `Progress` component
   - Add `MenuItem` component that shares the styles with `DropdownMenu.Item`
   - Update the `Pill` component to support `context` prop
@@ -429,11 +428,9 @@
   - Fix `density` tag in Storybook
 
   Tailwind Config:
-
   - Add support for v2 colors with v2 prefix like `bg-v2-secondary-dark`
 
   Minifront:
-
   - Add top navigation to the v2 minifront with sync bar and prax connection infos
 
 - d938456: Add Slider Component
@@ -674,7 +671,7 @@
 
 ### Minor Changes
 
-- bump @penumbra-labs/registry
+- bump registry
 
 ## 6.2.1
 
@@ -713,7 +710,6 @@
 ### Patch Changes
 
 - 97b7231: Minifront:
-
   - extend `BalanceSelector` to show not only assets with balances but all available assets
   - fix the issues with empty wallets not rendering a swap block correctly
   - reduce the height of `BalanceSelecor` and `AssetSelector` to `90dvh`

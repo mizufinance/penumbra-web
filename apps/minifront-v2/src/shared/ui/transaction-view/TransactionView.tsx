@@ -6,10 +6,10 @@ import {
   asReceiverTransactionView,
 } from '@mizufinance/perspective/translators/transaction-view';
 import { classifyTransaction } from '@mizufinance/perspective/transaction/classify';
-import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { Address, AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { TransactionView as PbTransactionView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
-import { TransactionInfo as GrpcTransactionInfo } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { Address, AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { TransactionView as PbTransactionView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
+import { TransactionInfo as GrpcTransactionInfo } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { typeRegistry } from '@mizufinance/protobuf';
 import { uint8ArrayToHex } from '@mizufinance/types/hex';
 

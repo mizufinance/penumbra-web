@@ -5,7 +5,7 @@ import { getInitialStatus, getStatusStream } from '../fetchers/status';
 import {
   StatusResponse,
   StatusStreamResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { PlainMessage, toPlainMessage } from '@bufbuild/protobuf';
 
 // Time in milliseconds to wait before attempting to reconnect the status stream

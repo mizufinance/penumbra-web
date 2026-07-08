@@ -1,21 +1,20 @@
 import { ViewServer as WasmViewServer } from '../wasm/index.js';
-import { CompactBlock } from '@mizufinance/protobuf/penumbra/core/component/compact_block/v1/compact_block_pb';
-import { MerkleRoot } from '@mizufinance/protobuf/penumbra/crypto/tct/v1/tct_pb';
+import { CompactBlock } from '@mizufinance/protobuf/shieldd/core/component/compact_block/v1/compact_block_pb';
+import { MerkleRoot } from '@mizufinance/protobuf/shieldd/crypto/tct/v1/tct_pb';
 import { JsonObject, JsonValue } from '@bufbuild/protobuf';
-import { SpendableNoteRecord } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { SpendableNoteRecord } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import {
   ScanBlockResult,
   SctUpdatesSchema,
   StateCommitmentTree,
 } from '@mizufinance/types/state-commitment-tree';
 import type { IdbConstants } from '@mizufinance/types/indexed-db';
-import { Address, FullViewingKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address, FullViewingKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { isControlledAddress } from './address.js';
-import { SctFrontierResponse } from '@mizufinance/protobuf/penumbra/core/component/sct/v1/sct_pb';
+import { SctFrontierResponse } from '@mizufinance/protobuf/shieldd/core/component/sct/v1/sct_pb';
 import { ensureWasmInitialized } from './init.js';
 
 declare global {
-  // eslint-disable-next-line no-var -- TODO: explain
   var __DEV__: boolean | undefined;
 }
 

@@ -1,4 +1,4 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { createGetter } from './utils/create-getter.js';
 import { getCase, getMetadata } from './value-view.js';
 import { getAssetId, getDisplay } from './metadata.js';

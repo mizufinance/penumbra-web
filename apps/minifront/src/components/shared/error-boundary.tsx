@@ -1,9 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import { Code, ConnectError } from '@connectrpc/connect';
-import {
-  PenumbraNotInstalledError,
-  PenumbraProviderNotConnectedError,
-} from '@mizufinance/client';
+import { ShielddNotInstalledError, ShielddProviderNotConnectedError } from '@mizufinance/client';
 import { SplashPage } from '@mizufinance/ui-deprecated/components/ui/splash-page';
 import { NotFound } from '../not-found';
 import { ExtensionTransportDisconnected } from '../extension-transport-disconnected';
@@ -16,10 +13,10 @@ export const ErrorBoundary = () => {
   if (error instanceof ConnectError && error.code === Code.Unavailable) {
     return <ExtensionTransportDisconnected />;
   }
-  if (error instanceof PenumbraNotInstalledError) {
+  if (error instanceof ShielddNotInstalledError) {
     return <ExtensionNotInstalled />;
   }
-  if (error instanceof PenumbraProviderNotConnectedError) {
+  if (error instanceof ShielddProviderNotConnectedError) {
     return <ExtensionNotConnected />;
   }
   if (isRouteErrorResponse(error) && error.status === 404) {

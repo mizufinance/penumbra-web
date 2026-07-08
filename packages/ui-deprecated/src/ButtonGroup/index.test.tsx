@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { ButtonGroup, ButtonGroupProps } from '.';
 import { fireEvent, render } from '@testing-library/react';
 import { Ban, HandCoins, Send } from 'lucide-react';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 const onClickDelegate = vi.fn();
 const onClickUndelegate = vi.fn();
@@ -29,7 +29,7 @@ const BUTTONS: ButtonGroupProps<true>['buttons'] = [
 describe('<ButtonGroup />', () => {
   it('renders a button for each item in the `buttons` prop', () => {
     const { queryByText } = render(<ButtonGroup buttons={BUTTONS} />, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     expect(queryByText('Delegate')).toBeTruthy();
@@ -39,7 +39,7 @@ describe('<ButtonGroup />', () => {
 
   it("calls the given button's click handler when clicked", () => {
     const { getByText } = render(<ButtonGroup buttons={BUTTONS} />, {
-      wrapper: PenumbraUIProvider,
+      wrapper: ShielddUIProvider,
     });
 
     fireEvent.click(getByText('Delegate'));
@@ -55,7 +55,7 @@ describe('<ButtonGroup />', () => {
   describe('when `iconOnly` is `true`', () => {
     it('renders an icon button for each item in the `buttons` prop', () => {
       const { queryByText, queryByLabelText } = render(<ButtonGroup buttons={BUTTONS} iconOnly />, {
-        wrapper: PenumbraUIProvider,
+        wrapper: ShielddUIProvider,
       });
 
       expect(queryByText('Delegate')).toBeNull();

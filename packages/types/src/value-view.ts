@@ -1,6 +1,6 @@
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getDisplayDenomExponent } from '@mizufinance/getters/metadata';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import { formatAmount } from './amount.js';
 
 // Uses exponent in metadata to display amount in terms of display denom

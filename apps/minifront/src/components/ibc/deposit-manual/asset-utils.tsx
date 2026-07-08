@@ -2,7 +2,7 @@ import { assets as cosmosAssetList } from 'chain-registry';
 import { Asset, DenomUnit } from '@chain-registry/types';
 import BigNumber from 'bignumber.js';
 import { CosmosAssetBalance } from './hooks.ts';
-import { ChainRegistryClient } from '@penumbra-labs/registry';
+import { ChainRegistryClient } from '@mizufinance/registry';
 import { bigNumConfig } from '@mizufinance/types/lo-hi';
 import { Coin } from '@cosmjs/stargate';
 
@@ -72,10 +72,10 @@ export const getIconWithUmFallback = (b: CosmosAssetBalance) => {
   // If we've identified UM, but it's got to this line,
   // that means there is not an entry for UM in the counterparty chain's asset registry.
   // To help users identify the ibc asset, this manually grabs the UM asset icon.
-  if (b.isPenumbra) {
+  if (b.isShieldd) {
     const client = new ChainRegistryClient().bundled;
     const umAssetId = client.globals().stakingAssetId;
-    const umMetadata = client.get('penumbra-1').getMetadata(umAssetId);
+    const umMetadata = client.get('shieldd-1').getMetadata(umAssetId);
     return umMetadata.images[0]?.svg;
   }
   return undefined;

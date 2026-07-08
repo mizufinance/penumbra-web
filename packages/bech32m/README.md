@@ -1,7 +1,7 @@
 # `@mizufinance/bech32m`
 
 This package is for validating and manipulating bech32m strings relevant to the
-Penumbra blockchain.
+Shieldd blockchain.
 
 - validate bech32m strings, including checksums
 - enforce expected lengths of input and output
@@ -13,16 +13,16 @@ It is recommended to use the typed functions provided in the submodules, each
 named after the relevant prefix.
 
 ```ts
-import { fullViewingKeyFromBech32m } from '@mizufinance/bech32m/penumbrafullviewingkey';
-import { bech32mIdentityKey } from '@mizufinance/bech32m/penumbravalid';
+import { fullViewingKeyFromBech32m } from '@mizufinance/bech32m/shielddfullviewingkey';
+import { bech32mIdentityKey } from '@mizufinance/bech32m/shielddvalid';
 
 // typical use
 const fvk: { inner: Uint8Array } = fullViewingKeyFromBech32m(
-  'penumbrafullviewingkey1vzfytwlvq067g2kz095vn7sgcft47hga40atrg5zu2crskm6tyyjysm28qg5nth2fqmdf5n0q530jreumjlsrcxjwtfv6zdmfpe5kqsa5lg09i',
+  'shielddfullviewingkey1vzfytwlvq067g2kz095vn7sgcft47hga40atrg5zu2crskm6tyyjysm28qg5nth2fqmdf5n0q530jreumjlsrcxjwtfv6zdmfpe5kqsa5lg09i',
 );
 
 // will throw
-const badFvk: { inner: Uint8Array } = fullViewingKeyFromBech32m('penumbrafullviewingkey1badinput');
+const badFvk: { inner: Uint8Array } = fullViewingKeyFromBech32m('shielddfullviewingkey1badinput');
 
 // will succeed, but this all-zero key identifies nothing
 const validator: string = bech32mIdentityKey({ ik: new Uint8Array(32) });
@@ -30,7 +30,7 @@ const validator: string = bech32mIdentityKey({ ik: new Uint8Array(32) });
 
 ## Typical use
 
-If you're working with Penumbra bech32m strings, there's a good chance you also
+If you're working with Shieldd bech32m strings, there's a good chance you also
 want to use our protobuf message types.
 
 Exported functions do not explicitly refer to those types, in order to permit
@@ -40,12 +40,12 @@ satisfy the relevant structures.
 ```ts
 import { assetIdFromBech32m } from '@mizufinance/bech32m/passet';
 import { plpidFromBech32m } from '@mizufinance/bech32m/plpid';
-import { spendKeyFromBech32m } from '@mizufinance/bech32m/penumbraspendkey';
+import { spendKeyFromBech32m } from '@mizufinance/bech32m/shielddspendkey';
 
 import type { PlainMessage, PartialMessage } from '@bufbuild/protobuf';
-import type { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import type { PositionId } from '@mizufinance/protobuf/penumbra/core/component/dex/v1/dex_pb';
-import { SpendKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import type { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import type { PositionId } from '@mizufinance/protobuf/shieldd/core/component/dex/v1/dex_pb';
+import { SpendKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 const plainAssetId: PlainMessage<AssetId> = assetIdFromBech32m(
   'passet1vhga2czmpk76hsu3t7usjj2a2qga0u29vqlcp3hky8lwkfz30qrqy6gaae',
@@ -59,9 +59,7 @@ const partialPositionId: PartialMessage<PositionId> = plpidFromBech32(
 // available on the @bufbuild/protobuf Message class
 
 const realSpendKey: SpendKey = new SpendKey(
-  spendKeyFromBech32m(
-    'penumbraspendkey1qul0huewkcmemljd5m3vz3awqt7442tjg2dudahvzu6eyj9qf0eszrnguh',
-  ),
+  spendKeyFromBech32m('shielddspendkey1qul0huewkcmemljd5m3vz3awqt7442tjg2dudahvzu6eyj9qf0eszrnguh'),
 );
 
 // marshal to protojson
@@ -85,8 +83,8 @@ small.
 
 ```js
 import {
-  PENUMBRA_BECH32M_ADDRESS_LENGTH as pnLength,
-  PENUMBRA_BECH32M_ADDRESS_PREFIX as pnPrefix,
+  SHIELDD_BECH32M_ADDRESS_LENGTH as pnLength,
+  SHIELDD_BECH32M_ADDRESS_PREFIX as pnPrefix,
 } from '@mizufinance/bech32m';
 
 // matches prefix, length, and valid charset. no checksum validation.
@@ -95,15 +93,15 @@ export const addressRegex = new RegEx(
 );
 ```
 
-## penumbracompat1 is bech32, not bech32m
+## shielddcompat1 is bech32, not bech32m
 
-For IBC compatibility, we provide a `penumbracompat1` address format that is
-bech32 instead of bech32m. You can use `penumbracompat1` when interacting with
+For IBC compatibility, we provide a `shielddcompat1` address format that is
+bech32 instead of bech32m. You can use `shielddcompat1` when interacting with
 any chain that does not support a bech32m destination.
 
 ```ts
-import { bech32Address } from '@mizufinance/bech32m/penumbra';
-import { bech32CompatAddress } from '@mizufinance/bech32m/penumbracompat1';
+import { bech32Address } from '@mizufinance/bech32m/shieldd';
+import { bech32CompatAddress } from '@mizufinance/bech32m/shielddcompat1';
 
 const bech32Chains = ['noble', 'nobletestnet'];
 const getCompatibleAddress = (chainName: string, address: { inner: Uint8Array }): string => {

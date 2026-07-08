@@ -1,8 +1,8 @@
 use crate::error::WasmResult;
 use crate::storage::{init_idb_storage, DbConstants};
 use crate::utils;
-use penumbra_keys::keys::AddressIndex;
-use penumbra_proto::DomainType;
+use shieldd_keys::keys::AddressIndex;
+use shieldd_proto::DomainType;
 use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_bindgen::JsValue;
 
@@ -23,11 +23,11 @@ pub async fn get_voting_notes(
 
     let address_index: AddressIndex =
         AddressIndex::decode(address_index).expect("failed to decode AddressIndex from byte slice");
-    let proto_address_index = penumbra_proto::core::keys::v1::AddressIndex::from(address_index);
+    let proto_address_index = shieldd_proto::core::keys::v1::AddressIndex::from(address_index);
 
     let voting_notes: Vec<(
         crate::note_record::SpendableNoteRecord,
-        penumbra_stake::IdentityKey,
+        shieldd_stake::IdentityKey,
     )> = storage
         .get_notes_for_voting(Some(proto_address_index), votable_at_height)
         .await

@@ -1,4 +1,4 @@
-import { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import {
   Address,
   FullViewingKey,
@@ -6,7 +6,7 @@ import {
   IdentityKey,
   SpendKey,
   WalletId,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { describe, expect, test } from 'vitest';
 import { Inner } from './inner.js';
 
@@ -18,31 +18,31 @@ describe('The expected inner field exists on the actual types', () => {
 
   test('address inner', () => {
     const address = new Address();
-    expect(address[Inner.penumbra]).toBeDefined();
+    expect(address[Inner.shieldd]).toBeDefined();
   });
 
   test('full viewing key inner', () => {
     const fullViewingKey = new FullViewingKey();
-    expect(fullViewingKey[Inner.penumbrafullviewingkey]).toBeDefined();
+    expect(fullViewingKey[Inner.shielddfullviewingkey]).toBeDefined();
   });
 
   test('spend key inner', () => {
     const spendKey = new SpendKey();
-    expect(spendKey[Inner.penumbraspendkey]).toBeDefined();
+    expect(spendKey[Inner.shielddspendkey]).toBeDefined();
   });
 
   test('governance key gk', () => {
     const governanceKey = new GovernanceKey();
-    expect(governanceKey[Inner.penumbragovern]).toBeDefined();
+    expect(governanceKey[Inner.shielddgovern]).toBeDefined();
   });
 
   test('validatorid key ik', () => {
     const validatorId = new IdentityKey();
-    expect(validatorId[Inner.penumbravalid]).toBeDefined();
+    expect(validatorId[Inner.shielddvalid]).toBeDefined();
   });
 
   test('wallet id inner', () => {
     const walletId = new WalletId();
-    expect(walletId[Inner.penumbrawalletid]).toBeDefined();
+    expect(walletId[Inner.shielddwalletid]).toBeDefined();
   });
 });

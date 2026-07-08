@@ -1,1 +1,1 @@
-export const PenumbraSymbol = Symbol.for('penumbra');
+export const ShielddSymbol = Symbol.for('shieldd');

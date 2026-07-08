@@ -82,8 +82,9 @@ const DialogClose = styled.div`
   right: ${props => props.theme.spacing(6)};
 `;
 
-export interface DialogContentProps<IconOnlyButtonGroupProps extends boolean | undefined>
-  extends MotionProp {
+export interface DialogContentProps<
+  IconOnlyButtonGroupProps extends boolean | undefined,
+> extends MotionProp {
   children?: ReactNode;
   /** Renders the element after the dialog title. These elements will be sticky to the top of the dialog */
   headerChildren?: ReactNode;

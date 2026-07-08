@@ -7,10 +7,10 @@ import {
   DialogHeader,
 } from '@mizufinance/ui-deprecated/components/ui/dialog';
 import { ValueViewComponent } from '@mizufinance/ui-deprecated/components/ui/value';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { Box } from '@mizufinance/ui-deprecated/components/ui/box';
 import { motion } from 'framer-motion';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { emptyBalanceResponse } from '../../../utils/empty-balance-response';
 import { bySearch } from './search-filters';
 import {

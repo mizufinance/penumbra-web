@@ -74,19 +74,9 @@ export const TransactionInfo: React.FC<SectionComponentProps> = ({
         </div>
         <div className='mx-2 grow border-b border-dashed border-other-tonal-stroke pt-3'></div>
         <div className='flex items-center gap-1'>
-          <a
-            href={`https://penumbra.zone/block/${blockHeight}`}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='flex items-center gap-1 hover:underline'
-          >
-            <Text variant='smallTechnical' color={textColorClass}>
-              {blockHeight ? formatBlockHeight(blockHeight) : undefined}
-            </Text>
-            <Button icon={Link2} iconOnly='adornment' density='slim'>
-              Open block
-            </Button>
-          </a>
+          <Text variant='smallTechnical' color={textColorClass}>
+            {blockHeight ? formatBlockHeight(blockHeight) : undefined}
+          </Text>
         </div>
       </div>
 

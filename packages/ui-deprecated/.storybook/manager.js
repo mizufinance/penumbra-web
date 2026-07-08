@@ -1,9 +1,9 @@
 import { addons } from '@storybook/manager-api';
-import penumbraTheme from './penumbraTheme';
+import shielddTheme from './shielddTheme';
 
 addons.setConfig({
   showToolbar: true,
-  theme: penumbraTheme,
+  theme: shielddTheme,
   sidebar: {
     collapsedRoots: ['Deprecated'],
   },

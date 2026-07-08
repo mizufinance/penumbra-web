@@ -1,5 +1,5 @@
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { addressFromBech32m } from '@mizufinance/bech32m/penumbra';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { addressFromBech32m } from '@mizufinance/bech32m/shieldd';
 
 export const ADDRESS_VIEW_DECODED = new AddressView({
   addressView: {
@@ -47,7 +47,7 @@ export const ADDRESS_VIEW_OPAQUE = new AddressView({
     case: 'opaque',
     value: {
       address: addressFromBech32m(
-        'penumbra1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
+        'shieldd1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
       ),
     },
   },

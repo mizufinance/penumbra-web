@@ -1,11 +1,8 @@
-import {
-  BalancesRequest,
-  BalancesResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { AddressIndex } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { BalancesRequest, BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { AddressIndex } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ViewService } from '@mizufinance/protobuf';
-import { penumbra } from '../../penumbra';
+import { shieldd } from '../../shieldd';
 
 export interface BalancesProps {
   accountFilter?: AddressIndex;
@@ -23,7 +20,7 @@ export const getBalances = ({ accountFilter, assetIdFilter }: BalancesProps = {}
     req.assetIdFilter = assetIdFilter;
   }
 
-  const iterable = penumbra.service(ViewService).balances(req);
+  const iterable = shieldd.service(ViewService).balances(req);
   return Array.fromAsync(iterable);
 };
 
@@ -39,5 +36,5 @@ export const getBalancesStream = ({
     req.assetIdFilter = assetIdFilter;
   }
 
-  return penumbra.service(ViewService).balances(req);
+  return shieldd.service(ViewService).balances(req);
 };

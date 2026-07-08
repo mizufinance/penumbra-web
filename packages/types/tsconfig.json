@@ -9,6 +9,6 @@
     "target": "ESNext"
   },
   "extends": "@tsconfig/strictest/tsconfig.json",
-  "include": ["src/indexed-db.ts", "src/state-commitment-tree.ts", "src/base64.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["**/*.test.ts", "src/test/**"]
 }

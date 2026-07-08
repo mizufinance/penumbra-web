@@ -285,7 +285,7 @@
 
 ### Minor Changes
 
-- 03597b7: bump skip widget to latest to fix penumbra noble transparent addresses issue
+- 03597b7: bump skip widget to latest to fix shieldd noble transparent addresses issue
 
 ### Patch Changes
 
@@ -637,7 +637,6 @@
 ### Minor Changes
 
 - 74e89e0: UI:
-
   - Add new `Progress` component
   - Add `MenuItem` component that shares the styles with `DropdownMenu.Item`
   - Update the `Pill` component to support `context` prop
@@ -646,11 +645,9 @@
   - Fix `density` tag in Storybook
 
   Tailwind Config:
-
   - Add support for v2 colors with v2 prefix like `bg-v2-secondary-dark`
 
   Minifront:
-
   - Add top navigation to the v2 minifront with sync bar and prax connection infos
 
 ### Patch Changes
@@ -1040,7 +1037,7 @@
 
 ### Minor Changes
 
-- bump @penumbra-labs/registry
+- bump registry
 
 ### Patch Changes
 
@@ -1104,7 +1101,6 @@
 ### Minor Changes
 
 - 97b7231: Minifront:
-
   - extend `BalanceSelector` to show not only assets with balances but all available assets
   - fix the issues with empty wallets not rendering a swap block correctly
   - reduce the height of `BalanceSelecor` and `AssetSelector` to `90dvh`

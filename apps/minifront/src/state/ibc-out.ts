@@ -2,7 +2,7 @@ import { AllSlices, SliceCreator, useStore } from '.';
 import {
   BalancesResponse,
   TransactionPlannerRequest,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import BigNumber from 'bignumber.js';
 import { ClientState } from '@mizufinance/protobuf/ibc/lightclients/tendermint/v1/tendermint_pb';
 import { Height } from '@mizufinance/protobuf/ibc/core/client/v1/client_pb';
@@ -18,13 +18,13 @@ import { getAssetId } from '@mizufinance/getters/metadata';
 import { assetPatterns } from '@mizufinance/types/assets';
 import { bech32, bech32m } from 'bech32';
 import { errorToast } from '@mizufinance/ui-deprecated/lib/toast/presets';
-import { Chain } from '@penumbra-labs/registry';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Chain } from '@mizufinance/registry';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { Channel } from '@mizufinance/protobuf/ibc/core/channel/v1/channel_pb';
 import { BLOCKS_PER_HOUR } from './constants';
 import { createZQuery, ZQueryState } from '@mizufinance/zquery';
 import { getChains } from '../fetchers/registry';
-import { penumbra } from '../penumbra';
+import { shieldd } from '../shieldd';
 import {
   IbcChannelService,
   IbcClientService,
@@ -122,7 +122,7 @@ const twoDaysMs = 1000 * 60 * 60 * 24 * 2;
 
 // Timeout is two days. However, in order to prevent identifying oneself by clock skew,
 // timeout time is rounded up to the nearest 10 minute interval.
-// Reference in core: https://github.com/mizufinance/penumbra/blob/1376d4b4f47f44bcc82e8bbdf18262942edf461e/crates/bin/pcli/src/command/tx.rs#L1066-L1067
+// Reference in core: https://github.com/mizufinance/shieldd/blob/1376d4b4f47f44bcc82e8bbdf18262942edf461e/crates/bin/pcli/src/command/tx.rs#L1066-L1067
 export const currentTimePlusTwoDaysRounded = (currentTimeMs: number): bigint => {
   const twoDaysFromNowMs = currentTimeMs + twoDaysMs;
 
@@ -141,7 +141,7 @@ const clientStateForChannel = async (channel?: Channel): Promise<ClientState> =>
     throw new Error('no connectionId in channel returned from ibcChannelClient request');
   }
 
-  const { connection } = await penumbra.service(IbcConnectionService).connection({
+  const { connection } = await shieldd.service(IbcConnectionService).connection({
     connectionId,
   });
   const clientId = connection?.clientId;
@@ -149,7 +149,7 @@ const clientStateForChannel = async (channel?: Channel): Promise<ClientState> =>
     throw new Error('no clientId ConnectionEnd returned from ibcConnectionClient request');
   }
 
-  const { clientState: anyClientState } = await penumbra
+  const { clientState: anyClientState } = await shieldd
     .service(IbcClientService)
     .clientState({ clientId: clientId });
   if (!anyClientState) {
@@ -165,11 +165,11 @@ const clientStateForChannel = async (channel?: Channel): Promise<ClientState> =>
   return clientState;
 };
 
-// Reference in core: https://github.com/mizufinance/penumbra/blob/1376d4b4f47f44bcc82e8bbdf18262942edf461e/crates/bin/pcli/src/command/tx.rs#L998-L1050
+// Reference in core: https://github.com/mizufinance/shieldd/blob/1376d4b4f47f44bcc82e8bbdf18262942edf461e/crates/bin/pcli/src/command/tx.rs#L998-L1050
 const getTimeout = async (
   ibcChannelId: string,
 ): Promise<{ timeoutTime: bigint; timeoutHeight: Height }> => {
-  const { channel } = await penumbra.service(IbcChannelService).channel({
+  const { channel } = await shieldd.service(IbcChannelService).channel({
     portId: 'transfer',
     channelId: ibcChannelId,
   });
@@ -205,7 +205,7 @@ const getPlanRequest = async ({
   }
 
   const addressIndex = getAddressIndex(selection.accountAddress);
-  const { address: returnAddress } = await penumbra
+  const { address: returnAddress } = await shieldd
     .service(ViewService)
     .ephemeralAddress({ addressIndex });
   if (!returnAddress) {
@@ -274,7 +274,7 @@ export const NATIVE_TRANSFERS_ONLY_CHAIN_IDS = ['celestia'];
  * Filters the given IBC loader response balances by checking if any of the assets
  * in the balance view match the staking token's asset ID or are of the same ibc channel.
  *
- * Until unwind support is implemented (https://github.com/mizufinance/penumbra/issues/344),
+ * Until unwind support is implemented (https://github.com/mizufinance/shieldd/issues/344),
  * we need to ensure ics20 withdraws match these conditions.
  */
 export const filterBalancesPerChain = (
@@ -283,7 +283,7 @@ export const filterBalancesPerChain = (
   registryAssets: Metadata[],
   stakingTokenMetadata?: Metadata,
 ): BalancesResponse[] => {
-  const penumbraAssetId = getAssetId.optional(stakingTokenMetadata);
+  const shielddAssetId = getAssetId.optional(stakingTokenMetadata);
   const assetsWithMatchingChannel = registryAssets
     .filter(a => {
       const match = assetPatterns.ibc.capture(a.base);
@@ -293,16 +293,16 @@ export const filterBalancesPerChain = (
       return chain?.channelId === match.channel;
     })
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- TODO: justify
-    .map(m => m.penumbraAssetId!);
+    .map(m => m.shielddAssetId!);
 
   const assetIdsToCheck = [...assetsWithMatchingChannel];
 
   if (
     chain?.chainId &&
-    penumbraAssetId &&
+    shielddAssetId &&
     !NATIVE_TRANSFERS_ONLY_CHAIN_IDS.includes(chain.chainId)
   ) {
-    assetIdsToCheck.push(penumbraAssetId);
+    assetIdsToCheck.push(shielddAssetId);
   }
 
   return allBalances.filter(({ balanceView }) => {

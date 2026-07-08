@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { DropdownMenu } from '.';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<DropdownMenu />', () => {
   it('opens initially if `isOpen` is passed', () => {
@@ -12,7 +12,7 @@ describe('<DropdownMenu />', () => {
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>Content</DropdownMenu.Content>
       </DropdownMenu>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(queryByText('Content')).toBeTruthy();
@@ -33,7 +33,7 @@ describe('<DropdownMenu />', () => {
           </DropdownMenu.RadioGroup>
         </DropdownMenu.Content>
       </DropdownMenu>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     fireEvent.click(getByText('Item 2'));
@@ -53,7 +53,7 @@ describe('<DropdownMenu />', () => {
           <DropdownMenu.CheckboxItem onChange={onChange}>Item</DropdownMenu.CheckboxItem>
         </DropdownMenu.Content>
       </DropdownMenu>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     fireEvent.click(getByText('Item'));
@@ -73,7 +73,7 @@ describe('<DropdownMenu />', () => {
           <DropdownMenu.Item onSelect={onChange}>Item</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     fireEvent.click(getByText('Item'));

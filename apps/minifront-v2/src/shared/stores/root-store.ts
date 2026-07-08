@@ -16,11 +16,11 @@ import { DepositStore } from './deposit-store';
 import { WithdrawStore } from './withdraw-store';
 import { StakingStore } from './staking-store';
 import { StatusStore } from './status-store';
-import { PenumbraService } from '../services/penumbra-service';
+import { ShielddService } from '../services/shieldd-service';
 
 export class RootStore {
   // Service instances
-  penumbraService: PenumbraService;
+  shielddService: ShielddService;
 
   // Domain stores
   balancesStore: BalancesStore;
@@ -37,7 +37,7 @@ export class RootStore {
     makeAutoObservable(this);
 
     // Initialize services
-    this.penumbraService = new PenumbraService();
+    this.shielddService = new ShielddService();
 
     // Initialize stores with root store reference
     this.balancesStore = new BalancesStore(this);

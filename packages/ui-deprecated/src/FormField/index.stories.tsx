@@ -27,7 +27,7 @@ export const TextInputExample: Story = {
 
     return (
       <FormField {...props}>
-        <TextInput value={recipient} onChange={setRecipient} placeholder='penumbra1abc123...' />
+        <TextInput value={recipient} onChange={setRecipient} placeholder='shieldd1abc123...' />
       </FormField>
     );
   },

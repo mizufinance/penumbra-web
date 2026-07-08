@@ -9,14 +9,14 @@ import { useDepositStore } from '@/shared/stores/store-context';
 import { ChainSelector } from '../chain-selector';
 import { AssetValueInput } from '@mizufinance/ui/AssetValueInput';
 import { Density } from '@mizufinance/ui/Density';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { LogOut } from 'lucide-react';
 import { useUnifiedAssets, UnifiedAsset } from '@/shared/api/use-unified-assets';
 import { useRegistry } from '@/shared/api/use-registry';
 import { IbcChainProvider } from '@/shared/api/chain-provider';
 import { pnum } from '@mizufinance/types/pnum';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 // Internal form component that uses cosmos-kit hooks
 const DepositFormInternal = observer(() => {

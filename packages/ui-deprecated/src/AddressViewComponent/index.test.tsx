@@ -1,7 +1,7 @@
 import { AddressViewComponent } from '.';
 import { describe, expect, it } from 'vitest';
 import { render } from '@testing-library/react';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 import { ADDRESS_VIEW_DECODED_ONE_TIME, ADDRESS_VIEW_DECODED } from '../utils/bufs';
 
 describe('<AddressViewComponent />', () => {
@@ -9,7 +9,7 @@ describe('<AddressViewComponent />', () => {
     it('does not show the copy icon when the address is a one-time address', () => {
       const { queryByLabelText } = render(
         <AddressViewComponent addressView={ADDRESS_VIEW_DECODED_ONE_TIME} copyable />,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
 
       expect(queryByLabelText('Copy')).toBeNull();
@@ -18,7 +18,7 @@ describe('<AddressViewComponent />', () => {
     it('shows the copy icon when the address is not a one-time address', () => {
       const { queryByLabelText } = render(
         <AddressViewComponent addressView={ADDRESS_VIEW_DECODED} copyable />,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
 
       expect(queryByLabelText('Copy')).not.toBeNull();
@@ -29,7 +29,7 @@ describe('<AddressViewComponent />', () => {
     it('does not show the copy icon when the address is a one-time address', () => {
       const { queryByLabelText } = render(
         <AddressViewComponent addressView={ADDRESS_VIEW_DECODED_ONE_TIME} copyable={false} />,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
 
       expect(queryByLabelText('Copy')).toBeNull();
@@ -38,7 +38,7 @@ describe('<AddressViewComponent />', () => {
     it('does not show the copy icon when the address is not a one-time address', () => {
       const { queryByLabelText } = render(
         <AddressViewComponent addressView={ADDRESS_VIEW_DECODED} copyable={false} />,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
 
       expect(queryByLabelText('Copy')).toBeNull();

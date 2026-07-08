@@ -1,4 +1,4 @@
-export enum PenumbraState {
+export enum ShielddState {
   /* connection attempt pending */
   'Pending' = 'Pending',
   /* connection successful and active */

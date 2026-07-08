@@ -1,4 +1,4 @@
-import type { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import type { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { TextInput } from '../TextInput';
 import { styled } from 'styled-components';
 import { body } from '../utils/typography';

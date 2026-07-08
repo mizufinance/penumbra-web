@@ -1,5 +1,5 @@
 import { Code, ConnectError } from '@connectrpc/connect';
-import { PenumbraProviderNotConnectedError } from '@mizufinance/client/error';
+import { ShielddProviderNotConnectedError } from '@mizufinance/client/error';
 import { Dialog } from '@mizufinance/ui-deprecated/Dialog';
 import { Text } from '@mizufinance/ui-deprecated/Text';
 import { useMemo, useState } from 'react';
@@ -29,7 +29,7 @@ export const SyncingDialog = () => {
 
   const isUnavailable = useMemo(
     () =>
-      streamError instanceof PenumbraProviderNotConnectedError ||
+      streamError instanceof ShielddProviderNotConnectedError ||
       (streamError instanceof ConnectError && streamError.code === Code.Unavailable),
     [streamError],
   );

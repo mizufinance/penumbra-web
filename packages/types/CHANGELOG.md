@@ -155,7 +155,7 @@
 
 - 6869c52: extend alternative fees to LPs
 - 29dd11a: - storage: add subaccount filter to `getOwnedPositionIds` method
-  - protobuf: sync latest changes in penumbra protobufs
+  - protobuf: sync latest changes in shieldd protobufs
   - services: add subaccount filter to `ownedPositionIds` method in ViewService
   - types: update indexedDB schema
 

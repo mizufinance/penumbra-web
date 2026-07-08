@@ -1,8 +1,8 @@
-import { Ics20Withdrawal } from '@mizufinance/protobuf/penumbra/core/component/ibc/v1/ibc_pb';
+import { Ics20Withdrawal } from '@mizufinance/protobuf/shieldd/core/component/ibc/v1/ibc_pb';
 import { ViewBox } from '../viewbox';
 import { ActionDetails } from './action-details';
 import { joinLoHiAmount } from '@mizufinance/types/amount';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 
 // Converts nanoseconds timestamp to UTC timestamp string
 export const getUtcTime = (time: bigint) => {

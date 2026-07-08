@@ -25,7 +25,8 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 export interface SelectTriggerProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>,
+  extends
+    React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>,
     VariantProps<typeof selectVariants> {
   textColor?: string;
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.Trigger>>;
@@ -49,8 +50,9 @@ const SelectTrigger = ({ className, children, variant, ref, ...props }: SelectTr
 );
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
-export interface SelectScrollUpButtonProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> {
+export interface SelectScrollUpButtonProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.ScrollUpButton
+> {
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.ScrollUpButton>>;
 }
 
@@ -65,8 +67,9 @@ const SelectScrollUpButton = ({ className, ref, ...props }: SelectScrollUpButton
 );
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
-export interface SelectScrollDownButtonProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton> {
+export interface SelectScrollDownButtonProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.ScrollDownButton
+> {
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.ScrollDownButton>>;
 }
 
@@ -81,8 +84,9 @@ const SelectScrollDownButton = ({ className, ref, ...props }: SelectScrollDownBu
 );
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
 
-export interface SelectContentProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {
+export interface SelectContentProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Content
+> {
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.Content>>;
 }
 
@@ -121,8 +125,9 @@ const SelectContent = ({
 );
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-export interface SelectLabelProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> {
+export interface SelectLabelProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Label
+> {
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.Label>>;
 }
 
@@ -135,8 +140,9 @@ const SelectLabel = ({ className, ref, ...props }: SelectLabelProps) => (
 );
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
-export interface SelectItemProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
+export interface SelectItemProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Item
+> {
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.Item>>;
 }
 
@@ -154,8 +160,9 @@ const SelectItem = ({ className, children, ref, ...props }: SelectItemProps) => 
 );
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
-export interface SelectSeparatorProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {
+export interface SelectSeparatorProps extends React.ComponentPropsWithoutRef<
+  typeof SelectPrimitive.Separator
+> {
   ref?: React.Ref<React.ElementRef<typeof SelectPrimitive.Separator>>;
 }
 

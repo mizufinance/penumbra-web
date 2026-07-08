@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   ValueView,
   ValueView_KnownAssetId,
-} from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+} from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { pnum } from '@mizufinance/types/pnum';
 import { ValueViewComponent } from '.';
 import { TableCell } from '../TableCell';
 import {
   DELEGATION_VALUE_VIEW,
-  PENUMBRA_VALUE_VIEW,
+  SHIELDD_VALUE_VIEW,
   UNBONDING_VALUE_VIEW,
   UNKNOWN_ASSET_ID_VALUE_VIEW,
   UNKNOWN_ASSET_VALUE_VIEW,
@@ -20,14 +20,14 @@ const meta: Meta<typeof ValueViewComponent> = {
   argTypes: {
     valueView: {
       options: [
-        'Penumbra',
+        'Shieldd',
         'Delegation token',
         'Unbonding token',
         'Unknown asset',
         'Unknown asset ID',
       ],
       mapping: {
-        Penumbra: PENUMBRA_VALUE_VIEW,
+        Shieldd: SHIELDD_VALUE_VIEW,
         'Delegation token': DELEGATION_VALUE_VIEW,
         'Unbonding token': UNBONDING_VALUE_VIEW,
         'Unknown asset': UNKNOWN_ASSET_VALUE_VIEW,
@@ -42,7 +42,7 @@ type Story = StoryObj<typeof ValueViewComponent>;
 
 export const Basic: Story = {
   args: {
-    valueView: PENUMBRA_VALUE_VIEW,
+    valueView: SHIELDD_VALUE_VIEW,
     context: 'default',
     priority: 'primary',
   },
@@ -110,7 +110,7 @@ export const InATable: Story = {
     );
   },
   args: {
-    valueView: PENUMBRA_VALUE_VIEW,
+    valueView: SHIELDD_VALUE_VIEW,
     trailingZeros: true,
     padStart: 25,
   },

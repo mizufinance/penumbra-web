@@ -1,30 +1,16 @@
-# Penumbra Web
+# Shieldd Web
 
-The Mizufinance Penumbra monorepo for all things web.
+The Mizufinance Shieldd monorepo for all things web.
 
-![ci status](https://github.com/mizufinance/penumbra-web/actions/workflows/turbo-ci.yml/badge.svg?branch=main)
-
-This is a monolithic repository of Penumbra web code, a monorepo. Multiple apps,
+This is a monolithic repository of Shieldd web code, a monorepo. Multiple apps,
 internal packages, and published packages are developed in this repository, to
 simplify work and make broad cross-package changes more feasible.
 
-To participate in the test network, use a browser extension like
-[Prax](https://chrome.google.com/webstore/detail/penumbra-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe)
-from the Chrome Web Store.
-
-You can talk to us on [Discord](https://discord.gg/hKvkrqa3zC).
-
-## You might be looking for examples
-
-### [`@mizufinance/client` nextjs example](https://github.com/mizufinance/nextjs-penumbra-client-example)
-
-### [`@mizufinance/wasm` nextjs example](https://github.com/mizufinance/nextjs-penumbra-wasm-example)
-
 ## What's in here
 
-### [Minifront](./apps/minifront): Dapp to swap, stake, and send on the Penumbra testnet.
+### [Minifront](./apps/minifront): Dapp to swap, stake, and send on the Shieldd testnet.
 
-### [Status](./apps/node-status): Public info dashboard for Penumbra nodes.
+### [Status](./apps/node-status): Public info dashboard for Shieldd nodes.
 
 ### Published Packages
 
@@ -70,8 +56,8 @@ Make sure you have the following tools installed:
 #### Install all workspace dependencies:
 
 ```sh
-git clone https://github.com/mizufinance/penumbra-web
-cd penumbra-web
+git clone https://github.com/mizufinance/shieldd-web
+cd shieldd-web
 pnpm install
 ```
 
@@ -102,5 +88,5 @@ Minifront and Veil will hot-reload.
 
 ## Security
 
-If you believe you've found a security-related issue with Penumbra,
+If you believe you've found a security-related issue with Shieldd,
 please disclose responsibly through Mizufinance's normal security channel.

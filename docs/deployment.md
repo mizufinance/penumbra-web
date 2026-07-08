@@ -22,5 +22,5 @@ If there are no changesets, it will attempt to publish all packages with newer v
 ### Node status page
 
 Build the latest node status page in this repo via `pnpm build`. Take the resulting `dist` output,
-zip the folder, and create a PR in [penumbra core](https://github.com/mizufinance/penumbra/tree/main/assets) updating `node-status.zip`.
+zip the folder, and create a PR in [shieldd core](https://github.com/mizufinance/shieldd/tree/main/assets) updating `node-status.zip`.
 When a new chain version is pushed, this will be deployed with it.

@@ -4,9 +4,9 @@ import {
   TransactionPerspective,
   TransactionSummary,
   TransactionView,
-} from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+} from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import type { IdbConstants } from '@mizufinance/types/indexed-db';
-import { FullViewingKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { FullViewingKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 export const generateTransactionInfo = async (
   fullViewingKey: FullViewingKey,

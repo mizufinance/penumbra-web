@@ -9,7 +9,7 @@ import { pnum } from '@mizufinance/types/pnum';
 
 import { useBalancesStore } from '@/shared/stores/store-context';
 import { BalancesByAccount } from '@/shared/stores/balances-store';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { AssetCard } from './assets/asset-card';
 import { TransactionCard } from './transactions/transaction-card';
 import { AssetData, AccountData } from './assets/asset-card/types';
@@ -61,7 +61,7 @@ export const Portfolio = observer((): React.ReactNode => {
             const displayName = originalMetadata.name ?? originalMetadata.symbol;
 
             const asset: AssetData = {
-              id: originalMetadata.penumbraAssetId?.inner.toString() ?? '',
+              id: originalMetadata.shielddAssetId?.inner.toString() ?? '',
               // Use proper display name for the asset
               name: displayName,
               symbol: originalMetadata.symbol,

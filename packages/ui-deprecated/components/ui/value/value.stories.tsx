@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ValueViewComponent } from '.';
-import { Metadata, ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Metadata, ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 
 const meta: Meta<typeof ValueViewComponent> = {
   component: ValueViewComponent,
@@ -14,8 +14,8 @@ export default meta;
 type Story = StoryObj<typeof ValueViewComponent>;
 
 const EXAMPLE_METADATA = new Metadata({
-  base: 'upenumbra',
-  display: 'penumbra',
+  base: 'ushieldd',
+  display: 'shieldd',
   symbol: 'UM',
   images: [
     {

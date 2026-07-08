@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import globalsCssUrl from '../styles/globals.css?url';
-import penumbraTheme from './penumbraTheme';
+import shielddTheme from './shielddTheme';
 import { ConditionalWrap } from '../src/ConditionalWrap';
-import { PenumbraUIProvider } from '../src/PenumbraUIProvider';
+import { ShielddUIProvider } from '../src/ShielddUIProvider';
 import { Density } from '../src/Density';
 import { Tabs } from '../src/Tabs';
 import { styled } from 'styled-components';
@@ -63,16 +63,16 @@ const preview = {
       }
 
       return (
-        <PenumbraUIProvider>
+        <ShielddUIProvider>
           <DensityWrapper showDensityControl={tags.includes('density')}>
             <Story />
           </DensityWrapper>
-        </PenumbraUIProvider>
+        </ShielddUIProvider>
       );
     },
   ],
   argTypes: {
-    // The `motion` prop is used throughout many Penumbra UI components for
+    // The `motion` prop is used throughout many Shieldd UI components for
     // framer-motion settings, and shouldn't be controlled in Storybook.
     motion: { control: false },
   },
@@ -85,7 +85,7 @@ const preview = {
       },
     },
     docs: {
-      theme: penumbraTheme,
+      theme: shielddTheme,
     },
   },
 };

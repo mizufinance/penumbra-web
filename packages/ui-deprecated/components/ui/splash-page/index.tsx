@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../card';
 import { IncompatibleBrowserBanner } from '../incompatible-browser-banner';
 import { FadeTransition } from '../fade-transition';
-import { AnimatedPenumbra } from '../logo/animated-penumbra';
+import { AnimatedShieldd } from '../logo/animated-shieldd';
 
 export const SplashPage = ({
   title,
@@ -18,7 +18,7 @@ export const SplashPage = ({
       <IncompatibleBrowserBanner className='!absolute inset-x-0 top-0' />
       <div className='flex min-h-screen flex-col items-center justify-center'>
         <div className='absolute inset-0 z-[-1] flex w-screen items-center justify-center'>
-          <AnimatedPenumbra className='w-[calc(100%-25vw)]' />
+          <AnimatedShieldd className='w-[calc(100%-25vw)]' />
         </div>
         <div className='px-4'>
           <Card className='w-full max-w-[608px]' gradient>

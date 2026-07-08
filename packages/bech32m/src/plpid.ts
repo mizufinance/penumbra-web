@@ -21,4 +21,4 @@ export const isPositionId = (check: string): check is `${typeof prefix}1${string
   }
 };
 
-export { PENUMBRA_BECH32M_POSITIONID_LENGTH, PENUMBRA_BECH32M_POSITIONID_PREFIX } from './index.js';
+export { SHIELDD_BECH32M_POSITIONID_LENGTH, SHIELDD_BECH32M_POSITIONID_PREFIX } from './index.js';

@@ -1,6 +1,6 @@
 import { AddressIcon } from './AddressIcon';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
 import { styled } from 'styled-components';
 import { Text } from '../Text';
 import { CopyToClipboardButton } from '../CopyToClipboardButton';

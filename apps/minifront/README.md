@@ -1,9 +1,9 @@
 # Minifront
 
-A minimal frontend for interacting with the [Penumbra](https://penumbra.zone/) chain.
-Every Penumbra RPC endpoint will be hosting this static frontend as it is embedded into the node software.
+A minimal frontend for interacting with the Shieldd chain.
+Every Shieldd RPC endpoint will be hosting this static frontend as it is embedded into the node software.
 
-**Note**: A Penumbra wallet extension is required for full functionality.
+**Note**: A Shieldd wallet extension is required for full functionality.
 
 A number of technical decisions were made to ensure minifront is maximally client side and does not leak
 information unnecessarily:
@@ -21,7 +21,7 @@ information unnecessarily:
 ## Deploy anywhere
 
 The `dist/` output of the build is simply static assets. That means, it basically can be hosted anywhere.
-First, download `dist.zip` from the [latest minifront release from github](https://github.com/mizufinance/penumbra/releases?q=minifront&expanded=true).
+First, download `dist.zip` from the [latest minifront release from github](https://github.com/mizufinance/shieldd/releases?q=minifront&expanded=true).
 Unzip that and take it to a variety of host providers. Examples:
 
 ### Vercel

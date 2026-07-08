@@ -3,7 +3,7 @@ import { StringLength } from './strings.js';
 import { ByteLength } from './bytes.js';
 import { Prefix, Prefixes } from './prefix.js';
 
-type PenumbraBech32mSpec = Required<{
+type ShielddBech32mSpec = Required<{
   readonly [p in Prefix]: {
     readonly prefix: (typeof Prefixes)[p];
     readonly stringLength: (typeof StringLength)[p];
@@ -25,41 +25,41 @@ export default {
     byteLength: ByteLength.pauctid,
     innerName: Inner.pauctid,
   },
-  penumbra: {
-    prefix: Prefixes.penumbra,
-    stringLength: StringLength.penumbra,
-    byteLength: ByteLength.penumbra,
-    innerName: Inner.penumbra,
+  shieldd: {
+    prefix: Prefixes.shieldd,
+    stringLength: StringLength.shieldd,
+    byteLength: ByteLength.shieldd,
+    innerName: Inner.shieldd,
   },
-  penumbrafullviewingkey: {
-    prefix: Prefixes.penumbrafullviewingkey,
-    stringLength: StringLength.penumbrafullviewingkey,
-    byteLength: ByteLength.penumbrafullviewingkey,
-    innerName: Inner.penumbrafullviewingkey,
+  shielddfullviewingkey: {
+    prefix: Prefixes.shielddfullviewingkey,
+    stringLength: StringLength.shielddfullviewingkey,
+    byteLength: ByteLength.shielddfullviewingkey,
+    innerName: Inner.shielddfullviewingkey,
   },
-  penumbragovern: {
-    prefix: Prefixes.penumbragovern,
-    stringLength: StringLength.penumbragovern,
-    byteLength: ByteLength.penumbragovern,
-    innerName: Inner.penumbragovern,
+  shielddgovern: {
+    prefix: Prefixes.shielddgovern,
+    stringLength: StringLength.shielddgovern,
+    byteLength: ByteLength.shielddgovern,
+    innerName: Inner.shielddgovern,
   },
-  penumbraspendkey: {
-    prefix: Prefixes.penumbraspendkey,
-    stringLength: StringLength.penumbraspendkey,
-    byteLength: ByteLength.penumbraspendkey,
-    innerName: Inner.penumbraspendkey,
+  shielddspendkey: {
+    prefix: Prefixes.shielddspendkey,
+    stringLength: StringLength.shielddspendkey,
+    byteLength: ByteLength.shielddspendkey,
+    innerName: Inner.shielddspendkey,
   },
-  penumbravalid: {
-    prefix: Prefixes.penumbravalid,
-    stringLength: StringLength.penumbravalid,
-    byteLength: ByteLength.penumbravalid,
-    innerName: Inner.penumbravalid,
+  shielddvalid: {
+    prefix: Prefixes.shielddvalid,
+    stringLength: StringLength.shielddvalid,
+    byteLength: ByteLength.shielddvalid,
+    innerName: Inner.shielddvalid,
   },
-  penumbrawalletid: {
-    prefix: Prefixes.penumbrawalletid,
-    stringLength: StringLength.penumbrawalletid,
-    byteLength: ByteLength.penumbrawalletid,
-    innerName: Inner.penumbrawalletid,
+  shielddwalletid: {
+    prefix: Prefixes.shielddwalletid,
+    stringLength: StringLength.shielddwalletid,
+    byteLength: ByteLength.shielddwalletid,
+    innerName: Inner.shielddwalletid,
   },
   plpid: {
     prefix: Prefixes.plpid,
@@ -67,16 +67,16 @@ export default {
     byteLength: ByteLength.plpid,
     innerName: Inner.plpid,
   },
-  penumbracompat1: {
-    prefix: Prefixes.penumbracompat1,
-    stringLength: StringLength.penumbracompat1,
-    byteLength: ByteLength.penumbracompat1,
-    innerName: Inner.penumbracompat1,
+  shielddcompat1: {
+    prefix: Prefixes.shielddcompat1,
+    stringLength: StringLength.shielddcompat1,
+    byteLength: ByteLength.shielddcompat1,
+    innerName: Inner.shielddcompat1,
   },
-  tpenumbra: {
-    prefix: Prefixes.tpenumbra,
-    stringLength: StringLength.tpenumbra,
-    byteLength: ByteLength.tpenumbra,
-    innerName: Inner.tpenumbra,
+  tshieldd: {
+    prefix: Prefixes.tshieldd,
+    stringLength: StringLength.tshieldd,
+    byteLength: ByteLength.tshieldd,
+    innerName: Inner.tshieldd,
   },
-} as const satisfies PenumbraBech32mSpec;
+} as const satisfies ShielddBech32mSpec;

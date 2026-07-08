@@ -1,9 +1,9 @@
-import { IdentityKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { IdentityKey } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { CopyToClipboardIconButton } from '../copy-to-clipboard/copy-to-clipboard-icon-button';
 import {
   bech32mIdentityKey,
-  PENUMBRA_BECH32M_IDENTITYKEY_PREFIX,
-} from '@mizufinance/bech32m/penumbravalid';
+  SHIELDD_BECH32M_IDENTITYKEY_PREFIX,
+} from '@mizufinance/bech32m/shielddvalid';
 import { useMemo } from 'react';
 
 /**
@@ -16,7 +16,7 @@ import { useMemo } from 'react';
  * ```
  */
 export const IdentityKeyComponent = ({ identityKey }: { identityKey: IdentityKey }) => {
-  const sep = PENUMBRA_BECH32M_IDENTITYKEY_PREFIX.length + 1;
+  const sep = SHIELDD_BECH32M_IDENTITYKEY_PREFIX.length + 1;
 
   const ik = useMemo(
     () => (identityKey.ik.length ? bech32mIdentityKey(identityKey) : null),

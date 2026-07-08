@@ -8,7 +8,7 @@ export interface PageMetadata {
 
 export const metadata: Record<PagePath, PageMetadata> = {
   [PagePath.INDEX]: {
-    title: 'Penumbra',
+    title: 'Shieldd',
     description: '',
   },
   [PagePath.DASHBOARD]: {

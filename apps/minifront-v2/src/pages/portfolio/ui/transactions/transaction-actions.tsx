@@ -1,16 +1,16 @@
 import { getAddress as getAddressFromNoteView } from '@mizufinance/getters/note-view';
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { SwapView as DexSwapView } from '@mizufinance/protobuf/penumbra/core/component/dex/v1/dex_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { SwapView as DexSwapView } from '@mizufinance/protobuf/shieldd/core/component/dex/v1/dex_pb';
 import {
   SpendView,
   OutputView,
-} from '@mizufinance/protobuf/penumbra/core/component/shielded_pool/v1/shielded_pool_pb';
+} from '@mizufinance/protobuf/shieldd/core/component/shielded_pool/v1/shielded_pool_pb';
 import {
   Address,
   AddressView as GrpcAddressView,
   AddressView_Opaque,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
-import { ActionView as CoreActionView } from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
+import { ActionView as CoreActionView } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
 import { AddressViewComponent } from '@mizufinance/ui/AddressView';
 import { SectionComponentProps } from '@shared/ui/transaction-view/TransactionView';
 import { ValueViewComponent } from '@mizufinance/ui/ValueView';
@@ -54,8 +54,10 @@ const findMatchingAddressView = (
   return undefined;
 };
 
-interface ActionDisplayProps
-  extends Omit<SectionComponentProps, 'fullTxInfo' | 'transactionToDisplay'> {
+interface ActionDisplayProps extends Omit<
+  SectionComponentProps,
+  'fullTxInfo' | 'transactionToDisplay'
+> {
   actionView: CoreActionView;
 }
 

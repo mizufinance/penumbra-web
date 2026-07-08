@@ -1,5 +1,5 @@
 import { createGetter } from './utils/create-getter.js';
-import { SpendableNoteRecord } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { SpendableNoteRecord } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 
 export const getAssetIdFromRecord = createGetter(
   (noteRecord?: SpendableNoteRecord) => noteRecord?.note?.value?.assetId,

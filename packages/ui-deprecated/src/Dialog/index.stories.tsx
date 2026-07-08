@@ -7,7 +7,7 @@ import { Text } from '../Text';
 import { AssetIcon } from '../AssetIcon';
 import { styled } from 'styled-components';
 import { Ban, Handshake, ThumbsUp } from 'lucide-react';
-import { OSMO_METADATA, PENUMBRA_METADATA, PIZZA_METADATA } from '../utils/bufs';
+import { OSMO_METADATA, SHIELDD_METADATA, PIZZA_METADATA } from '../utils/bufs';
 
 const WhiteTextWrapper = styled.div`
   color: ${props => props.theme.color.text.primary};
@@ -101,7 +101,7 @@ export const WithRadioItems: Story = {
                 value='2'
                 title='Wallet 2'
                 description='Some description'
-                startAdornment={<AssetIcon metadata={PENUMBRA_METADATA} size='lg' />}
+                startAdornment={<AssetIcon metadata={SHIELDD_METADATA} size='lg' />}
               />
               <Dialog.RadioItem
                 value='3'

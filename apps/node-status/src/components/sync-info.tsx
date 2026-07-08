@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import { IndexLoaderResponse } from '../fetching/loader';
 import { Card } from '@mizufinance/ui-deprecated/components/ui/card';
 import { format } from 'date-fns';
-import { SyncInfo as SyncInfoProto } from '@mizufinance/protobuf/penumbra/util/tendermint_proxy/v1/tendermint_proxy_pb';
+import { SyncInfo as SyncInfoProto } from '@mizufinance/protobuf/shieldd/util/tendermint_proxy/v1/tendermint_proxy_pb';
 
 const getFormattedTime = (syncInfo: SyncInfoProto): { date?: string; time?: string } => {
   const dateObj = syncInfo.latestBlockTime?.toDate();

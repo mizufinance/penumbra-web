@@ -3,7 +3,7 @@ import {
   AuthorizeAndBuildResponse,
   BroadcastTransactionResponse,
   WitnessAndBuildResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { Link } from 'react-router-dom';
 import { Progress } from '../../components/ui/progress';
 import { ReactNode } from 'react';

@@ -68,7 +68,7 @@ const headingFont: Record<Density, string> = {
 };
 
 /**
- * **TableCell** is a unified component for tables within Penumbra ecosystem.
+ * **TableCell** is a unified component for tables within Shieldd ecosystem.
  * It has multiple style variants:
  *
  * 1. `heading` – darkened bold text

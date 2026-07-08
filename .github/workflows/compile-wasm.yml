@@ -5,7 +5,7 @@ on:
 
 jobs:
   wasm:
-    runs-on: buildjet-16vcpu-ubuntu-2204
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,6 +27,6 @@ jobs:
         run: git diff --exit-code
 
       - name: dump rust dependencies for debugging, only on failure
-        run: nix develop --command cargo tree --invert penumbra-wasm --edges features
+        run: nix develop --command cargo tree --invert shieldd-wasm --edges features
         if: failure()
         working-directory: packages/wasm/crate

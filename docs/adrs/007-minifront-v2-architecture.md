@@ -20,7 +20,7 @@ Minifront-v2 maintains **complete parity** with the original architecture's fund
 2. **Hash routing**: Continues using React Router's hash router for deployment flexibility
 3. **Static build output**: Single `index.html` deployable on any static file server
 4. **Privacy-first**: No code-splitting by route to prevent network traffic analysis
-5. **PD node compatibility**: Can be served directly by Penumbra daemon nodes
+5. **PD node compatibility**: Can be served directly by Shieldd daemon nodes
 
 ### Architectural Evolution
 
@@ -81,7 +81,7 @@ export class BalancesStore {
 
 ```typescript
 // Services handle data operations
-export class PenumbraService {
+export class ShielddService {
   async getBalances(): Promise<Balance[]> {
     // gRPC communication logic
   }
@@ -89,7 +89,7 @@ export class PenumbraService {
 
 // Stores handle state management
 export class BalancesStore {
-  constructor(private service: PenumbraService) {}
+  constructor(private service: ShielddService) {}
 
   async loadBalances() {
     this.balances = await this.service.getBalances();
@@ -113,9 +113,9 @@ export class RootStore {
   readonly balancesStore: BalancesStore;
   readonly transactionsStore: TransactionsStore;
 
-  constructor(private penumbraService: PenumbraService) {
-    this.balancesStore = new BalancesStore(this, penumbraService);
-    this.transactionsStore = new TransactionsStore(this, penumbraService);
+  constructor(private shielddService: ShielddService) {
+    this.balancesStore = new BalancesStore(this, shielddService);
+    this.transactionsStore = new TransactionsStore(this, shielddService);
   }
 }
 ```
@@ -129,16 +129,16 @@ export class RootStore {
 
 ### Technical Stack Evolution
 
-| Aspect               | Original Minifront           | Minifront v2            | Reasoning                                            |
-| -------------------- | ---------------------------- | ----------------------- | ---------------------------------------------------- |
-| **Routing**          | React Router (hash)          | React Router (hash)     | ✅ **Parity**: Maintains deployment flexibility      |
-| **Build Tool**       | Vite                         | Vite                    | ✅ **Parity**: Continues fast development experience |
-| **State Management** | Zustand + TanStack Query     | MobX                    | 🔄 **Evolution**: Better performance & DX            |
-| **Architecture**     | Component-based              | Feature-Sliced Design   | 🔄 **Evolution**: Improved scalability               |
-| **Services**         | Direct in components         | Dedicated service layer | ➕ **Addition**: Better separation of concerns       |
-| **UI Library**       | @mizufinance/ui-deprecated | @mizufinance/ui       | 🔄 **Migration**: Complete UI library change         |
-| **CSS Framework**    | Tailwind                     | Tailwind                | ✅ **Parity**: Consistent styling approach           |
-| **TypeScript**       | TypeScript                   | TypeScript              | ✅ **Parity**: Type safety maintained                |
+| Aspect               | Original Minifront         | Minifront v2            | Reasoning                                            |
+| -------------------- | -------------------------- | ----------------------- | ---------------------------------------------------- |
+| **Routing**          | React Router (hash)        | React Router (hash)     | ✅ **Parity**: Maintains deployment flexibility      |
+| **Build Tool**       | Vite                       | Vite                    | ✅ **Parity**: Continues fast development experience |
+| **State Management** | Zustand + TanStack Query   | MobX                    | 🔄 **Evolution**: Better performance & DX            |
+| **Architecture**     | Component-based            | Feature-Sliced Design   | 🔄 **Evolution**: Improved scalability               |
+| **Services**         | Direct in components       | Dedicated service layer | ➕ **Addition**: Better separation of concerns       |
+| **UI Library**       | @mizufinance/ui-deprecated | @mizufinance/ui         | 🔄 **Migration**: Complete UI library change         |
+| **CSS Framework**    | Tailwind                   | Tailwind                | ✅ **Parity**: Consistent styling approach           |
+| **TypeScript**       | TypeScript                 | TypeScript              | ✅ **Parity**: Type safety maintained                |
 
 ### UI Component Strategy
 
@@ -245,7 +245,6 @@ This represents a **complete UI library migration**, not preservation of existin
 ### Remaining Work
 
 1. **Phase 1 Completion**: Add production build configuration
-
    - Configure `vite build` script
    - Ensure static output works with PD node deployment
    - Verify privacy constraints are maintained in production build
@@ -258,4 +257,4 @@ This represents a **complete UI library migration**, not preservation of existin
 
 While this ADR documents the architectural _intent_ and _design_ of minifront-v2, **the application is not yet production-ready**. The core privacy-preserving principles are architecturally sound, but the deployment guarantees outlined in ADR 002 cannot be fulfilled until the production build process is completed.
 
-This architecture decision establishes the foundation for maintaining Penumbra's privacy-preserving and deployment-friendly principles while modernizing the development experience and application architecture.
+This architecture decision establishes the foundation for maintaining Shieldd's privacy-preserving and deployment-friendly principles while modernizing the development experience and application architecture.

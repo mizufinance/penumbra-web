@@ -2,7 +2,7 @@
   "name": "@mizufinance/ui",
   "version": "16.0.3",
   "license": "(MIT OR Apache-2.0)",
-  "description": "UI components for Penumbra",
+  "description": "UI components for Shieldd",
   "type": "module",
   "engine": {
     "node": ">=22"

@@ -1,17 +1,17 @@
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import {
   DELEGATION_TOKEN_METADATA,
   OSMO_METADATA,
-  PENUMBRA_METADATA,
+  SHIELDD_METADATA,
   UNBONDING_TOKEN_METADATA,
 } from './metadata.ts';
 
-export const PENUMBRA_VALUE_VIEW = new ValueView({
+export const SHIELDD_VALUE_VIEW = new ValueView({
   valueView: {
     case: 'knownAssetId',
     value: {
       amount: { hi: 0n, lo: 123_456_789_000n },
-      metadata: PENUMBRA_METADATA,
+      metadata: SHIELDD_METADATA,
     },
   },
 });
@@ -52,7 +52,7 @@ export const UNKNOWN_ASSET_VALUE_VIEW = new ValueView({
     value: {
       amount: { hi: 0n, lo: 123_000_000n },
       metadata: {
-        penumbraAssetId: { inner: new Uint8Array([]) },
+        shielddAssetId: { inner: new Uint8Array([]) },
       },
     },
   },

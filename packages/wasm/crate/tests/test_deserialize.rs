@@ -1,5 +1,5 @@
-use penumbra_proto::core::component::ibc::v1::Ics20Withdrawal as PbIcs20Withdrawal;
-use penumbra_shielded_pool::Ics20Withdrawal;
+use shieldd_proto::core::component::ibc::v1::Ics20Withdrawal as PbIcs20Withdrawal;
+use shieldd_shielded_pool::Ics20Withdrawal;
 
 #[test]
 fn height_properly_serializes_from_json() {
@@ -9,7 +9,7 @@ fn height_properly_serializes_from_json() {
             "lo": "12000000"
           },
           "denom": {
-            "denom": "upenumbra"
+            "denom": "ushieldd"
           },
           "destinationChainAddress": "xyz",
           "returnAddress": {

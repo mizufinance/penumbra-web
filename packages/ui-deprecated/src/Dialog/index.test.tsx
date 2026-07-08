@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Dialog } from '.';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<Dialog />', () => {
   it('renders a close button by default', () => {
@@ -10,7 +10,7 @@ describe('<Dialog />', () => {
         <Dialog.Trigger>Open</Dialog.Trigger>
         <Dialog.Content title='Title'>Hello, world</Dialog.Content>
       </Dialog>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     fireEvent.click(getByText('Open'));
@@ -23,7 +23,7 @@ describe('<Dialog />', () => {
       <Dialog isOpen={true} onClose={() => {}}>
         <Dialog.Content title='Title'>Hello, world</Dialog.Content>
       </Dialog>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(queryByLabelText('Close')).toBeTruthy();
@@ -34,7 +34,7 @@ describe('<Dialog />', () => {
       <Dialog isOpen={true}>
         <Dialog.Content title='Title'>Hello, world</Dialog.Content>
       </Dialog>,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(queryByLabelText('Close')).toBeNull();

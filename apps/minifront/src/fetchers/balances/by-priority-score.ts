@@ -1,4 +1,4 @@
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import {
   getMetadataFromBalancesResponse,
   getAmount,

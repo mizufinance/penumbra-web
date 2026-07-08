@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import { penumbra } from '@/shared/lib/penumbra';
-import { PenumbraClient } from '@mizufinance/client';
+import { shieldd } from '@/shared/lib/shieldd';
+import { ShielddClient } from '@mizufinance/client';
 
 export const useIsConnected = (): boolean => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     // Check initial connection state
-    setConnected(Boolean(penumbra.connected));
+    setConnected(Boolean(shieldd.connected));
 
     // Listen for connection state changes
-    const unsubscribe = penumbra.onConnectionStateChange(() => {
-      setConnected(Boolean(penumbra.connected));
+    const unsubscribe = shieldd.onConnectionStateChange(() => {
+      setConnected(Boolean(shieldd.connected));
     });
 
     return unsubscribe;
@@ -22,7 +22,7 @@ export const useIsConnected = (): boolean => {
 
 export const useConnectWallet = () => {
   const connectWallet = async () => {
-    const availableProviders = Object.keys(PenumbraClient.getProviders());
+    const availableProviders = Object.keys(ShielddClient.getProviders());
 
     if (availableProviders.length === 0) {
       // No wallet installed, redirect to install
@@ -32,7 +32,7 @@ export const useConnectWallet = () => {
 
     if (availableProviders.length === 1 && availableProviders[0]) {
       try {
-        await penumbra.connect(availableProviders[0]);
+        await shieldd.connect(availableProviders[0]);
       } catch (error) {
         // Optionally handle error
       }
@@ -42,7 +42,7 @@ export const useConnectWallet = () => {
       try {
         const firstProvider = availableProviders[0];
         if (firstProvider) {
-          await penumbra.connect(firstProvider);
+          await shieldd.connect(firstProvider);
         }
       } catch (error) {
         // Optionally handle error

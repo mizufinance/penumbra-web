@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled, css } from 'styled-components';
 import * as RadixSlider from '@radix-ui/react-slider';
 import { detail, detailTechnical } from '../utils/typography';
-import { theme } from '../PenumbraUIProvider/theme';
+import { theme } from '../ShielddUIProvider/theme';
 
 interface SliderProps {
   min?: number;

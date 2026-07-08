@@ -1,7 +1,7 @@
 import { ViewService } from '@mizufinance/protobuf';
-import { penumbra } from '../penumbra';
+import { shieldd } from '../shieldd';
 
 export const getChainId = async (): Promise<string | undefined> => {
-  const { parameters } = await penumbra.service(ViewService).appParameters({});
+  const { parameters } = await shieldd.service(ViewService).appParameters({});
   return parameters?.chainId;
 };

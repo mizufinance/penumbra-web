@@ -21,7 +21,7 @@ export interface DisplayProps {
 
 /**
  * Wrap your top-level component for a given page (usually a `<Grid />`) in
- * `<Diplay />` to adhere to PenumbraUI guidelines regarding maximum layouts
+ * `<Diplay />` to adhere to ShielddUI guidelines regarding maximum layouts
  * widths, horizontal margins, etc.
  *
  * ```tsx

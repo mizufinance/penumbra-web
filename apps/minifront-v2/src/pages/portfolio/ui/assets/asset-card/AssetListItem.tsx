@@ -1,4 +1,4 @@
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { AssetIcon } from '@mizufinance/ui/AssetIcon';
 import { Button } from '@mizufinance/ui/Button';
 import { Text } from '@mizufinance/ui/Text';
@@ -68,7 +68,7 @@ export const AssetListItem = ({ asset }: AssetListItemProps) => {
       }
     }
 
-    displayName = validatorId ? `Delegated Penumbra (${validatorId})` : 'Delegated Penumbra';
+    displayName = validatorId ? `Delegated Shieldd (${validatorId})` : 'Delegated Shieldd';
   } else if (isUnbondingToken && asset.originalMetadata) {
     // Show clean "unbondUM" symbol
     displaySymbol = 'unbondUM';
@@ -92,7 +92,7 @@ export const AssetListItem = ({ asset }: AssetListItemProps) => {
       }
     }
 
-    displayName = validatorId ? `Unbonding Penumbra (${validatorId})` : 'Unbonding Penumbra';
+    displayName = validatorId ? `Unbonding Shieldd (${validatorId})` : 'Unbonding Shieldd';
   }
 
   // Action handlers

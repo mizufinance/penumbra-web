@@ -1,7 +1,7 @@
-import { Amount } from '@mizufinance/protobuf/penumbra/core/num/v1/num_pb';
+import { Amount } from '@mizufinance/protobuf/shieldd/core/num/v1/num_pb';
 import { fromBaseUnit, joinLoHi, splitLoHi, toBaseUnit } from './lo-hi.js';
 import BigNumber from 'bignumber.js';
-import { ValueView } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { ValueView } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { getAmount, getDisplayDenomExponentFromValueView } from '@mizufinance/getters/value-view';
 import { removeTrailingZeros } from './shortify.js';
 
@@ -105,7 +105,7 @@ export const formatAmount = ({
  * Exchange rates in core are expressed as whole numbers on the order of 10 to
  * the power of 8, so they need to be divided by 10e8 to turn into a decimal.
  *
- * @see https://github.com/mizufinance/penumbra/blob/839f978/crates/bin/pcli/src/command/view/staked.rs#L90-L93
+ * @see https://github.com/mizufinance/shieldd/blob/839f978/crates/bin/pcli/src/command/view/staked.rs#L90-L93
  */
 const EXCHANGE_RATE_DENOMINATOR = 1e8;
 

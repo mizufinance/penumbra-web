@@ -1,9 +1,9 @@
 export * from './services/cosmos-ibc-core.js';
-export * from './services/penumbra-cnidarium.js';
-export * from './services/penumbra-core.js';
-export * from './services/penumbra-custody.js';
-export * from './services/penumbra-util.js';
-export * from './services/penumbra-view.js';
+export * from './services/shieldd-cnidarium.js';
+export * from './services/shieldd-core.js';
+export * from './services/shieldd-custody.js';
+export * from './services/shieldd-util.js';
+export * from './services/shieldd-view.js';
 
 export * from './registry.js';
 export * from './web.js';

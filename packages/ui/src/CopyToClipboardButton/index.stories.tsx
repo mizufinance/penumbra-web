@@ -13,7 +13,7 @@ type Story = StoryObj<typeof CopyToClipboardButton>;
 
 export const Basic: Story = {
   args: {
-    text: 'This is sample text copied by the PenumbraUI <CopyToClipboardButton /> component.',
+    text: 'This is sample text copied by the ShielddUI <CopyToClipboardButton /> component.',
     disabled: false,
   },
 };

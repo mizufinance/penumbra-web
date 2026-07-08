@@ -42,7 +42,7 @@ export const IbcInRequest = () => {
       {isUnsupportedAsset && (
         <div className='justify-center rounded bg-amber-200 p-2 text-center italic text-stone-700'>
           Note: only <b>native</b> assets at this time are eligible for ibc&apos;ing in. Unwind them
-          through their home chain to get them to Penumbra.
+          through their home chain to get them to Shieldd.
         </div>
       )}
       <div className='flex w-full gap-2'>

@@ -21,8 +21,9 @@ const TabsList = ({ className, ref, ...props }: TabsListProps) => (
 );
 TabsList.displayName = TabsPrimitive.List.displayName;
 
-export interface TabsTriggerProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {
+export interface TabsTriggerProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitive.Trigger
+> {
   ref?: React.Ref<HTMLButtonElement>;
 }
 const TabsTrigger = ({ className, ref, ...props }: TabsTriggerProps) => (
@@ -37,8 +38,9 @@ const TabsTrigger = ({ className, ref, ...props }: TabsTriggerProps) => (
 );
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
-export interface TabsContentProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {
+export interface TabsContentProps extends React.ComponentPropsWithoutRef<
+  typeof TabsPrimitive.Content
+> {
   ref?: React.Ref<HTMLDivElement>;
 }
 const TabsContent = ({ className, ref, ...props }: TabsContentProps) => (

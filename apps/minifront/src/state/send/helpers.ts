@@ -1,13 +1,13 @@
-import { Metadata, Value } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { Metadata, Value } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getDisplay } from '@mizufinance/getters/metadata';
 import { getAmount, getMetadata } from '@mizufinance/getters/value-view';
 import { assetPatterns } from '@mizufinance/types/assets';
 import { isKnown } from '../helpers';
 import { AbridgedZQueryState } from '@mizufinance/zquery/src/types';
 import { chainRegistryClient } from '../../fetchers/registry';
-import { GasPrices } from '@mizufinance/protobuf/penumbra/core/component/fee/v1/fee_pb';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { GasPrices } from '@mizufinance/protobuf/shieldd/core/component/fee/v1/fee_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 
 const nonTransferableAssetPatterns = [
   assetPatterns.proposalNft,

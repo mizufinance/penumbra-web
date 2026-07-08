@@ -2,7 +2,7 @@ import { cn } from '@mizufinance/ui-deprecated/lib/utils';
 import illustration from './illustration.svg?url';
 
 /**
- * @todo Use Penumbra UI values for rounding, etc. once its Tailwind config is
+ * @todo Use Shieldd UI values for rounding, etc. once its Tailwind config is
  * ready.
  */
 export const SyncAnimation = () => (

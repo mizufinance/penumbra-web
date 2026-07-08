@@ -1,11 +1,11 @@
-import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { TransactionView as UiTransactionView } from '@/shared/ui/transaction-view';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 
 import { useTransactionsStore } from '@/shared/stores/store-context';
-import { penumbraService } from '@/shared/services/penumbra-service';
+import { shielddService } from '@/shared/services/shieldd-service';
 
 export interface TransactionViewProps {
   txHash: string;
@@ -29,7 +29,7 @@ export const TransactionView: React.FC<TransactionViewProps> = observer(
       const fetchTimestamp = async () => {
         if (fullTxInfoData?.height) {
           try {
-            const timestamp = await penumbraService.getBlockTimestamp(fullTxInfoData.height);
+            const timestamp = await shielddService.getBlockTimestamp(fullTxInfoData.height);
             setBlockTimestamp(timestamp);
           } catch (err) {
             console.error('Failed to fetch block timestamp:', err);

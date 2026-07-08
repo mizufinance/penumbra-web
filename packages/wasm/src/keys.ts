@@ -13,7 +13,7 @@ import {
   FullViewingKey,
   SpendKey,
   WalletId,
-} from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+} from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { ensureWasmInitialized } from './init.js';
 
 export const generateSpendKey = async (seedPhrase: string) => {
@@ -56,8 +56,8 @@ export interface NobleAddrResponse {
   nobleAddrBech32: string;
   // Byte representation of the noble forwarding address. Used for broadcasting cosmos message.
   nobleAddrBytes: Uint8Array;
-  // The penumbra address that a deposit to the noble address with forward to
-  penumbraAddr: Address;
+  // The shieldd address that a deposit to the noble address with forward to
+  shielddAddr: Address;
 }
 
 // Generates an address that can be used as a forwarding address for Noble
@@ -72,7 +72,7 @@ export const getNobleForwardingAddr = async (
   return {
     nobleAddrBech32: res.noble_addr_bech32,
     nobleAddrBytes: res.noble_addr_bytes,
-    penumbraAddr: Address.fromBinary(res.penumbra_addr_bytes),
+    shielddAddr: Address.fromBinary(res.shieldd_addr_bytes),
   };
 };
 

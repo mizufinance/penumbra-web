@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
 import { SegmentedControl } from '.';
-import { PenumbraUIProvider } from '../PenumbraUIProvider';
+import { ShielddUIProvider } from '../ShielddUIProvider';
 
 describe('<SegmentedControl />', () => {
   const onChange = vi.fn();
@@ -18,7 +18,7 @@ describe('<SegmentedControl />', () => {
   it('renders all passed-in options', () => {
     const { container } = render(
       <SegmentedControl value='one' options={options} onChange={onChange} />,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
 
     expect(container).toHaveTextContent('One');
@@ -29,7 +29,7 @@ describe('<SegmentedControl />', () => {
   it('calls the `onClick` handler with the value of the clicked option', () => {
     const { getByText } = render(
       <SegmentedControl value='one' options={options} onChange={onChange} />,
-      { wrapper: PenumbraUIProvider },
+      { wrapper: ShielddUIProvider },
     );
     fireEvent.click(getByText('Two', { selector: ':not([aria-hidden])' }));
 
@@ -50,7 +50,7 @@ describe('<SegmentedControl />', () => {
     it('calls the `onClick` handler with the value of the clicked option', () => {
       const { getByText } = render(
         <SegmentedControl value={valueOne} options={options} onChange={onChange} />,
-        { wrapper: PenumbraUIProvider },
+        { wrapper: ShielddUIProvider },
       );
       fireEvent.click(getByText('Two', { selector: ':not([aria-hidden])' }));
 
@@ -71,7 +71,7 @@ describe('<SegmentedControl />', () => {
       it('throws', () => {
         expect(() =>
           render(<SegmentedControl value={valueOne} options={options} onChange={onChange} />, {
-            wrapper: PenumbraUIProvider,
+            wrapper: ShielddUIProvider,
           }),
         ).toThrow('The value options passed to `<SegmentedControl />` are not unique.');
       });

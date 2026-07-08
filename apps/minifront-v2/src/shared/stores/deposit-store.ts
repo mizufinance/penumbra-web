@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { RootStore } from './root-store';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { ChainRegistryClient } from '@penumbra-labs/registry';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { ChainRegistryClient } from '@mizufinance/registry';
 import { chains } from 'chain-registry';
 import { EncodeObject } from '@cosmjs/proto-signing';
 import { StdFee, GasPrice, calculateFee, SigningStargateClient } from '@cosmjs/stargate';
 import { ChainWalletContext } from '@cosmos-kit/core';
 import { ibc, cosmos } from 'osmo-query';
 import { ViewService } from '@mizufinance/protobuf';
-import { bech32mAddress } from '@mizufinance/bech32m/penumbra';
-import { penumbra } from '../lib/penumbra';
+import { bech32mAddress } from '@mizufinance/bech32m/shieldd';
+import { shieldd } from '../lib/shieldd';
 
 // External wallet asset balance interface
 export interface ExternalAssetBalance {
@@ -124,15 +124,15 @@ export class DepositStore {
   }
 
   /**
-   * Generate Penumbra address for the selected account
+   * Generate Shieldd address for the selected account
    */
-  private async getPenumbraAddress(account: number, chainId?: string): Promise<string | undefined> {
+  private async getShielddAddress(account: number, chainId?: string): Promise<string | undefined> {
     if (!chainId) {
       return undefined;
     }
 
     try {
-      const { address } = await penumbra.service(ViewService).addressByIndex({
+      const { address } = await shieldd.service(ViewService).addressByIndex({
         addressIndex: { account },
       });
 
@@ -142,7 +142,7 @@ export class DepositStore {
 
       return bech32mAddress(address);
     } catch (error) {
-      console.error('Failed to generate Penumbra address:', error);
+      console.error('Failed to generate Shieldd address:', error);
       return undefined;
     }
   }
@@ -324,22 +324,22 @@ export class DepositStore {
   // This prevents artificial limitations on supported chains
 
   async loadDestinationAddress() {
-    if (!this.rootStore.penumbraService) {
+    if (!this.rootStore.shielddService) {
       return;
     }
 
     try {
       const { selectedChain, destinationAccount } = this.depositState;
-      const penumbraAddress = await this.getPenumbraAddress(
+      const shielddAddress = await this.getShielddAddress(
         destinationAccount,
         selectedChain?.chainId,
       );
 
-      if (penumbraAddress) {
+      if (shielddAddress) {
         runInAction(() => {
           this.depositState = {
             ...this.depositState,
-            destinationAddress: penumbraAddress,
+            destinationAddress: shielddAddress,
           };
         });
       }
@@ -353,10 +353,10 @@ export class DepositStore {
    */
   private async getCounterpartyChannelId(
     counterpartyChain: ChainInfo,
-    penumbraChainId: string,
+    shielddChainId: string,
   ): Promise<string> {
     const registryClient = new ChainRegistryClient();
-    const registry = await registryClient.remote.get(penumbraChainId);
+    const registry = await registryClient.remote.get(shielddChainId);
 
     const counterpartyChannelId = registry.ibcConnections.find(
       c => c.chainId === counterpartyChain.chainId,
@@ -438,23 +438,23 @@ export class DepositStore {
         throw new Error('Missing asset or chain information');
       }
 
-      // Get the Penumbra chain ID
-      const penumbraChainId = this.rootStore.appParametersStore.chainId;
-      if (!penumbraChainId) {
-        throw new Error('Penumbra chain id could not be retrieved');
+      // Get the Shieldd chain ID
+      const shielddChainId = this.rootStore.appParametersStore.chainId;
+      if (!shielddChainId) {
+        throw new Error('Shieldd chain id could not be retrieved');
       }
 
-      // Generate the Penumbra address
-      const penumbraAddress = await this.getPenumbraAddress(
+      // Generate the Shieldd address
+      const shielddAddress = await this.getShielddAddress(
         destinationAccount,
         selectedChain.chainId,
       );
-      if (!penumbraAddress) {
-        throw new Error('Penumbra address not available');
+      if (!shielddAddress) {
+        throw new Error('Shieldd address not available');
       }
 
       // Get the correct channel ID from registry
-      const sourceChannel = await this.getCounterpartyChannelId(selectedChain, penumbraChainId);
+      const sourceChannel = await this.getCounterpartyChannelId(selectedChain, shielddChainId);
 
       // Use default exponent
       const exponent = 6;
@@ -471,7 +471,7 @@ export class DepositStore {
         sourcePort: 'transfer',
         sourceChannel,
         sender: senderAddress,
-        receiver: penumbraAddress,
+        receiver: shielddAddress,
         token: { denom: selectedAsset.denom, amount: scaledAmount },
         timeoutHeight,
         timeoutTimestamp: timeout,

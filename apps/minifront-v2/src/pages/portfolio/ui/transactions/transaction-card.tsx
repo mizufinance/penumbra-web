@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { Wallet2 } from 'lucide-react';
 
-import { TransactionInfo } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
-import { AddressView } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { TransactionInfo } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { Card } from '@mizufinance/ui/Card';
 import { Button } from '@mizufinance/ui/Button';
 import { Text } from '@mizufinance/ui/Text';

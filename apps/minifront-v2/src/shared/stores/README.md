@@ -76,7 +76,7 @@ The store architecture follows the **Model-View-ViewModel (MVVM)** pattern with 
 
 ### Service Layer
 
-#### **PenumbraService** (`penumbra-service.ts`)
+#### **ShielddService** (`shieldd-service.ts`)
 
 - **Purpose**: Centralized gRPC communication layer
 - **Benefits**:
@@ -284,7 +284,7 @@ getSortedBalances() {
 // Unit test example
 describe('BalancesStore', () => {
   let store: BalancesStore;
-  let mockService: jest.Mocked<PenumbraService>;
+  let mockService: jest.Mocked<ShielddService>;
 
   beforeEach(() => {
     mockService = createMockService();

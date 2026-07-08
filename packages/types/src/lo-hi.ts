@@ -63,9 +63,9 @@ export const addLoHi = (a: LoHi, b: LoHi): Required<LoHi> => {
 
 /**
  * Denoms have `DenomUnit[]` which provide variations of the denom display name with different exponents:
- * - penumbra, exponent 6
- * - mpenumbra, exponent 3
- * - upenumbra, exponent 0
+ * - shieldd, exponent 6
+ * - mshieldd, exponent 3
+ * - ushieldd, exponent 0
  * This function allows you to calculate a single BigInt with the exponent applied
  * Note: Often passing exponent 0 is the default given protobuf serialization.
  *       This is treated as 1 instead.

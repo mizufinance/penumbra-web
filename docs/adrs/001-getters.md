@@ -1,6 +1,6 @@
 # ADR 001: Using getters to handle polymorphic and optional types in Protobufs
 
-In [web#458](https://github.com/mizufinance/penumbra/issues/458), and in a follow-up meeting on February 8, 2024, we discussed the need for an elegant approach to accessing deeply nested properties on deserialized Protobuf objects, for which all properties are optional, and for which some properties' existence is conditional based on the value of a `case` property.
+In [web#458](https://github.com/mizufinance/shieldd/issues/458), and in a follow-up meeting on February 8, 2024, we discussed the need for an elegant approach to accessing deeply nested properties on deserialized Protobuf objects, for which all properties are optional, and for which some properties' existence is conditional based on the value of a `case` property.
 
 Let's use `AddressView` as an example. Ignoring its methods for a moment, here's what `AddressView` looks like as a TypeScript interface:
 

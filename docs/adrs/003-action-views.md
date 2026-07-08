@@ -1,8 +1,8 @@
 # ADR 003: opaque and opaque fields in views
 
-This specification is intended to inform what information should be comprehended by the user during signing a penumbra transaction. The <u><u>**_visible_**</u></u> views require a viewing key, the <u><u>**_opaque_**</u></u> views are public. Fields tagged as <u><u>**_opaque_**</u></u> are optionally also <u><u>**_visible_**</u></u> fields, but the opposite is false. For each view, we enumerate the protobuf fields and mark them accordingly. This is tracked by https://github.com/mizufinance/penumbra/issues/875.
+This specification is intended to inform what information should be comprehended by the user during signing a shieldd transaction. The <u><u>**_visible_**</u></u> views require a viewing key, the <u><u>**_opaque_**</u></u> views are public. Fields tagged as <u><u>**_opaque_**</u></u> are optionally also <u><u>**_visible_**</u></u> fields, but the opposite is false. For each view, we enumerate the protobuf fields and mark them accordingly. This is tracked by https://github.com/mizufinance/shieldd/issues/875.
 
-## 1. [Spend View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.shielded_pool.v1#penumbra.core.component.shielded_pool.v1.Spend)
+## 1. [Spend View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.shielded_pool.v1#shieldd.core.component.shielded_pool.v1.Spend)
 
 - `Spend`
   - `SpendBody`
@@ -13,7 +13,7 @@ This specification is intended to inform what information should be comprehended
   - `ZKSpendProof`: <u>**_opaque_**</u> field where the Groth16 proof is defined over the BLS12-377 prime field.
 - `NoteView`: <u>**_visible_**</u> field since it contains address and value views that meant to remain hidden.
 
-## 2. [Output View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.shielded_pool.v1#penumbra.core.component.shielded_pool.v1.Output)
+## 2. [Output View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.shielded_pool.v1#shieldd.core.component.shielded_pool.v1.Output)
 
 - `Output`
   - `OutputBody`
@@ -28,7 +28,7 @@ This specification is intended to inform what information should be comprehended
 - `NoteView`: <u>**_visible_**</u> field (refer to the same explanation in the [Spend section](#1-spend-view))
 - `PayloadKey`: <u>**_visible_**</u> field since payload keys provide decryption capabilities of encrypted note ciphertexts.
 
-## 3. [Swap View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.Swap)
+## 3. [Swap View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.dex.v1#shieldd.core.component.dex.v1.Swap)
 
 - `Swap`
   - `ZKSwapProof`: <u>**_opaque_**</u> field where the Groth16 proof is defined over the BLS12-377 prime field.
@@ -47,7 +47,7 @@ This specification is intended to inform what information should be comprehended
 - `TransactionId`: <u>**_visible_**</u> field since it's associated with a commitment that will eventually be nullified, and since nullifiers are public, revealing the transaction ID creates a link between the commitment and the nullifier that commitment nullifies.
 - `NoteView`: <u>**_visible_**</u> field since it consists of sensitive fields like the claim address which should not be leaked.
 
-## 4. [Swap Claim View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5/penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.SwapClaim)
+## 4. [Swap Claim View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5/shieldd.core.component.dex.v1#shieldd.core.component.dex.v1.SwapClaim)
 
 - `Swap Claim`
   - `ZKSwapProof`: <u>**_opaque_**</u> field where the Groth16 proof is defined over the BLS12-377 prime field.
@@ -59,16 +59,15 @@ This specification is intended to inform what information should be comprehended
     - `BatchSwapOutputData`: <u>**_opaque_**</u> field (refer to the same explanation in the [Swap section](#3-swap-view))
 - `EpochDuration` - <u>**_opaque_**</u> field since this is included as part of the chain state.
 
-## 5. [Delegate View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.stake.v1#penumbra.core.component.stake.v1.Delegate)
+## 5. [Delegate View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.stake.v1#shieldd.core.component.stake.v1.Delegate)
 
 - `Delegate`
-
   - `IdentityKey`: <u>**_opaque_**</u> field since the validator's identity (decaf377-rdsa spendauth verification key) is supposed to be public, while individual delegators are kept private.
   - `Epoch`: <u>**_opaque_**</u> field since this is included as part of the chain state.
   - `Amount`: <u>**_opaque_**</u> field since the unbounded amount is public until flow encryption is supported to only display batched amounts per block.
   - `Amount`: <u>**_opaque_**</u> field since the delegation amount is determined by validator's exchange rate, which is public.
 
-  ## 6. [Undelegate View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.stake.v1#penumbra.core.component.stake.v1.Undelegate)
+  ## 6. [Undelegate View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.stake.v1#shieldd.core.component.stake.v1.Undelegate)
 
 - `Undelegate`
   - `IdentityKey`: <u>**_opaque_**</u> field (refer to the same explanation in the [Delegate section](#5-delegate-view)).
@@ -76,7 +75,7 @@ This specification is intended to inform what information should be comprehended
   - `Amount`: <u>**_opaque_**</u> field (refer to the same explanation in the [Delegate section](#5-delegate-view)).
   - `Epoch`: <u>**_opaque_**</u> field (refer to the same explanation in the [Delegate section](#5-delegate-view)).
 
-## 7. [UndelegateClaim View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.stake.v1#penumbra.core.component.stake.v1.UndelegateClaim)
+## 7. [UndelegateClaim View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.stake.v1#shieldd.core.component.stake.v1.UndelegateClaim)
 
 - `UndelegateClaim `
   - `IdentityKey`: <u>**_opaque_**</u> field (refer to the same explanation in the [Delegate section](#5-delegate-view)).
@@ -84,19 +83,19 @@ This specification is intended to inform what information should be comprehended
   - `BalanceCommitment`: <u>**_opaque_**</u> field since the pedersen commitment reveals not data about the note balances.
   - `UnbondingStartHeight`: <u>**_opaque_**</u> field since this is recorded publicly on-chain.
 
-## 8. [ActionDutchAuctionSchedule View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5/penumbra.core.component.auction.v1alpha1#penumbra.core.component.auction.v1alpha1.ActionDutchAuctionSchedule)
+## 8. [ActionDutchAuctionSchedule View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5/shieldd.core.component.auction.v1alpha1#shieldd.core.component.auction.v1alpha1.ActionDutchAuctionSchedule)
 
 - `ActionDutchAuctionSchedule`
   - `DutchAuctionDescription`: <u>**_opaque_**</u> field since the amounts and asset types can be public similar to swaps.
   - `AuctionId`: <u>**_opaque_**</u> field since the unique identifier reveals no information about the auction.
   - `Metadata`: <u>**_opaque_**</u> field that augments the view with additional input and output metadata to assist clients in rendering its contents.
 
-## 9. [ActionDutchAuctionEnd View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.auction.v1alpha1#penumbra.core.component.auction.v1alpha1.ActionDutchAuctionEnd)
+## 9. [ActionDutchAuctionEnd View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.auction.v1alpha1#shieldd.core.component.auction.v1alpha1.ActionDutchAuctionEnd)
 
 - `ActionDutchAuctionEnd`
   - `AuctionId`: <u>**_opaque_**</u> field since the unique identifier reveals no information about the auction.
 
-## 10. [ActionDutchAuctionWithdraw View](https://buf.build/mizufinance/penumbra/docs/78be1d64b1cb484ba4bc666d54dc76c5:penumbra.core.component.auction.v1alpha1#penumbra.core.component.auction.v1alpha1.ActionDutchAuctionWithdraw)
+## 10. [ActionDutchAuctionWithdraw View](https://buf.build/mizufinance/shieldd/docs/78be1d64b1cb484ba4bc666d54dc76c5:shieldd.core.component.auction.v1alpha1#shieldd.core.component.auction.v1alpha1.ActionDutchAuctionWithdraw)
 
 - `ActionDutchAuctionEnd`
   - `AuctionId`: <u>**_opaque_**</u> field (refer to the same explanation in the [ActionDutchAuctionSchedule section](#1-delegate)).

@@ -15,7 +15,7 @@ import { fileURLToPath } from 'url';
  *   node scripts/unlink
  *
  *   // when enabled, you can link the package to another repo like this:
- *   cd other/repo && pnpm link ../mizufinance/penumbra/packages/ui
+ *   cd other/repo && pnpm link ../mizufinance/shieldd/packages/ui
  *
  *   // watch inside packages
  *   cd packages/ui && pnpm dev:pack

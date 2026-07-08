@@ -1,9 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import { Code, ConnectError } from '@connectrpc/connect';
-import {
-  PenumbraNotInstalledError,
-  PenumbraProviderNotConnectedError,
-} from '@mizufinance/client';
+import { ShielddNotInstalledError, ShielddProviderNotConnectedError } from '@mizufinance/client';
 import { Button } from '@mizufinance/ui/Button';
 import { Text } from '@mizufinance/ui/Text';
 import { Card } from '@mizufinance/ui/Card';
@@ -17,10 +14,10 @@ export const ErrorBoundary = () => {
   if (error instanceof ConnectError && error.code === Code.Unavailable) {
     return <ExtensionTransportDisconnected />;
   }
-  if (error instanceof PenumbraNotInstalledError) {
+  if (error instanceof ShielddNotInstalledError) {
     return <ExtensionNotInstalled />;
   }
-  if (error instanceof PenumbraProviderNotConnectedError) {
+  if (error instanceof ShielddProviderNotConnectedError) {
     return <ExtensionNotConnected />;
   }
   if (isRouteErrorResponse(error) && error.status === 404) {
@@ -66,8 +63,8 @@ export const ErrorBoundary = () => {
 
       <div className='mt-8 flex px-3 max-w-md text-center'>
         <Text detail>
-          Minifront is a minimal frontend for interacting with the Penumbra blockchain—embedded into
-          every Penumbra RPC endpoint.
+          Minifront is a minimal frontend for interacting with the Shieldd blockchain—embedded into
+          every Shieldd RPC endpoint.
         </Text>
       </div>
     </div>
@@ -107,8 +104,8 @@ const NotFound = () => (
 
     <div className='mt-8 flex px-3'>
       <Text detail>
-        Minifront is a minimal frontend for interacting with the Penumbra blockchain—embedded into
-        every Penumbra RPC endpoint.
+        Minifront is a minimal frontend for interacting with the Shieldd blockchain—embedded into
+        every Shieldd RPC endpoint.
       </Text>
     </div>
   </div>

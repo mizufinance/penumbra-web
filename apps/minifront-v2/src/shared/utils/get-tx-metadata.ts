@@ -1,5 +1,5 @@
-import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { AssetId, Denom, Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { getMetadataFromBalancesResponse } from '@mizufinance/getters/balances-response';
 
 // Type definition compatible with UI components' GetMetadata interface
@@ -41,8 +41,8 @@ export const getTxMetadata = (
     for (const res of balancesResponses) {
       const meta = getMetadataFromBalancesResponse.optional(res);
       if (
-        meta?.penumbraAssetId?.inner &&
-        compareUint8Arrays(meta.penumbraAssetId.inner, assetId.inner)
+        meta?.shielddAssetId?.inner &&
+        compareUint8Arrays(meta.shielddAssetId.inner, assetId.inner)
       ) {
         rawMetadata = meta;
         break;

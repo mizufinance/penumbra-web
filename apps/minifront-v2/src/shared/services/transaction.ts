@@ -6,20 +6,20 @@ import {
   TransactionPlannerRequest,
   WitnessAndBuildRequest,
   WitnessAndBuildResponse,
-} from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { ViewService } from '@mizufinance/protobuf';
 import { sha256Hash } from '@mizufinance/crypto-web/sha256';
 import {
   Transaction,
   TransactionPlan,
-} from '@mizufinance/protobuf/penumbra/core/transaction/v1/transaction_pb';
-import { TransactionId } from '@mizufinance/protobuf/penumbra/core/txhash/v1/txhash_pb';
+} from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
+import { TransactionId } from '@mizufinance/protobuf/shieldd/core/txhash/v1/txhash_pb';
 import { PartialMessage } from '@bufbuild/protobuf';
 import { TransactionToast } from '../toast/transaction-toast';
 import { TransactionClassification } from '@mizufinance/perspective/transaction/classification';
 import { uint8ArrayToHex } from '@mizufinance/types/hex';
 import { Client } from '@connectrpc/connect';
-import { penumbra } from '../lib/penumbra';
+import { shieldd } from '../lib/shieldd';
 
 /**
  * Handles the common use case of planning, building, and broadcasting a
@@ -46,8 +46,8 @@ export const planBuildBroadcast = async (
   toast.onStart();
 
   const rpcMethod = options?.skipAuth
-    ? penumbra.service(ViewService).witnessAndBuild
-    : penumbra.service(ViewService).authorizeAndBuild;
+    ? shieldd.service(ViewService).witnessAndBuild
+    : shieldd.service(ViewService).authorizeAndBuild;
 
   try {
     const transactionPlan = await plan(req);
@@ -82,7 +82,7 @@ export const planBuildBroadcast = async (
 export const plan = async (
   req: PartialMessage<TransactionPlannerRequest>,
 ): Promise<TransactionPlan> => {
-  const { plan } = await penumbra.service(ViewService).transactionPlanner(req);
+  const { plan } = await shieldd.service(ViewService).transactionPlanner(req);
   if (!plan) {
     throw new Error('No plan in planner response');
   }
@@ -125,7 +125,7 @@ const broadcast = async (
   const txId = await txSha256(transaction);
   const txHash = uint8ArrayToHex(txId.inner);
   onStatusUpdate(undefined);
-  for await (const { status } of penumbra.service(ViewService).broadcastTransaction({
+  for await (const { status } of shieldd.service(ViewService).broadcastTransaction({
     awaitDetection,
     transaction,
   })) {

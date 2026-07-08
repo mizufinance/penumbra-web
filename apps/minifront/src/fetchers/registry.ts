@@ -1,14 +1,14 @@
-import { Chain, ChainRegistryClient, Registry } from '@penumbra-labs/registry';
+import { Chain, ChainRegistryClient, Registry } from '@mizufinance/registry';
 import { useQuery } from '@tanstack/react-query';
 import { getChainId } from './chain-id';
 import { getAssetMetadataById } from './assets';
-import { AssetId } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 export const chainRegistryClient = new ChainRegistryClient();
 
 export const useRegistry = () => {
   return useQuery({
-    queryKey: ['penumbraRegistry'],
+    queryKey: ['shielddRegistry'],
     queryFn: async (): Promise<Registry> => {
       const chainId = await getChainId();
       if (!chainId) {

@@ -24,7 +24,7 @@ export interface IbcDepositToggleProps {
 
 export const IbcDepositToggle = ({ value, onChange }: IbcDepositToggleProps) => (
   <Root>
-    <Tooltip message='IBC transfers into Penumbra post the destination address in public on the source chain. Use this randomized IBC deposit address to preserve privacy when transferring funds into Penumbra.'>
+    <Tooltip message='IBC transfers into Shieldd post the destination address in public on the source chain. Use this randomized IBC deposit address to preserve privacy when transferring funds into Shieldd.'>
       <Row>
         <Text detail>IBC Deposit</Text>
         <Icon IconComponent={Info} size='sm' />

@@ -7,7 +7,7 @@ import { cn } from '@mizufinance/ui-deprecated/lib/utils';
 import { AssetIcon } from '@mizufinance/ui-deprecated/components/ui/asset-icon';
 import { ValueViewComponent } from '@mizufinance/ui-deprecated/components/ui/value';
 import { TableCell, TableRow } from '@mizufinance/ui-deprecated/components/ui/table';
-import { BalancesResponse } from '@mizufinance/protobuf/penumbra/view/v1/view_pb';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 
 interface BalanceItemProps {
   asset: BalanceOrMetadata;

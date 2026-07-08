@@ -1,37 +1,37 @@
-import { assertPenumbra, assertProviderManifest, assertProviderRecord } from './assert.js';
-import { PenumbraManifest, PenumbraManifestJson, isPenumbraManifestJson } from './manifest.js';
-import type { PenumbraProvider } from './provider.js';
-import { PenumbraSymbol } from './symbol.js';
+import { assertShieldd, assertProviderManifest, assertProviderRecord } from './assert.js';
+import { ShielddManifest, ShielddManifestJson, isShielddManifestJson } from './manifest.js';
+import type { ShielddProvider } from './provider.js';
+import { ShielddSymbol } from './symbol.js';
 
 import './global.js';
 
-/** Return the Penumbra global, without verifying anything. */
-export const getPenumbraGlobalUnsafe = () => window[PenumbraSymbol];
+/** Return the Shieldd global, without verifying anything. */
+export const getShielddGlobalUnsafe = () => window[ShielddSymbol];
 
-/** Return the penumbra global, throwing `PenumbraNotInstalledError` if it's not available. */
-export const getPenumbraGlobal = () => assertPenumbra();
+/** Return the shieldd global, throwing `ShielddNotInstalledError` if it's not available. */
+export const getShielddGlobal = () => assertShieldd();
 
 /** Return the specified provider, without verifying anything. */
-export const getPenumbraUnsafe = (penumbraOrigin: string) =>
-  getPenumbraGlobalUnsafe()?.[penumbraOrigin];
+export const getShielddUnsafe = (shielddOrigin: string) =>
+  getShielddGlobalUnsafe()?.[shielddOrigin];
 
 /** Return the specified provider after confirming presence of its manifest. */
-export const getPenumbra = async (penumbraOrigin: string): Promise<PenumbraProvider> => {
-  const provider = assertProviderRecord(penumbraOrigin);
-  await assertProviderManifest(penumbraOrigin);
+export const getShieldd = async (shielddOrigin: string): Promise<ShielddProvider> => {
+  const provider = assertProviderRecord(shielddOrigin);
+  await assertProviderManifest(shielddOrigin);
   return provider;
 };
 
 /** Fetch the specified provider's manifest. */
-export const getPenumbraManifest = async (
-  penumbraOrigin: string,
+export const getShielddManifest = async (
+  shielddOrigin: string,
   signal?: AbortSignal,
-): Promise<PenumbraManifest> => {
-  const manifestJson = await assertProviderManifest(penumbraOrigin, signal);
-  if (!isPenumbraManifestJson(manifestJson)) {
+): Promise<ShielddManifest> => {
+  const manifestJson = await assertProviderManifest(shielddOrigin, signal);
+  if (!isShielddManifestJson(manifestJson)) {
     throw new TypeError('Invalid manifest');
   }
-  const icons = await getManifestIcons(penumbraOrigin, manifestJson, signal);
+  const icons = await getManifestIcons(shielddOrigin, manifestJson, signal);
   return {
     ...manifestJson,
     icons,
@@ -39,22 +39,22 @@ export const getPenumbraManifest = async (
 };
 
 /** Fetch all manifests for all providers available on the page. */
-export const getPenumbraManifests = (
+export const getShielddManifests = (
   signal?: AbortSignal,
-): Record<string, Promise<PenumbraManifest>> =>
+): Record<string, Promise<ShielddManifest>> =>
   Object.fromEntries(
-    Object.keys(getPenumbraGlobal()).map(providerOrigin => [
+    Object.keys(getShielddGlobal()).map(providerOrigin => [
       providerOrigin,
-      getPenumbraManifest(providerOrigin, signal),
+      getShielddManifest(providerOrigin, signal),
     ]),
   );
 
-// For use by `getPenumbraManifest`
+// For use by `getShielddManifest`
 const getManifestIcons = async (
   base: string,
-  mf: PenumbraManifestJson,
+  mf: ShielddManifestJson,
   signal?: AbortSignal,
-): Promise<PenumbraManifest['icons']> => {
+): Promise<ShielddManifest['icons']> => {
   const getIcons = await Promise.all(
     Object.entries(mf.icons).map(async ([iconSize, iconPath]) => {
       if (typeof iconPath !== 'string') {
@@ -69,5 +69,5 @@ const getManifestIcons = async (
     }),
   );
 
-  return Object.fromEntries(getIcons) as PenumbraManifest['icons'];
+  return Object.fromEntries(getIcons) as ShielddManifest['icons'];
 };

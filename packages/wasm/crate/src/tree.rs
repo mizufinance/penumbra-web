@@ -1,6 +1,6 @@
-use penumbra_proto::DomainType;
-use penumbra_sct::epoch::Epoch;
-use penumbra_tct::Position;
+use shieldd_proto::DomainType;
+use shieldd_sct::epoch::Epoch;
+use shieldd_tct::Position;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::error::WasmResult;

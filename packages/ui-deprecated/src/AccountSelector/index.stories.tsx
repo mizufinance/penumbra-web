@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { AccountSelector } from '.';
-import { Address } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
+import { Address } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { Text } from '../Text';
 import { styled } from 'styled-components';
 

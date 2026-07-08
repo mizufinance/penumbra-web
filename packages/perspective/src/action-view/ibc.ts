@@ -1,7 +1,7 @@
 import {
   FungibleTokenPacketData,
   IbcRelay,
-} from '@mizufinance/protobuf/penumbra/core/component/ibc/v1/ibc_pb';
+} from '@mizufinance/protobuf/shieldd/core/component/ibc/v1/ibc_pb';
 import {
   MsgAcknowledgement,
   MsgRecvPacket,

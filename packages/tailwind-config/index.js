@@ -168,7 +168,7 @@ export default {
             color-mix(in srgb, var(--charcoal) 80%, transparent),
             color-mix(in srgb, var(--charcoal) 80%, transparent)
           ),
-          url('penumbra-logo.svg')
+          url('shieldd-logo.svg')
         `,
         gradientAccentRadial:
           'radial-gradient(100% 100% at 0% 0%, var(--primary-light) 0%, rgba(244, 156, 67, 0.03) 100%)',

@@ -1,4 +1,4 @@
-import { ProposalSubmit } from '@mizufinance/protobuf/penumbra/core/component/governance/v1/governance_pb';
+import { ProposalSubmit } from '@mizufinance/protobuf/shieldd/core/component/governance/v1/governance_pb';
 import { UnknownAction } from './unknown';
 
 export interface ProposalSubmitActionProps {

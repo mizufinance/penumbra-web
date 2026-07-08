@@ -1,14 +1,14 @@
 use anyhow::anyhow;
-use penumbra_asset::asset::Metadata as MetadataDomainType;
-use penumbra_proto::{core::asset::v1::Metadata, DomainType};
 use regex::Regex;
+use shieldd_asset::asset::Metadata as MetadataDomainType;
+use shieldd_proto::{core::asset::v1::Metadata, DomainType};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::{error::WasmResult, utils};
 
-pub static UNBONDING_TOKEN_REGEX: &str = "^uunbonding_(?P<data>start_at_(?P<start>[0-9]+)_(?P<validator>penumbravalid1(?P<id>[a-zA-HJ-NP-Z0-9]+)))$";
+pub static UNBONDING_TOKEN_REGEX: &str = "^uunbonding_(?P<data>start_at_(?P<start>[0-9]+)_(?P<validator>shielddvalid1(?P<id>[a-zA-HJ-NP-Z0-9]+)))$";
 pub static DELEGATION_TOKEN_REGEX: &str =
-    "^udelegation_(?P<data>penumbravalid1(?P<id>[a-zA-HJ-NP-Z0-9]+))$";
+    "^udelegation_(?P<data>shielddvalid1(?P<id>[a-zA-HJ-NP-Z0-9]+))$";
 pub static AUCTION_NFT_REGEX: &str =
     "^auctionnft_(?P<data>(?<seq_num>[a-z_0-9]+)_pauctid1(?P<id>[a-zA-HJ-NP-Z0-9]+))$";
 pub static VOTING_RECEIPT_REGEX: &str = "^uvoted_on_(?P<data>(?P<proposal_id>[0-9]+))$";

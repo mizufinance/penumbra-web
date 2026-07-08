@@ -66,7 +66,7 @@
     {
       "label": "Use @mizufinance/protobuf instead of a BSR dependency",
       "dependencies": [
-        "@buf/mizufinance_penumbra.*"
+        "@buf/mizufinance_shieldd.*"
       ],
       "isBanned": true
     },

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { AssetIcon } from '.';
-import { Metadata } from '@mizufinance/protobuf/penumbra/core/asset/v1/asset_pb';
+import { Metadata } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 
 const meta: Meta<typeof AssetIcon> = {
   component: AssetIcon,
@@ -13,8 +13,8 @@ export default meta;
 type Story = StoryObj<typeof AssetIcon>;
 
 const EXAMPLE_METADATA = new Metadata({
-  base: 'upenumbra',
-  display: 'penumbra',
+  base: 'ushieldd',
+  display: 'shieldd',
   symbol: 'UM',
   images: [
     {
