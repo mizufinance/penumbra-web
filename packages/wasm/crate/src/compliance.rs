@@ -735,12 +735,12 @@ fn js_error(value: JsValue) -> anyhow::Error {
 
 #[wasm_bindgen(js_name = deriveComplianceScalarForAddress)]
 pub fn derive_compliance_scalar_for_address(address: &[u8]) -> Result<Vec<u8>, JsValue> {
-    let pb_address = penumbra_proto::core::keys::v1::Address::decode(address)
+    let pb_address = shieldd_proto::core::keys::v1::Address::decode(address)
         .map_err(|e| JsValue::from_str(&format!("invalid address protobuf: {e}")))?;
     let address = Address::try_from(pb_address)
         .map_err(|e| JsValue::from_str(&format!("invalid address: {e}")))?;
     let b_d_fq = address.diversified_generator().vartime_compress_to_field();
-    Ok(penumbra_compliance::derive_compliance_scalar(b_d_fq)
+    Ok(shieldd_compliance::derive_compliance_scalar(b_d_fq)
         .to_bytes()
         .to_vec())
 }
