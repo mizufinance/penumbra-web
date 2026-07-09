@@ -13,6 +13,7 @@
     "src/address.ts",
     "src/asset.ts",
     "src/build.ts",
+    "src/compliance.ts",
     "src/init.ts",
     "src/keys.ts",
     "src/metadata.ts",

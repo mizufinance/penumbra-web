@@ -11,6 +11,7 @@ import {
   build_action_proof_request,
   build_action_with_proof_result,
   build_parallel,
+  build_transparent_action,
   witness,
 } from '../wasm/index.js';
 import { FullViewingKey, SpendKey } from '@mizufinance/protobuf/penumbra/core/keys/v1/keys_pb';
@@ -73,13 +74,22 @@ export const buildActionParallel = async (
   options: BuildActionOptions,
 ): Promise<Action> => {
   await ensureWasmInitialized();
-  if (!options.proverUrl) {
-    throw new Error('Penumbra prover URL is required for browser transaction building');
-  }
 
   const actionPlan = txPlan.actions[actionId];
   if (!actionPlan?.action.case) {
     throw new Error('No action key provided');
+  }
+
+  // Transparent actions (e.g. compliance registration) carry no ZK proof and
+  // must not be routed through the remote prover.
+  const transparentActionCases = ['complianceRegisterAsset', 'complianceRegisterUser'];
+  if (transparentActionCases.includes(actionPlan.action.case)) {
+    const transparentResult = build_transparent_action(actionPlan.toBinary());
+    return Action.fromBinary(transparentResult);
+  }
+
+  if (!options.proverUrl) {
+    throw new Error('Penumbra prover URL is required for browser transaction building');
   }
 
   const proofRequest = build_action_proof_request(
