@@ -265,6 +265,26 @@ pub fn build_action(
     .into())
 }
 
+/// Builds a transparent Action (one that carries no ZK proof) from a binary
+/// ActionPlan. Compliance registration actions are plan==action and must not
+/// be routed through the remote prover.
+#[wasm_bindgen]
+pub fn build_transparent_action(action_plan: &[u8]) -> WasmResult<Vec<u8>> {
+    utils::set_panic_hook();
+    let action_plan = ActionPlan::decode(action_plan)?;
+    let action = match action_plan {
+        ActionPlan::ComplianceRegisterAsset(msg) => Action::ComplianceRegisterAsset(msg),
+        ActionPlan::ComplianceRegisterUser(msg) => Action::ComplianceRegisterUser(msg),
+        _ => {
+            return Err(anyhow!(
+                "build_transparent_action only supports compliance registration actions"
+            )
+            .into())
+        }
+    };
+    Ok(action.encode_to_vec())
+}
+
 /// Deprecated browser entrypoint retained as a hard error so stale consumers do
 /// not use host-only transaction proving in WASM.
 #[wasm_bindgen]
