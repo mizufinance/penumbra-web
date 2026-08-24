@@ -19,7 +19,7 @@ fn generates_spend_key() {
     let mut bytes = [0u8; SPENDKEY_LEN_BYTES];
     bytes.copy_from_slice(&slice[0..32]);
 
-    let spend_key = SpendKey::from(SpendKeyBytes::from(bytes));
+    let spend_key = SpendKey::try_from(SpendKeyBytes::from(bytes)).unwrap();
     assert_eq!(
         spend_key.to_string(),
         "shielddspendkey1pgsphqgnltgy7hdspe4v74qefx2slp0v50szuup9fqutw5959gkq7j55fx"
@@ -54,7 +54,7 @@ fn gets_address_by_index() {
     let address = Address::decode(address_bytes.as_slice()).unwrap();
     assert_eq!(
         address.to_string(),
-        "shieldd1072tem53f9z7nr45egssuuuq7zgn406e4ps75ksh6t2pf3k5smtvp93fv52u7dlasfgfxhzkkc2mmgjhwrc8w2q388qfkg5tp35pws7h6ud85yl23fnaprgnk9zskpzwykl2lh"
+        "shieldd1u29dhz4vxgnek6a3vzxlejg0l83wegpu7hgs3yphdvljcnnnh89dvs6lc9hxxw94w464t7lh5x36cxnxyx0"
     );
 }
 
@@ -73,7 +73,7 @@ fn detects_controlled_addr() {
     let spend_key = generate_spend_key(TEST_SEED_PHRASE).unwrap();
     let fvk_bytes = get_full_viewing_key(spend_key.as_slice()).unwrap();
     let fvk = FullViewingKey::decode(fvk_bytes.as_slice()).unwrap();
-    let (addr, _) = fvk.payment_address(AddressIndex::new(0));
+    let addr = fvk.payment_address(AddressIndex::new(0));
     assert!(is_controlled_address(&fvk.encode_to_vec(), &addr.encode_to_vec()).unwrap());
 }
 
@@ -84,10 +84,10 @@ fn returns_false_on_unknown_addr() {
     let fvk = FullViewingKey::decode(fvk_bytes.as_slice()).unwrap();
     let other_address =
         SpendKey::from_seed_phrase_bip44(SeedPhrase::generate(OsRng), &Bip44Path::new(0))
+            .unwrap()
             .full_viewing_key()
             .incoming()
-            .payment_address(AddressIndex::from(0u32))
-            .0;
+            .payment_address(AddressIndex::from(0u32));
     assert!(!is_controlled_address(&fvk.encode_to_vec(), &other_address.encode_to_vec()).unwrap());
 }
 

@@ -9,7 +9,6 @@ use shieldd_compliance::{
 use shieldd_keys::Address;
 use shieldd_proto::core::component::compliance::v1 as pb;
 use shieldd_proto::Message;
-use shieldd_shielded_pool::ShieldedIcs20WithdrawalPlan;
 use shieldd_tct::StateCommitment;
 use shieldd_transaction::{ActionPlan, TransactionPlan};
 use std::collections::{BTreeMap, BTreeSet};
@@ -43,8 +42,12 @@ enum TransferOutputLocation {
 }
 
 #[derive(Clone, Copy, Debug)]
-enum ShieldedIcs20WithdrawalSpendLocation {
-    ShieldedIcs20Withdrawal {
+enum ShieldedWithdrawalSpendLocation {
+    Ics20 {
+        action_index: usize,
+        spend_index: usize,
+    },
+    Host {
         action_index: usize,
         spend_index: usize,
     },
@@ -68,10 +71,9 @@ pub async fn enrich_plan_with_compliance(
         &mut tx_blinding_nonce,
     )
     .await?;
-    enrich_shielded_ics20_withdrawals_with_compliance(
+    enrich_shielded_withdrawals_with_compliance(
         plan,
         grpc_url,
-        rng,
         target_timestamp,
         &mut tx_blinding_nonce,
     )
@@ -138,7 +140,7 @@ async fn enrich_transfer_family_with_compliance(
         })
         .collect::<Vec<_>>();
 
-    let Some((batch_data, sender_address, spend_binding_asset_id)) =
+    let Some((batch_data, _, _)) =
         fetch_batch_compliance_data(grpc_url, &spend_identities, &output_identities).await?
     else {
         return Ok(());
@@ -163,7 +165,7 @@ async fn enrich_transfer_family_with_compliance(
             .cloned()
             .unwrap_or_else(default_unregulated_asset_proof);
 
-        let (sender_compliance_path, sender_compliance_position, _) = batch_data
+        let (sender_compliance_path, sender_compliance_position, sender_leaf) = batch_data
             .user_proofs
             .get(&(spend_address.clone(), spend_asset_id))
             .cloned()
@@ -187,6 +189,7 @@ async fn enrich_transfer_family_with_compliance(
         spend.compliance_anchor = compliance_anchor;
         spend.compliance_path = sender_compliance_path;
         spend.compliance_position = sender_compliance_position;
+        spend.compliance_leaf = Some(sender_leaf);
         spend.is_regulated = is_regulated;
         spend.target_timestamp = target_timestamp;
         spend.asset_policy = if is_regulated {
@@ -200,7 +203,7 @@ async fn enrich_transfer_family_with_compliance(
         } else {
             None
         };
-        spend.set_compliance_details(rng)?;
+        spend.set_compliance_details()?;
         if let Some(nonce) = *tx_blinding_nonce {
             spend.tx_blinding_nonce = nonce;
         } else {
@@ -242,17 +245,6 @@ async fn enrich_transfer_family_with_compliance(
                         )
                     })?;
 
-            let (_, _, sender_leaf_for_output) = batch_data
-                .user_proofs
-                .get(&(sender_address.clone(), spend_binding_asset_id))
-                .cloned()
-                .ok_or_else(|| {
-                    anyhow!(
-                        "missing user proof for transfer sender binding for asset {}",
-                        spend_binding_asset_id
-                    )
-                })?;
-
             let ActionPlan::Transfer(transfer) = &mut plan.actions[action_index] else {
                 unreachable!()
             };
@@ -277,45 +269,61 @@ async fn enrich_transfer_family_with_compliance(
             } else {
                 None
             };
-            output.set_compliance_details(rng, &recipient_leaf, sender_leaf_for_output, nonce)?;
+            output.set_compliance_details(&recipient_leaf, nonce)?;
         }
     }
 
     Ok(())
 }
 
-async fn enrich_shielded_ics20_withdrawals_with_compliance(
+async fn enrich_shielded_withdrawals_with_compliance(
     plan: &mut TransactionPlan,
     grpc_url: &str,
-    rng: &mut (impl rand_core::RngCore + rand_core::CryptoRng),
     target_timestamp: u64,
     tx_blinding_nonce: &mut Option<Fr>,
 ) -> Result<()> {
     let mut spend_locations = Vec::new();
-    let mut action_indices = Vec::new();
-
     for (action_index, action) in plan.actions.iter().enumerate() {
-        if let ActionPlan::ShieldedIcs20Withdrawal(withdrawal) = action {
-            action_indices.push(action_index);
-            for spend_index in 0..withdrawal.spends.len() {
-                spend_locations.push(
-                    ShieldedIcs20WithdrawalSpendLocation::ShieldedIcs20Withdrawal {
+        match action {
+            ActionPlan::ShieldedIcs20Withdrawal(withdrawal) => {
+                for spend_index in 0..withdrawal.spends.len() {
+                    spend_locations.push(ShieldedWithdrawalSpendLocation::Ics20 {
                         action_index,
                         spend_index,
-                    },
-                );
+                    });
+                }
             }
+            ActionPlan::ShieldedHostWithdrawal(withdrawal) => {
+                for spend_index in 0..withdrawal.spends.len() {
+                    spend_locations.push(ShieldedWithdrawalSpendLocation::Host {
+                        action_index,
+                        spend_index,
+                    });
+                }
+            }
+            _ => {}
         }
     }
 
     let spend_identities = spend_locations
         .iter()
         .map(|location| match *location {
-            ShieldedIcs20WithdrawalSpendLocation::ShieldedIcs20Withdrawal {
+            ShieldedWithdrawalSpendLocation::Ics20 {
                 action_index,
                 spend_index,
             } => {
                 let ActionPlan::ShieldedIcs20Withdrawal(withdrawal) = &plan.actions[action_index]
+                else {
+                    unreachable!()
+                };
+                let spend = &withdrawal.spends[spend_index];
+                (spend.note.asset_id(), spend.note.address())
+            }
+            ShieldedWithdrawalSpendLocation::Host {
+                action_index,
+                spend_index,
+            } => {
+                let ActionPlan::ShieldedHostWithdrawal(withdrawal) = &plan.actions[action_index]
                 else {
                     unreachable!()
                 };
@@ -339,10 +347,16 @@ async fn enrich_shielded_ics20_withdrawals_with_compliance(
         .copied()
         .zip(spend_identities.iter().cloned())
     {
-        let ShieldedIcs20WithdrawalSpendLocation::ShieldedIcs20Withdrawal {
-            action_index,
-            spend_index,
-        } = spend_location;
+        let (action_index, spend_index, withdrawal_kind) = match spend_location {
+            ShieldedWithdrawalSpendLocation::Ics20 {
+                action_index,
+                spend_index,
+            } => (action_index, spend_index, "shielded ICS-20 withdrawal"),
+            ShieldedWithdrawalSpendLocation::Host {
+                action_index,
+                spend_index,
+            } => (action_index, spend_index, "shielded host withdrawal"),
+        };
 
         let (asset_path, asset_position, asset_indexed_leaf, is_regulated) = batch_data
             .asset_proofs
@@ -356,18 +370,25 @@ async fn enrich_shielded_ics20_withdrawals_with_compliance(
             .cloned()
             .ok_or_else(|| {
                 anyhow!(
-                    "missing user proof for shielded ICS-20 withdrawal spend at action {} input {} for asset {}",
+                    "missing user proof for {} spend at action {} input {} for asset {}",
+                    withdrawal_kind,
                     action_index,
                     spend_index,
                     spend_asset_id
                 )
             })?;
 
-        let ActionPlan::ShieldedIcs20Withdrawal(withdrawal) = &mut plan.actions[action_index]
-        else {
-            unreachable!()
+        let spend = match (&mut plan.actions[action_index], spend_location) {
+            (
+                ActionPlan::ShieldedIcs20Withdrawal(withdrawal),
+                ShieldedWithdrawalSpendLocation::Ics20 { .. },
+            ) => &mut withdrawal.spends[spend_index],
+            (
+                ActionPlan::ShieldedHostWithdrawal(withdrawal),
+                ShieldedWithdrawalSpendLocation::Host { .. },
+            ) => &mut withdrawal.spends[spend_index],
+            _ => unreachable!(),
         };
-        let spend = &mut withdrawal.spends[spend_index];
         spend.asset_indexed_leaf = asset_indexed_leaf;
         spend.asset_path = asset_path;
         spend.asset_position = asset_position;
@@ -375,6 +396,10 @@ async fn enrich_shielded_ics20_withdrawals_with_compliance(
         spend.compliance_anchor = compliance_anchor;
         spend.compliance_path = sender_compliance_path;
         spend.compliance_position = sender_compliance_position;
+        spend.compliance_leaf = batch_data
+            .user_proofs
+            .get(&(spend_address, spend_asset_id))
+            .map(|(_, _, leaf)| leaf.clone());
         spend.is_regulated = is_regulated;
         spend.target_timestamp = target_timestamp;
         spend.asset_policy = if is_regulated {
@@ -388,7 +413,7 @@ async fn enrich_shielded_ics20_withdrawals_with_compliance(
         } else {
             None
         };
-        spend.set_compliance_details(rng)?;
+        spend.set_compliance_details()?;
         if let Some(nonce) = *tx_blinding_nonce {
             spend.tx_blinding_nonce = nonce;
         } else {
@@ -396,41 +421,14 @@ async fn enrich_shielded_ics20_withdrawals_with_compliance(
         }
     }
 
-    for action_index in action_indices {
-        let ActionPlan::ShieldedIcs20Withdrawal(withdrawal) = &mut plan.actions[action_index]
-        else {
-            unreachable!()
-        };
-        apply_withdrawal_compliance_body(withdrawal)?;
+    for action in &mut plan.actions {
+        match action {
+            ActionPlan::ShieldedIcs20Withdrawal(withdrawal) => withdrawal.validate()?,
+            ActionPlan::ShieldedHostWithdrawal(withdrawal) => withdrawal.validate()?,
+            _ => {}
+        }
     }
 
-    Ok(())
-}
-
-fn apply_withdrawal_compliance_body(withdrawal: &mut ShieldedIcs20WithdrawalPlan) -> Result<()> {
-    let Some(first_spend) = withdrawal.spends.first() else {
-        return Ok(());
-    };
-
-    withdrawal.body.target_timestamp = first_spend.target_timestamp;
-    withdrawal.body.compliance_anchor = first_spend.compliance_anchor;
-    withdrawal.body.asset_anchor = first_spend.asset_anchor;
-
-    if first_spend.is_regulated
-        && !first_spend.compliance_ciphertext.is_empty()
-        && !shieldd_compliance::IbcComplianceMetadata::is_compliance_memo(
-            &withdrawal.withdrawal.ics20_memo,
-        )
-    {
-        let metadata = shieldd_compliance::IbcComplianceMetadata {
-            compliance_ciphertext: first_spend.compliance_ciphertext.clone(),
-            asset_id: first_spend.note.asset_id(),
-        };
-        withdrawal.withdrawal.ics20_memo =
-            metadata.encode_to_memo(&withdrawal.withdrawal.ics20_memo)?;
-    }
-
-    withdrawal.body.withdrawal = withdrawal.withdrawal.clone();
     Ok(())
 }
 

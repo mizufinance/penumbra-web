@@ -19,7 +19,8 @@ pub fn generate_spend_key(seed_phrase: &str) -> WasmResult<Vec<u8>> {
 
     let seed = SeedPhrase::from_str(seed_phrase)?;
     let path = Bip44Path::new(0);
-    let spend_key = SpendKey::from_seed_phrase_bip44(seed, &path);
+    let spend_key = SpendKey::from_seed_phrase_bip44(seed, &path)
+        .map_err(|error| anyhow::anyhow!(error.to_string()))?;
     Ok(spend_key.encode_to_vec())
 }
 
@@ -64,7 +65,7 @@ pub fn get_address_by_index(
 
     let fvk: FullViewingKey = FullViewingKey::decode(full_viewing_key)?;
     let randomizer: [u8; 12] = randomizer.try_into().unwrap_or_default();
-    let (address, _dtk) = fvk.incoming().payment_address(AddressIndex {
+    let address = fvk.incoming().payment_address(AddressIndex {
         account,
         randomizer,
     });
@@ -82,7 +83,7 @@ pub fn get_ephemeral_address(full_viewing_key: &[u8], index: u32) -> WasmResult<
     utils::set_panic_hook();
 
     let fvk: FullViewingKey = FullViewingKey::decode(full_viewing_key)?;
-    let (address, _dtk) = fvk.ephemeral_address(OsRng, index.into());
+    let address = fvk.ephemeral_address(OsRng, index.into());
     Ok(address.encode_to_vec())
 }
 
@@ -158,9 +159,7 @@ pub fn forwarding_addr_inner(sequence: u16, account: Option<u32>, fvk: &FullView
         randomizer,
     };
 
-    let (address, _dtk) = fvk.incoming().payment_address(index);
-
-    address
+    fvk.incoming().payment_address(index)
 }
 
 #[wasm_bindgen(getter_with_clone)]
