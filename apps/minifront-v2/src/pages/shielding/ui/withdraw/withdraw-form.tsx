@@ -1,29 +1,19 @@
-import React, { useMemo, useRef, useEffect } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Button } from '@mizufinance/ui/Button';
 import { Text } from '@mizufinance/ui/Text';
 import { useWithdrawStore } from '@/shared/stores/store-context';
 import { useUnifiedAssets, UnifiedAsset } from '@/shared/api/use-unified-assets';
-import { useRegistry } from '@/shared/api/use-registry';
-import { IbcChainProvider } from '@/shared/api/chain-provider';
 import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
 import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { pnum } from '@mizufinance/types/pnum';
 import { getAddressIndex } from '@mizufinance/getters/address-view';
-import { ChainSelector } from '../chain-selector';
 import { AssetValueInput } from '@mizufinance/ui/AssetValueInput';
 import { Density } from '@mizufinance/ui/Density';
-import { LogOut } from 'lucide-react';
 import { TextInput } from '@mizufinance/ui/TextInput';
-import { assetPatterns } from '@mizufinance/types/assets';
-import { useChain } from '@cosmos-kit/react';
-import { Wallet2 } from 'lucide-react';
-
-const NATIVE_TRANSFERS_ONLY_CHAIN_IDS = ['celestia'];
 
 const commonSectionClasses = 'flex flex-col bg-other-tonal-fill5 p-3 gap-1';
 const firstSectionClasses = `${commonSectionClasses} rounded-t-sm rounded-b-none`;
-const middleSectionClasses = `${commonSectionClasses}`;
 const lastSectionClasses = `${commonSectionClasses} rounded-t-none rounded-b-sm`;
 
 const WithdrawFormInternal: React.FC = observer(() => {
@@ -31,40 +21,9 @@ const WithdrawFormInternal: React.FC = observer(() => {
   const { unifiedAssets } = useUnifiedAssets();
   const addressInputRef = useRef<HTMLInputElement>(null);
 
-  const { withdrawState, availableChains, validation, canWithdraw } = withdrawStore;
-
-  const selectedChainName = withdrawState.selectedChain?.chainName || 'osmosis';
-  const { connect, disconnect, address: walletAddress, status } = useChain(selectedChainName);
-
-  const isWalletConnected = status === 'Connected';
-  const isWalletConnecting = status === 'Connecting';
-
-  useEffect(() => {
-    void withdrawStore.initialize();
-  }, [withdrawStore]);
-
-  useEffect(() => {
-    if (
-      isWalletConnected &&
-      walletAddress &&
-      withdrawState.selectedChain &&
-      !withdrawState.destinationAddress
-    ) {
-      withdrawStore.setDestinationAddress(walletAddress);
-    }
-  }, [
-    isWalletConnected,
-    walletAddress,
-    withdrawState.selectedChain,
-    withdrawState.destinationAddress,
-    withdrawStore,
-  ]);
+  const { withdrawState, validation, canWithdraw } = withdrawStore;
 
   const assetBalances: BalancesResponse[] = useMemo(() => {
-    if (!withdrawState.selectedChain) {
-      return [];
-    }
-
     const convertedUnsorted = unifiedAssets
       .filter((asset: UnifiedAsset) => {
         if (!asset.shieldedBalances.length) {
@@ -79,27 +38,7 @@ const WithdrawFormInternal: React.FC = observer(() => {
         if (positiveBalances.length === 0) {
           return false;
         }
-
-        const metadata = asset.metadata;
-        const baseDenom = metadata.base;
-
-        if (baseDenom === 'ushieldd') {
-          const allowed = !NATIVE_TRANSFERS_ONLY_CHAIN_IDS.includes(
-            withdrawState.selectedChain!.chainId,
-          );
-          return allowed;
-        }
-
-        const ibcMatch = assetPatterns.ibc.capture(baseDenom);
-        if (ibcMatch) {
-          const assetChannelId = ibcMatch.channel;
-          const selectedChannelId = withdrawState.selectedChain!.channelId;
-
-          const matches = assetChannelId === selectedChannelId;
-          return matches;
-        }
-
-        return false;
+        return true;
       })
       .flatMap((asset: UnifiedAsset) => {
         return asset.shieldedBalances
@@ -134,62 +73,27 @@ const WithdrawFormInternal: React.FC = observer(() => {
 
     const sorted = convertedUnsorted.sort((a, b) => {
       const metaA =
-        a.balanceView?.valueView.case === 'knownAssetId'
-          ? a.balanceView.valueView.value?.metadata
+        a.balanceView.valueView.case === 'knownAssetId'
+          ? a.balanceView.valueView.value.metadata
           : undefined;
       const metaB =
-        b.balanceView?.valueView.case === 'knownAssetId'
-          ? b.balanceView.valueView.value?.metadata
+        b.balanceView.valueView.case === 'knownAssetId'
+          ? b.balanceView.valueView.value.metadata
           : undefined;
-      const aIsIbc = metaA?.symbol?.toLowerCase().startsWith('ibc/') ?? false;
-      const bIsIbc = metaB?.symbol?.toLowerCase().startsWith('ibc/') ?? false;
-      if (aIsIbc === bIsIbc) return 0;
+      const aIsIbc = metaA?.symbol.toLowerCase().startsWith('ibc/') ?? false;
+      const bIsIbc = metaB?.symbol.toLowerCase().startsWith('ibc/') ?? false;
+      if (aIsIbc === bIsIbc) {
+        return 0;
+      }
       return aIsIbc ? 1 : -1;
     });
 
     return sorted;
-  }, [unifiedAssets, withdrawState.selectedChain]);
+  }, [unifiedAssets]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     void withdrawStore.executeWithdrawal();
-  };
-
-  const handleConnectWallet = async () => {
-    try {
-      await connect();
-    } catch (error) {
-      console.error('Failed to connect wallet:', error);
-
-      // Show user-friendly error message instead of crashing
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      if (errorMessage.includes('not provided')) {
-        console.warn(
-          `Wallet support not available for ${withdrawState.selectedChain?.displayName}`,
-        );
-      }
-    }
-  };
-
-  const handleDisconnectWallet = async () => {
-    try {
-      await disconnect();
-    } catch (error) {
-      console.error('Failed to disconnect wallet:', error);
-    }
-  };
-
-  const handleMyAddressClick = async () => {
-    if (!withdrawState.selectedChain) {
-      return;
-    }
-
-    if (!isWalletConnected) {
-      await handleConnectWallet();
-    } else if (walletAddress) {
-      withdrawStore.setDestinationAddress(walletAddress);
-      addressInputRef.current?.focus();
-    }
   };
 
   const sectionTitleColor = undefined;
@@ -198,49 +102,8 @@ const WithdrawFormInternal: React.FC = observer(() => {
   return (
     <div className='flex w-full flex-col rounded-sm'>
       <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
-        {/* External Wallet Connection Section */}
-        {!isWalletConnected && (
-          <Button actionType='default' onClick={handleConnectWallet} disabled={isWalletConnecting}>
-            {isWalletConnecting ? 'Connecting...' : 'Connect External Wallet'}
-          </Button>
-        )}
-
-        {/* Connected Wallet Info */}
-        {isWalletConnected && walletAddress && (
-          <div className='flex items-center justify-between p-3 bg-other-tonal-fill5 rounded-sm'>
-            <div className='flex flex-col gap-1'>
-              <Text detail color='text.secondary'>
-                Connected to {withdrawState.selectedChain?.displayName || 'External Chain'}
-              </Text>
-              <Text small>
-                {walletAddress.slice(0, 20)}...{walletAddress.slice(-10)}
-              </Text>
-            </div>
-            <Button
-              actionType='default'
-              density='compact'
-              onClick={handleDisconnectWallet}
-              icon={LogOut}
-              iconOnly
-              aria-label='Disconnect wallet'
-            >
-              Disconnect
-            </Button>
-          </div>
-        )}
-
         <div className={firstSectionClasses}>
-          <Text color={sectionTitleColor}>Destination Chain</Text>
-          <ChainSelector
-            selectedChain={withdrawState.selectedChain}
-            availableChains={availableChains}
-            onSelectChain={chain => withdrawStore.setSelectedChain(chain)}
-            disabled={isFormDisabled}
-          />
-        </div>
-
-        <div className={middleSectionClasses}>
-          <Text color={withdrawState.selectedChain ? sectionTitleColor : 'text.muted'}>Amount</Text>
+          <Text color={sectionTitleColor}>Amount</Text>
           <AssetValueInput
             amount={withdrawState.amount}
             onAmountChange={(amount: string) => withdrawStore.setAmount(amount)}
@@ -251,53 +114,28 @@ const WithdrawFormInternal: React.FC = observer(() => {
             balances={assetBalances}
             assets={[]}
             amountPlaceholder={
-              !withdrawState.selectedChain
-                ? 'Select a chain first...'
-                : assetBalances.length === 0
-                  ? `No assets available for withdrawal to ${withdrawState.selectedChain.displayName}...`
-                  : 'Amount to withdraw...'
+              assetBalances.length === 0
+                ? 'No assets available for host withdrawal'
+                : 'Amount to withdraw...'
             }
             assetDialogTitle={`Select Asset`}
             showBalance={true}
-            disabled={isFormDisabled || !withdrawState.selectedChain}
+            disabled={isFormDisabled}
           />
         </div>
 
         <div className={lastSectionClasses}>
-          <Text color={sectionTitleColor}>Recipient Address</Text>
+          <Text color={sectionTitleColor}>Bankd Recipient</Text>
           <TextInput
             ref={addressInputRef}
-            placeholder={
-              withdrawState.selectedChain
-                ? `Enter a valid ${withdrawState.selectedChain.displayName} address (${withdrawState.selectedChain.addressPrefix}...)`
-                : 'Select a chain first'
-            }
+            placeholder='Enter a Bankd account address (wallet1...)'
             value={withdrawState.destinationAddress}
             onChange={value => withdrawStore.setDestinationAddress(value)}
             disabled={isFormDisabled}
-            endAdornment={
-              <Button
-                type='button'
-                iconOnly
-                density='compact'
-                onClick={handleMyAddressClick}
-                aria-label={
-                  !withdrawState.selectedChain
-                    ? 'Select a chain first'
-                    : !isWalletConnected
-                      ? 'Connect wallet'
-                      : 'Use my wallet address'
-                }
-                icon={Wallet2}
-                disabled={!withdrawState.selectedChain || isWalletConnecting}
-              >
-                {!isWalletConnected ? 'Connect' : 'My Address'}
-              </Button>
-            }
           />
           {validation.addressError && (
             <Text detail color='destructive.light'>
-              Invalid address format for {withdrawState.selectedChain?.displayName}
+              Enter a valid Bankd account address beginning with wallet.
             </Text>
           )}
         </div>
@@ -325,16 +163,4 @@ const WithdrawFormInternal: React.FC = observer(() => {
   );
 });
 
-export const WithdrawForm = observer(() => {
-  const { data: registry } = useRegistry();
-
-  if (!registry) {
-    return <div>Loading registry...</div>;
-  }
-
-  return (
-    <IbcChainProvider registry={registry}>
-      <WithdrawFormInternal />
-    </IbcChainProvider>
-  );
-});
+export const WithdrawForm = observer(() => <WithdrawFormInternal />);

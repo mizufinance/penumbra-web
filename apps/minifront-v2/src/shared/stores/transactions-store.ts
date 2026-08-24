@@ -116,12 +116,15 @@ export class TransactionsStore {
    */
   get shieldingTransactions(): TransactionInfo[] {
     return this.transactions.filter(tx => {
-      if (!tx.view) return false;
+      if (!tx.view) {
+        return false;
+      }
 
       const classification = classifyTransaction(tx.view);
 
-      // Include IBC deposits (ibcRelayAction) and ICS20 withdrawals
-      return classification.type === 'ibcRelayAction' || classification.type === 'ics20Withdrawal';
+      return (
+        classification.type === 'ibcRelayAction' || classification.type === 'shieldedHostWithdrawal'
+      );
     });
   }
 
