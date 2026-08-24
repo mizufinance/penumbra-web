@@ -3,26 +3,24 @@ import { ActionView as ActionViewMessage } from '@mizufinance/protobuf/shieldd/c
 import { ActionViewBaseProps, ActionViewType, ActionViewValueType, GetMetadata } from './types';
 import { UnknownAction } from './actions/unknown';
 
+import { HostWithdrawalAction } from './actions/host-withdrawal';
 import { IbcRelayAction } from './actions/ibc-relay';
-import { ProposalSubmitAction } from './actions/proposal-submit';
-import { ValidatorDefinitionAction } from './actions/validator-definition';
-import { ValidatorVoteAction } from './actions/validator-vote';
 
 export interface ActionViewProps extends ActionViewBaseProps {
   action: ActionViewMessage;
 }
 
 const componentMap = {
+  shieldedHostWithdrawal: HostWithdrawalAction,
   ibcRelayAction: IbcRelayAction,
-  proposalSubmit: ProposalSubmitAction,
-  validatorDefinition: ValidatorDefinitionAction,
-  validatorVote: ValidatorVoteAction,
   unknown: UnknownAction,
 } as const satisfies Partial<Record<ActionViewType | 'unknown', unknown>>;
 
 export const ActionView = ({ action, getMetadata }: ActionViewProps) => {
   const type = action.actionView.case ?? 'unknown';
-  const Component = (componentMap[type as keyof typeof componentMap] ?? UnknownAction) as FC<{
+  const Component = (
+    type in componentMap ? componentMap[type as keyof typeof componentMap] : UnknownAction
+  ) as FC<{
     value?: ActionViewValueType;
     getMetadata?: GetMetadata;
   }>;

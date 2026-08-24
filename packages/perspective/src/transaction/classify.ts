@@ -2,24 +2,22 @@ import {
   TransactionView,
   ActionView,
 } from '@mizufinance/protobuf/shieldd/core/transaction/v1/transaction_pb';
-import { TransactionClassification } from './classification.js';
+import { ActionClassification, TransactionClassification } from './classification.js';
 
 export interface ClassificationReturn {
   type: TransactionClassification;
   action?: ActionView;
 }
 
-const SIGNATURE_CASES: TransactionClassification[] = [
+const SIGNATURE_CASES: ActionClassification[] = [
   'transfer',
-  'consolidate',
-  'split',
+  'noteReshape',
   'shieldedIcs20Withdrawal',
+  'shieldedHostWithdrawal',
   'ibcRelayAction',
-  'validatorDefinition',
-  'validatorVote',
-  'proposalSubmit',
   'complianceRegisterAsset',
   'complianceRegisterUser',
+  'aggregateBundle',
 ];
 
 export const TRANSACTION_LABEL_BY_CLASSIFICATION: Record<TransactionClassification, string> = {
@@ -29,15 +27,13 @@ export const TRANSACTION_LABEL_BY_CLASSIFICATION: Record<TransactionClassificati
   send: 'Send',
   receive: 'Receive',
   transfer: 'Transfer',
-  consolidate: 'Consolidate',
-  split: 'Split',
+  noteReshape: 'Note Maintenance',
   shieldedIcs20Withdrawal: 'IBC Withdrawal',
+  shieldedHostWithdrawal: 'Host Withdrawal',
   ibcRelayAction: 'IBC Relay',
-  validatorDefinition: 'Validator Definition',
-  validatorVote: 'Validator Vote',
-  proposalSubmit: 'Proposal Submit',
   complianceRegisterAsset: 'Compliance: Register Asset',
   complianceRegisterUser: 'Compliance: Register User',
+  aggregateBundle: 'Aggregate Bundle',
 };
 
 export const getTransactionClassificationLabel = (txv?: TransactionView): string =>

@@ -1,6 +1,9 @@
 ---
 '@mizufinance/protobuf': patch
+'@mizufinance/perspective': patch
+'@mizufinance/ui': patch
+'@mizufinance/ui-deprecated': patch
 '@mizufinance/wasm': patch
 ---
 
-Support planning and building native Shieldd host-withdrawal transactions in the browser WASM.
+Support planning, building, classifying, and displaying native Shieldd host-withdrawal transactions.
