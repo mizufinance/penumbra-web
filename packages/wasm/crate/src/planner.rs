@@ -8,8 +8,8 @@ use shieldd_num::Amount;
 use shieldd_proto::view::v1::TransactionPlannerRequest;
 use shieldd_proto::{DomainType, Message};
 use shieldd_shielded_pool::{
-    Ics20Withdrawal, ShieldedIcs20WithdrawalFamilyId, ShieldedIcs20WithdrawalPlan,
-    ShieldedInputPlan, ShieldedOutputPlan, TransferPlan,
+    HostWithdrawal, Ics20Withdrawal, ShieldedHostWithdrawalPlan, ShieldedIcs20WithdrawalPlan,
+    ShieldedInputPlan, ShieldedOutputPlan, TransferPlan, PADDED_TRANSFER_INPUTS,
 };
 use shieldd_transaction::memo::MemoPlaintext;
 use shieldd_transaction::{plan::MemoPlan, ActionPlan, TransactionParameters, TransactionPlan};
@@ -21,6 +21,8 @@ use crate::error::WasmResult;
 use crate::note_record::SpendableNoteRecord;
 use crate::storage::{init_idb_storage, DbConstants, Storage};
 use crate::utils;
+
+const MAX_WITHDRAWAL_INPUTS: usize = 2;
 
 #[wasm_bindgen]
 pub async fn plan_transaction(
@@ -37,8 +39,21 @@ pub async fn plan_transaction(
     let full_viewing_key = FullViewingKey::decode(full_viewing_key)?;
     let constants: DbConstants = serde_wasm_bindgen::from_value(idb_constants)?;
     let storage = init_idb_storage(constants).await?;
+    let nullifier_window = storage
+        .get_nullifier_window()
+        .await?
+        .context("nullifier window is not synced")?;
+    let recent_position_floor = nullifier_window.recent_position_floor;
 
-    let plan = plan_transaction_inner(storage, tx_planner_req, full_viewing_key, grpc_url).await?;
+    let plan = plan_transaction_inner(
+        storage,
+        tx_planner_req,
+        full_viewing_key,
+        grpc_url,
+        nullifier_window,
+        recent_position_floor,
+    )
+    .await?;
     Ok(plan.encode_to_vec())
 }
 
@@ -47,7 +62,27 @@ pub async fn plan_transaction_inner<Db: Database>(
     request: TransactionPlannerRequest,
     full_viewing_key: FullViewingKey,
     grpc_url: String,
+    nullifier_window: shieldd_sct::nullifier_generation::NullifierWindow,
+    recent_position_floor: u64,
 ) -> WasmResult<TransactionPlan> {
+    if !request.host_withdrawals.is_empty() {
+        if !request.outputs.is_empty()
+            || !request.ics20_withdrawals.is_empty()
+            || !request.ibc_relay_actions.is_empty()
+        {
+            return Err(anyhow!(
+                "host withdrawals cannot be mixed with other transaction planner actions"
+            )
+            .into());
+        }
+        if request.host_withdrawals.len() != 1 {
+            return Err(anyhow!(
+                "browser planning supports exactly one host withdrawal per transaction"
+            )
+            .into());
+        }
+    }
+
     let source: AddressIndex = request
         .source
         .clone()
@@ -76,14 +111,22 @@ pub async fn plan_transaction_inner<Db: Database>(
             })
             .collect::<Result<Vec<_>, anyhow::Error>>()?;
 
-        let action = plan_transfer(&storage, source, outputs).await?;
+        let action = plan_transfer(&storage, source, outputs, recent_position_floor).await?;
         actions.push(ActionPlan::Transfer(action));
     }
 
     for withdrawal in request.ics20_withdrawals {
         let withdrawal: Ics20Withdrawal = withdrawal.try_into()?;
-        let action = plan_ics20_withdrawal(&storage, source, withdrawal).await?;
+        let action =
+            plan_ics20_withdrawal(&storage, source, withdrawal, recent_position_floor).await?;
         actions.push(ActionPlan::ShieldedIcs20Withdrawal(action));
+    }
+
+    for withdrawal in request.host_withdrawals {
+        let withdrawal: HostWithdrawal = withdrawal.try_into()?;
+        let action =
+            plan_host_withdrawal(&storage, source, withdrawal, recent_position_floor).await?;
+        actions.push(ActionPlan::ShieldedHostWithdrawal(action));
     }
 
     if !request.ibc_relay_actions.is_empty() {
@@ -115,12 +158,12 @@ pub async fn plan_transaction_inner<Db: Database>(
             ..Default::default()
         },
         fee_funding: None,
-        detection_data: None,
         memo,
+        nullifier_window: Some(nullifier_window),
     };
 
     if plan.num_outputs() > 0 && plan.memo.is_none() {
-        let (return_address, _) = full_viewing_key.payment_address(source);
+        let return_address = full_viewing_key.payment_address(source);
         plan.memo = Some(MemoPlan::new(
             &mut OsRng,
             MemoPlaintext::new(return_address, String::new())
@@ -128,10 +171,12 @@ pub async fn plan_transaction_inner<Db: Database>(
         ));
     }
 
+    let discovery_parameters = storage
+        .get_discovery_parameters()
+        .await?
+        .context("discovery parameters are not synced")?;
+    plan.populate_routing_parameters(discovery_parameters);
     plan.sort_actions();
-
-    let fmd_params = storage.get_fmd_params().await?.unwrap_or_default();
-    plan.populate_detection_data(&mut OsRng, fmd_params.precision);
     crate::compliance::enrich_plan_with_compliance(
         &mut plan,
         &grpc_url,
@@ -147,6 +192,7 @@ async fn plan_transfer<Db: Database>(
     storage: &Storage<Db>,
     source: AddressIndex,
     outputs: Vec<(Value, Address)>,
+    recent_position_floor: u64,
 ) -> WasmResult<TransferPlan> {
     let first_value = outputs
         .first()
@@ -161,7 +207,15 @@ async fn plan_transfer<Db: Database>(
             .ok_or_else(|| anyhow!("transfer amount overflow"))
     })?;
 
-    let selected = select_notes(storage, source, asset_id, required).await?;
+    let selected = select_notes(storage, source, asset_id, required, recent_position_floor).await?;
+    if selected.len() > PADDED_TRANSFER_INPUTS {
+        return Err(anyhow!(
+            "transfer requires note maintenance before browser planning: selected {} notes, maximum is {}",
+            selected.len(),
+            PADDED_TRANSFER_INPUTS
+        )
+        .into());
+    }
     let total = selected
         .iter()
         .map(|record| record.note.amount())
@@ -214,9 +268,18 @@ async fn plan_ics20_withdrawal<Db: Database>(
     storage: &Storage<Db>,
     source: AddressIndex,
     withdrawal: Ics20Withdrawal,
+    recent_position_floor: u64,
 ) -> WasmResult<ShieldedIcs20WithdrawalPlan> {
     let asset_id = withdrawal.denom.id();
-    let selected = select_notes(storage, source, asset_id, withdrawal.amount).await?;
+    let selected = select_notes(
+        storage,
+        source,
+        asset_id,
+        withdrawal.amount,
+        recent_position_floor,
+    )
+    .await?;
+    ensure_withdrawal_input_limit(selected.len())?;
     let total = selected
         .iter()
         .map(|record| record.note.amount())
@@ -251,7 +314,64 @@ async fn plan_ics20_withdrawal<Db: Database>(
     });
 
     Ok(ShieldedIcs20WithdrawalPlan::new(
-        ShieldedIcs20WithdrawalFamilyId::Canonical,
+        spends,
+        change_output,
+        withdrawal,
+        Fr::rand(&mut OsRng),
+    )?)
+}
+
+async fn plan_host_withdrawal<Db: Database>(
+    storage: &Storage<Db>,
+    source: AddressIndex,
+    withdrawal: HostWithdrawal,
+    recent_position_floor: u64,
+) -> WasmResult<ShieldedHostWithdrawalPlan> {
+    let asset_id = withdrawal.value.asset_id;
+    let selected = select_notes(
+        storage,
+        source,
+        asset_id,
+        withdrawal.value.amount,
+        recent_position_floor,
+    )
+    .await?;
+    ensure_withdrawal_input_limit(selected.len())?;
+
+    let total = selected
+        .iter()
+        .map(|record| record.note.amount())
+        .sum::<Amount>();
+    let change = total - withdrawal.value.amount;
+    let sender = selected
+        .first()
+        .map(|record| record.note.address())
+        .ok_or_else(|| anyhow!("host withdrawal requires at least one spend"))?;
+
+    let target_timestamp = current_unix_timestamp();
+    let spends = selected
+        .iter()
+        .map(|record| {
+            let mut spend =
+                ShieldedInputPlan::new(&mut OsRng, record.note.clone(), record.position);
+            spend.target_timestamp = target_timestamp;
+            spend
+        })
+        .collect::<Vec<_>>();
+    let change_output = (change > Amount::zero()).then(|| {
+        let mut output = ShieldedOutputPlan::new(
+            &mut OsRng,
+            Value {
+                amount: change,
+                asset_id,
+            },
+            sender,
+        );
+        output.target_timestamp = target_timestamp;
+        output
+    });
+
+    Ok(ShieldedHostWithdrawalPlan::new(
         spends,
         change_output,
         withdrawal,
@@ -264,6 +384,7 @@ async fn select_notes<Db: Database>(
     source: AddressIndex,
     asset_id: shieldd_asset::asset::Id,
     required: Amount,
+    recent_position_floor: u64,
 ) -> WasmResult<Vec<SpendableNoteRecord>> {
     let mut notes = storage
         .get_notes(shieldd_proto::view::v1::NotesRequest {
@@ -273,6 +394,11 @@ async fn select_notes<Db: Database>(
             amount_to_spend: None,
         })
         .await?;
+    let total_available = notes
+        .iter()
+        .map(|record| record.note.amount())
+        .sum::<Amount>();
+    notes.retain(|record| u64::from(record.position) >= recent_position_floor);
     notes.sort_by(|a, b| b.note.amount().cmp(&a.note.amount()));
 
     let mut total = Amount::zero();
@@ -286,9 +412,27 @@ async fn select_notes<Db: Database>(
     }
 
     if total < required {
+        if total_available >= required {
+            return Err(anyhow!(
+                "spending these funds requires historical nullifier proofs, which browser planning does not yet support"
+            )
+            .into());
+        }
         return Err(anyhow!("insufficient balance for requested transaction").into());
     }
     Ok(selected)
+}
+
+fn ensure_withdrawal_input_limit(selected: usize) -> WasmResult<()> {
+    if selected > MAX_WITHDRAWAL_INPUTS {
+        return Err(anyhow!(
+            "withdrawal requires note maintenance before browser planning: selected {} notes, maximum is {}",
+            selected,
+            MAX_WITHDRAWAL_INPUTS
+        )
+        .into());
+    }
+    Ok(())
 }
 
 fn current_unix_timestamp() -> u64 {

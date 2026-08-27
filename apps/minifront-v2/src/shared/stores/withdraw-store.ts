@@ -1,51 +1,21 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { RootStore } from './root-store';
-import {
-  BalancesResponse,
-  TransactionPlannerRequest,
-} from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
-import { ChainRegistryClient } from '@mizufinance/registry';
-import { chains } from 'chain-registry';
+import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
+import { Value } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import { bech32, bech32m } from 'bech32';
 import { BigNumber } from 'bignumber.js';
 import {
-  ViewService,
-  IbcChannelService,
-  IbcConnectionService,
-  IbcClientService,
-} from '@mizufinance/protobuf';
-import { shieldd } from '../lib/shieldd';
-import { getDisplayDenomExponentFromValueView, getMetadata } from '@mizufinance/getters/value-view';
+  getAssetIdFromValueView,
+  getDisplayDenomExponentFromValueView,
+} from '@mizufinance/getters/value-view';
 import { getAddressIndex } from '@mizufinance/getters/address-view';
 import { toBaseUnit } from '@mizufinance/types/lo-hi';
-import { Height } from '@mizufinance/protobuf/ibc/core/client/v1/client_pb';
-import { ClientState } from '@mizufinance/protobuf/ibc/lightclients/tendermint/v1/tendermint_pb';
-
-export interface ChainInfo {
-  chainId: string;
-  chainName: string;
-  displayName: string;
-  addressPrefix: string;
-  channelId: string;
-  icon?: string;
-}
-
-const APPROX_BLOCK_DURATION_MS = 5_500n;
-const MINUTE_MS = 60_000n;
-const BLOCKS_PER_MINUTE = MINUTE_MS / APPROX_BLOCK_DURATION_MS;
-const BLOCKS_PER_HOUR = BLOCKS_PER_MINUTE * 60n;
-
-const tenMinsMs = 1000 * 60 * 10;
-const twoDaysMs = 1000 * 60 * 60 * 24 * 2;
-
-const currentTimePlusTwoDaysRounded = (currentTimeMs: number): bigint => {
-  const twoDaysFromNowMs = currentTimeMs + twoDaysMs;
-  const roundedTimeoutMs = twoDaysFromNowMs + tenMinsMs - (twoDaysFromNowMs % tenMinsMs);
-  return BigInt(roundedTimeoutMs) * 1_000_000n;
-};
+import {
+  BANKD_ACCOUNT_PREFIX,
+  createHostWithdrawalRequest,
+} from '@mizufinance/perspective/plan/host-withdrawal';
 
 export interface WithdrawState {
-  selectedChain?: ChainInfo;
   selectedAsset?: BalancesResponse;
   amount: string;
   destinationAddress: string;
@@ -57,7 +27,6 @@ export class WithdrawStore {
   private rootStore: RootStore;
 
   withdrawState: WithdrawState;
-  availableChains: ChainInfo[];
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -67,21 +36,8 @@ export class WithdrawStore {
       destinationAddress: '',
       isLoading: false,
     };
-    this.availableChains = [];
 
     makeAutoObservable(this);
-  }
-
-  setSelectedChain(chain?: ChainInfo) {
-    runInAction(() => {
-      this.withdrawState = {
-        ...this.withdrawState,
-        selectedChain: chain,
-        selectedAsset: undefined,
-        amount: '',
-        destinationAddress: '',
-      };
-    });
   }
 
   setSelectedAsset(asset?: BalancesResponse) {
@@ -99,11 +55,6 @@ export class WithdrawStore {
       return;
     }
 
-    if (!this.withdrawState) {
-      console.error('WithdrawStore.withdrawState is undefined in setAmount');
-      return;
-    }
-
     runInAction(() => {
       this.withdrawState = {
         ...this.withdrawState,
@@ -114,8 +65,8 @@ export class WithdrawStore {
 
   setMaxAmount() {
     const { selectedAsset } = this.withdrawState;
-    if (selectedAsset?.balanceView?.valueView?.case === 'knownAssetId') {
-      const displayAmount = selectedAsset.balanceView.valueView.value.amount?.lo?.toString() || '0';
+    if (selectedAsset?.balanceView.valueView.case === 'knownAssetId') {
+      const displayAmount = selectedAsset.balanceView.valueView.value.amount.lo.toString();
       const exponent = getDisplayDenomExponentFromValueView(selectedAsset.balanceView);
       const maxAmount = new BigNumber(displayAmount)
         .dividedBy(new BigNumber(10).pow(exponent))
@@ -125,11 +76,6 @@ export class WithdrawStore {
   }
 
   setDestinationAddress(address: string) {
-    if (!this.withdrawState) {
-      console.error('WithdrawStore.withdrawState is undefined in setDestinationAddress');
-      return;
-    }
-
     runInAction(() => {
       this.withdrawState = {
         ...this.withdrawState,
@@ -139,10 +85,9 @@ export class WithdrawStore {
   }
 
   get validation() {
-    const { selectedChain, selectedAsset } = this.withdrawState;
+    const { selectedAsset } = this.withdrawState;
 
     return {
-      chainError: !selectedChain,
       assetError: !selectedAsset,
       amountError: this.isAmountInvalid(),
       addressError: this.isAddressInvalid(),
@@ -152,11 +97,10 @@ export class WithdrawStore {
   }
 
   get canWithdraw() {
-    const { selectedChain, selectedAsset, amount, destinationAddress } = this.withdrawState;
+    const { selectedAsset, amount, destinationAddress } = this.withdrawState;
     const validation = this.validation;
 
     return (
-      Boolean(selectedChain) &&
       Boolean(selectedAsset) &&
       Boolean(Number(amount)) &&
       Boolean(destinationAddress.trim()) &&
@@ -180,16 +124,12 @@ export class WithdrawStore {
 
   private isAmountMoreThanBalance(): boolean {
     const { selectedAsset, amount } = this.withdrawState;
-    if (
-      !selectedAsset ||
-      !amount ||
-      selectedAsset.balanceView?.valueView?.case !== 'knownAssetId'
-    ) {
+    if (!selectedAsset || !amount || selectedAsset.balanceView.valueView.case !== 'knownAssetId') {
       return false;
     }
 
     const numericAmount = parseFloat(amount);
-    const displayAmount = selectedAsset.balanceView.valueView.value.amount?.lo?.toString() || '0';
+    const displayAmount = selectedAsset.balanceView.valueView.value.amount.lo.toString();
     const exponent = getDisplayDenomExponentFromValueView(selectedAsset.balanceView);
     const availableAmount = new BigNumber(displayAmount)
       .dividedBy(new BigNumber(10).pow(exponent))
@@ -211,8 +151,8 @@ export class WithdrawStore {
   }
 
   private isAddressInvalid(): boolean {
-    const { selectedChain, destinationAddress } = this.withdrawState;
-    if (!selectedChain || !destinationAddress.trim()) {
+    const { destinationAddress } = this.withdrawState;
+    if (!destinationAddress.trim()) {
       return false;
     }
 
@@ -222,150 +162,20 @@ export class WithdrawStore {
         bech32m.decodeUnsafe(destinationAddress, Infinity) ??
         {};
 
-      return !words || prefix !== selectedChain.addressPrefix;
+      return !words || prefix !== BANKD_ACCOUNT_PREFIX;
     } catch {
       return true;
     }
   }
 
-  async loadAvailableChains() {
-    try {
-      const chainId = this.rootStore.appParametersStore.chainId;
-      if (!chainId) {
-        console.warn('Chain ID not available yet, will retry when available');
-        // Don't set fallback chains, just wait for chainId
-        return;
-      }
+  private buildTransactionRequest() {
+    const { selectedAsset, amount, destinationAddress } = this.withdrawState;
 
-      const registryClient = new ChainRegistryClient();
-      const registry = await registryClient.remote.get(chainId);
-      const ibcConnections = registry.ibcConnections;
-
-      // Accept ALL chains from the registry that have valid IBC connections
-      // No filtering - let the cosmos-kit provider handle wallet support
-      const registryChains: ChainInfo[] = ibcConnections
-        .map(chain => {
-          const chainData = chain as any;
-          const chainRegistryInfo = chains.find(c => c.chain_id === chainData.chainId);
-
-          // Use consistent naming logic across both deposit and withdraw stores
-          const chainName =
-            chainRegistryInfo?.chain_name || chainData.chainId.split('-')[0] || chainData.chainId;
-          const displayName =
-            chainRegistryInfo?.pretty_name ||
-            (chainRegistryInfo?.chain_name
-              ? chainRegistryInfo.chain_name.charAt(0).toUpperCase() +
-                chainRegistryInfo.chain_name.slice(1)
-              : chainData.chainId);
-
-          return {
-            chainId: chainData.chainId,
-            chainName: chainName,
-            displayName: displayName,
-            addressPrefix:
-              chainRegistryInfo?.bech32_prefix || chainData.chainId.split('-')[0] || 'cosmos',
-            channelId: chainData.channelId,
-            icon:
-              chainRegistryInfo?.images?.[0]?.png ||
-              `https://raw.githubusercontent.com/cosmos/chain-registry/master/${chainName}/images/${chainName}.png`,
-          };
-        })
-        .filter(chain => {
-          // Only basic validation - has required fields
-          const isValid = chain.chainId && chain.channelId && chain.addressPrefix;
-          if (!isValid) {
-            console.warn('Skipping invalid chain:', chain);
-          }
-          return isValid;
-        });
-
-      runInAction(() => {
-        this.availableChains = registryChains;
-      });
-    } catch (error) {
-      console.error('Failed to load available chains from registry:', error);
-      // Don't set fallback - let the error surface so we can debug
-      runInAction(() => {
-        this.availableChains = [];
-      });
-    }
-  }
-
-  // Removed getFallbackChains - we now rely entirely on the registry
-  // This prevents artificial limitations on supported chains
-
-  private async getTimeout(
-    channelId: string,
-  ): Promise<{ timeoutTime: bigint; timeoutHeight: Height }> {
-    try {
-      const { channel } = await shieldd.service(IbcChannelService).channel({
-        portId: 'transfer',
-        channelId,
-      });
-
-      if (!channel) {
-        throw new Error(`Channel not found for channelId: ${channelId}`);
-      }
-
-      const connectionId = channel.connectionHops[0];
-      if (!connectionId) {
-        throw new Error('No connectionId found in channel');
-      }
-
-      const { connection } = await shieldd.service(IbcConnectionService).connection({
-        connectionId,
-      });
-
-      const clientId = connection?.clientId;
-      if (!clientId) {
-        throw new Error('No clientId found in connection');
-      }
-
-      const { clientState: anyClientState } = await shieldd
-        .service(IbcClientService)
-        .clientState({ clientId });
-
-      if (!anyClientState) {
-        throw new Error(`Could not get state for client id ${clientId}`);
-      }
-
-      const clientState = new ClientState();
-      const success = anyClientState.unpackTo(clientState);
-      if (!success) {
-        throw new Error(`Error unpacking client state for client id ${clientId}`);
-      }
-
-      if (!clientState.latestHeight) {
-        throw new Error(`Latest height not provided in client state for ${clientState.chainId}`);
-      }
-
-      return {
-        timeoutTime: currentTimePlusTwoDaysRounded(Date.now()),
-        timeoutHeight: new Height({
-          revisionHeight: clientState.latestHeight.revisionHeight + BLOCKS_PER_HOUR * 3n,
-          revisionNumber: clientState.latestHeight.revisionNumber,
-        }),
-      };
-    } catch (error) {
-      console.error('Error getting timeout, using fallback:', error);
-      return {
-        timeoutTime: currentTimePlusTwoDaysRounded(Date.now()),
-        timeoutHeight: new Height({
-          revisionHeight: BigInt(Math.floor(Date.now() / 1000) + 3600),
-          revisionNumber: 1n,
-        }),
-      };
-    }
-  }
-
-  private async buildTransactionRequest(): Promise<TransactionPlannerRequest> {
-    const { selectedChain, selectedAsset, amount, destinationAddress } = this.withdrawState;
-
-    if (!selectedChain || !selectedAsset || !destinationAddress) {
+    if (!selectedAsset || !destinationAddress.trim()) {
       throw new Error('Missing required withdrawal information');
     }
 
-    if (selectedAsset.balanceView?.valueView?.case !== 'knownAssetId') {
+    if (selectedAsset.balanceView.valueView.case !== 'knownAssetId') {
       throw new Error('Invalid asset selected');
     }
 
@@ -374,58 +184,20 @@ export class WithdrawStore {
     // Normalise the randomizer: if it is all-zero but shorter than 12 bytes (e.g. Uint8Array(3)),
     // treat it as "not present" by setting an empty Uint8Array. The planner service
     // rejects non-empty randomizers with length ≠ 12.
-    if (
-      addressIndex &&
-      addressIndex.randomizer &&
-      addressIndex.randomizer.length > 0 &&
-      addressIndex.randomizer.every(b => b === 0)
-    ) {
+    if (addressIndex.randomizer.length > 0 && addressIndex.randomizer.every(b => b === 0)) {
       addressIndex.randomizer = new Uint8Array();
     }
 
-    const { address: returnAddress } = await shieldd.service(ViewService).ephemeralAddress({
-      addressIndex,
-    });
-
-    if (!returnAddress) {
-      throw new Error('Error generating IBC return address');
-    }
-
-    const metadata = getMetadata(selectedAsset.balanceView);
+    const assetId = getAssetIdFromValueView(selectedAsset.balanceView);
     const exponent = getDisplayDenomExponentFromValueView(selectedAsset.balanceView);
     const baseAmount = toBaseUnit(BigNumber(amount), exponent);
 
-    const denom = metadata.base;
-    let channelId: string | undefined;
-
-    if (denom.startsWith('transfer/')) {
-      // IBC voucher coming *into* Shieldd – channel encoded in denom
-      channelId = denom.split('/')[1];
-    } else {
-      // Native Shieldd asset – use the channel configured for the destination chain
-      channelId = selectedChain.channelId;
-    }
-
-    if (!channelId) {
-      throw new Error(
-        `Could not determine channel ID for withdrawal. Asset denom: ${denom}, destination chain: ${selectedChain.chainName}`,
-      );
-    }
-
-    const { timeoutHeight, timeoutTime } = await this.getTimeout(channelId);
-
-    const withdrawalData = {
-      amount: baseAmount,
-      denom: { denom },
-      destinationChainAddress: destinationAddress,
-      returnAddress,
-      timeoutHeight,
-      timeoutTime,
-      sourceChannel: channelId,
-    };
-
-    return new TransactionPlannerRequest({
-      ics20Withdrawals: [withdrawalData],
+    return createHostWithdrawalRequest({
+      value: new Value({
+        amount: baseAmount,
+        assetId,
+      }),
+      recipient: destinationAddress,
       source: addressIndex,
     });
   }
@@ -444,11 +216,10 @@ export class WithdrawStore {
     });
 
     try {
-      const request = await this.buildTransactionRequest();
+      const request = this.buildTransactionRequest();
 
-      // Use the toast-enabled transaction helper
       const { planBuildBroadcast } = await import('../services/transaction');
-      await planBuildBroadcast('ics20Withdrawal', request);
+      await planBuildBroadcast('shieldedHostWithdrawal', request);
 
       runInAction(() => {
         this.withdrawState = {
@@ -468,10 +239,7 @@ export class WithdrawStore {
         error,
         errorMessage: error instanceof Error ? error.message : 'Unknown error',
         errorStack: error instanceof Error ? error.stack : undefined,
-        errorCode: (error as any)?.code,
-        errorDetails: (error as any)?.details,
         withdrawalParams: {
-          chainName: this.withdrawState.selectedChain?.chainName,
           destinationAddress: this.withdrawState.destinationAddress,
           amount: this.withdrawState.amount,
         },
@@ -496,8 +264,8 @@ export class WithdrawStore {
     }
   }
 
-  async initialize() {
-    await this.loadAvailableChains();
+  initialize(): Promise<void> {
+    return Promise.resolve();
   }
 
   dispose() {

@@ -29,15 +29,13 @@ const CLASSIFICATION_LABEL_MAP: Record<TransactionClassification, string> = {
   send: 'Send',
   internalTransfer: 'Internal Transfer',
   transfer: 'Transfer',
-  consolidate: 'Consolidate',
-  split: 'Split',
+  noteReshape: 'Note Maintenance',
   shieldedIcs20Withdrawal: 'Withdrawal',
+  shieldedHostWithdrawal: 'Withdrawal',
   ibcRelayAction: 'Deposit',
-  validatorVote: 'Vote',
-  proposalSubmit: 'Create Proposal',
-  validatorDefinition: 'Validator Definition',
   complianceRegisterAsset: 'Compliance: Register Asset',
   complianceRegisterUser: 'Compliance: Register User',
+  aggregateBundle: 'Aggregate Bundle',
 };
 
 export const useClassification = (info: TransactionInfo, getMetadataByAssetId?: GetMetadata) => {

@@ -12,8 +12,8 @@ use shieldd_proto::{
     view::v1::{NotesRequest, TransactionInfo},
     DomainType,
 };
-use shieldd_sct::Nullifier;
-use shieldd_shielded_pool::{fmd, note, Note};
+use shieldd_sct::{nullifier_generation::NullifierWindow, Nullifier};
+use shieldd_shielded_pool::{discovery, note, Note};
 
 use crate::database::indexed_db::open_idb_database;
 use crate::database::interface::Database;
@@ -178,14 +178,44 @@ impl<Db: Database> Storage<Db> {
         Ok(result)
     }
 
-    pub async fn get_fmd_params(&self) -> WasmResult<Option<fmd::Parameters>> {
-        let result = self.db.get(&self.tables.fmd_parameters, "params").await?;
-        Ok(result)
-    }
-
     pub async fn get_app_params(&self) -> WasmResult<Option<AppParameters>> {
         let result = self.db.get(&self.tables.app_parameters, "params").await?;
         Ok(result)
+    }
+
+    pub async fn get_nullifier_window(&self) -> WasmResult<Option<NullifierWindow>> {
+        let result = self
+            .db
+            .get(&self.tables.app_parameters, "nullifier_window")
+            .await?;
+        Ok(result)
+    }
+
+    pub async fn set_nullifier_window(&self, window: &NullifierWindow) -> WasmResult<()> {
+        self.db
+            .put_with_key(&self.tables.app_parameters, "nullifier_window", window)
+            .await
+    }
+
+    pub async fn get_discovery_parameters(&self) -> WasmResult<Option<discovery::Parameters>> {
+        let result = self
+            .db
+            .get(&self.tables.app_parameters, "discovery_parameters")
+            .await?;
+        Ok(result)
+    }
+
+    pub async fn set_discovery_parameters(
+        &self,
+        parameters: &discovery::Parameters,
+    ) -> WasmResult<()> {
+        self.db
+            .put_with_key(
+                &self.tables.app_parameters,
+                "discovery_parameters",
+                parameters,
+            )
+            .await
     }
 
     pub async fn get_gas_prices_by_asset_id(&self, asset_id: &Id) -> WasmResult<Option<GasPrices>> {

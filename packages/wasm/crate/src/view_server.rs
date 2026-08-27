@@ -176,6 +176,7 @@ impl ViewServer {
         utils::set_panic_hook();
 
         let full_block = CompactBlock::decode(full_compact_block)?;
+        self.persist_planning_state(&full_block).await?;
 
         let mut found_new_data: bool = false;
 
@@ -262,6 +263,7 @@ impl ViewServer {
         utils::set_panic_hook();
 
         let block = CompactBlock::decode(compact_block)?;
+        self.persist_planning_state(&block).await?;
 
         let mut found_new_data: bool = false;
 
@@ -409,6 +411,18 @@ impl ViewServer {
 
         let address: Address = Address::decode(address)?;
         Ok(is_controlled_inner(&self.fvk, &address))
+    }
+}
+
+impl ViewServer {
+    async fn persist_planning_state(&self, block: &CompactBlock) -> WasmResult<()> {
+        if let Some(window) = &block.nullifier_window {
+            self.storage.set_nullifier_window(window).await?;
+        }
+        if let Some(parameters) = &block.discovery_parameters {
+            self.storage.set_discovery_parameters(parameters).await?;
+        }
+        Ok(())
     }
 }
 

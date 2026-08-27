@@ -2,8 +2,6 @@ import { AssetId } from '@mizufinance/protobuf/shieldd/core/asset/v1/asset_pb';
 import {
   Address,
   FullViewingKey,
-  GovernanceKey,
-  IdentityKey,
   SpendKey,
   WalletId,
 } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
@@ -29,16 +27,6 @@ describe('The expected inner field exists on the actual types', () => {
   test('spend key inner', () => {
     const spendKey = new SpendKey();
     expect(spendKey[Inner.shielddspendkey]).toBeDefined();
-  });
-
-  test('governance key gk', () => {
-    const governanceKey = new GovernanceKey();
-    expect(governanceKey[Inner.shielddgovern]).toBeDefined();
-  });
-
-  test('validatorid key ik', () => {
-    const validatorId = new IdentityKey();
-    expect(validatorId[Inner.shielddvalid]).toBeDefined();
   });
 
   test('wallet id inner', () => {

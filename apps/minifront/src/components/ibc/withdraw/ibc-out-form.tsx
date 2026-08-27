@@ -1,11 +1,10 @@
 import { Button } from '@mizufinance/ui-deprecated/components/ui/button';
 import { Input } from '@mizufinance/ui-deprecated/components/ui/input';
-import { ChainSelector } from './chain-selector';
 import { useStore } from '../../../state';
 import {
-  filteredIbcBalancesSelector,
+  hostWithdrawalBalancesSelector,
+  hostWithdrawalPlaceholderSelector,
   ibcOutSelector,
-  ibcPlaceholderSelector,
   ibcValidationErrors,
 } from '../../../state/ibc-out';
 import InputToken from '../../shared/input-token';
@@ -19,14 +18,14 @@ const useFilteredBalances = () => {
   useAssets();
   useBalancesResponses();
   // ========================
-  return useStore(filteredIbcBalancesSelector);
+  return useStore(hostWithdrawalBalancesSelector);
 };
 
 export const IbcOutForm = () => {
   const filteredBalances = useFilteredBalances();
 
   const {
-    sendIbcWithdraw,
+    sendHostWithdrawal,
     destinationChainAddress,
     setDestinationChainAddress,
     amount,
@@ -35,19 +34,18 @@ export const IbcOutForm = () => {
     setSelection,
   } = useStore(ibcOutSelector);
   const validationErrors = useStore(ibcValidationErrors);
-  const placeholder = useStore(ibcPlaceholderSelector);
+  const placeholder = useStore(hostWithdrawalPlaceholderSelector);
 
   return (
     <form
       className='flex flex-col gap-4'
       onSubmit={e => {
         e.preventDefault();
-        void sendIbcWithdraw();
+        void sendHostWithdrawal();
       }}
     >
-      <ChainSelector />
       <InputToken
-        label='Amount to send'
+        label='Amount to withdraw'
         placeholder={placeholder}
         className='mb-1'
         selection={selection}
@@ -74,7 +72,7 @@ export const IbcOutForm = () => {
         balances={filteredBalances}
       />
       <InputBlock
-        label='Recipient on destination chain'
+        label='Bankd recipient'
         className='mb-1'
         value={destinationChainAddress}
         validations={[
@@ -87,7 +85,7 @@ export const IbcOutForm = () => {
       >
         <Input
           variant='transparent'
-          placeholder='Enter the address'
+          placeholder='wallet1...'
           value={destinationChainAddress}
           onChange={e => setDestinationChainAddress(e.target.value)}
         />

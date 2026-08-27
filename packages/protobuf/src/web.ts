@@ -12,7 +12,6 @@ import type {
   AppService,
   CompactBlockService,
   FeeService,
-  GovernanceService,
   SctService,
   ShieldedPoolService,
 } from './services/shieldd-core.js';
@@ -23,7 +22,6 @@ export type ShielddService =
   | typeof CompactBlockService
   | typeof CustodyService
   | typeof FeeService
-  | typeof GovernanceService
   | typeof IbcChannelService
   | typeof IbcChannelMsgService
   | typeof IbcClientService

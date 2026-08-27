@@ -7,9 +7,7 @@ import { sendValidationErrors } from './send';
 import { AddressView } from '@mizufinance/protobuf/shieldd/core/keys/v1/keys_pb';
 import { produce } from 'immer';
 import { BalancesResponse } from '@mizufinance/protobuf/shieldd/view/v1/view_pb';
-import { addressFromBech32m } from '@mizufinance/bech32m/shieldd';
-import { Chain } from '@mizufinance/registry';
-import { currentTimePlusTwoDaysRounded, ibcValidationErrors } from './ibc-out';
+import { ibcValidationErrors } from './ibc-out';
 
 describe('IBC Slice', () => {
   const selectionExample = new BalancesResponse({
@@ -27,11 +25,10 @@ describe('IBC Slice', () => {
     }),
     accountAddress: new AddressView({
       addressView: {
-        case: 'opaque',
+        case: 'decoded',
         value: {
-          address: addressFromBech32m(
-            'shieldd1e8k5cyds484dxvapeamwveh5khqv4jsvyvaf5wwxaaccgfghm229qw03pcar3ryy8smptevstycch0qk3uu0rgkvtjpxy3cu3rjd0agawqtlz6erev28a6sg69u7cxy0t02nd4',
-          ),
+          address: { inner: new Uint8Array(80) },
+          index: { account: 0 },
         },
       },
     }),
@@ -46,7 +43,6 @@ describe('IBC Slice', () => {
   test('the default is empty, false or undefined', () => {
     expect(useStore.getState().ibcOut.amount).toBe('');
     expect(useStore.getState().ibcOut.selection).toBeUndefined();
-    expect(useStore.getState().ibcOut.chain).toBeUndefined();
   });
 
   describe('setAmount', () => {
@@ -82,36 +78,19 @@ describe('IBC Slice', () => {
     });
   });
 
-  describe('setChain', () => {
-    const chain = {
-      displayName: 'Osmosis',
-      chainId: 'osmosis-test-5',
-      channelId: 'channel-0',
-      counterpartyChannelId: 'channel-999',
-      images: [{ svg: '/test.svg' }],
-      addressPrefix: 'osmo',
-    } satisfies Chain;
+  describe('Bankd recipient validation', () => {
+    test('accepts a Bankd account address', () => {
+      const bankdAddress = 'wallet140fehngcrxvhdt84x729p3f0qmkmea8nxup0cy';
 
-    test('chain can be set', () => {
-      useStore.getState().ibcOut.setChain(chain);
-      expect(useStore.getState().ibcOut.chain).toBe(chain);
-    });
-
-    test('destination address validation per selected chain', () => {
-      const osmoAddress = 'osmo1dyrr4r42ql4em7d46srcmnn5ymxk9asvcv95sg';
-
-      useStore.getState().ibcOut.setChain(chain);
-      useStore.getState().ibcOut.setDestinationChainAddress(osmoAddress);
-
+      useStore.getState().ibcOut.setDestinationChainAddress(bankdAddress);
       const validationErrors = ibcValidationErrors(useStore.getState());
 
       expect(validationErrors.recipientErr).toBeFalsy();
     });
 
-    test('destination address validation per selected chain fails with incorrect address', () => {
+    test('rejects a foreign-chain address', () => {
       const osmoAddress = 'osmo1xxxxxx';
 
-      useStore.getState().ibcOut.setChain(chain);
       useStore.getState().ibcOut.setDestinationChainAddress(osmoAddress);
 
       const validationErrors = ibcValidationErrors(useStore.getState());
@@ -125,15 +104,5 @@ describe('IBC Slice', () => {
       useStore.getState().send.setSelection(selectionExample);
       expect(useStore.getState().send.selection).toStrictEqual(selectionExample);
     });
-  });
-});
-
-describe('currentTimePlusTwoDaysRounded', () => {
-  test('should add exactly two days to the current time and round up to the nearest ten minutes', () => {
-    const currentTimeMs = 1713519156000; // Apr 19 2024 9:32:36
-    const twoDaysRoundedNano = 1713692400000000000n; // Apr 21 2024 9:40:00
-
-    const result = currentTimePlusTwoDaysRounded(currentTimeMs);
-    expect(result).toEqual(twoDaysRoundedNano);
   });
 });
