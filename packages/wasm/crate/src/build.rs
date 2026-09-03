@@ -9,8 +9,8 @@ use shieldd_keys::{keys::SpendKey, symmetric::PayloadKey, FullViewingKey};
 use shieldd_proto::DomainType;
 use shieldd_shielded_pool::{
     gnark::{
-        decode_shielded_ics20_withdrawal_witness_v11, decode_transfer_witness_v19,
-        encode_shielded_ics20_withdrawal_witness_v11,
+        decode_shielded_ics20_withdrawal_witness_v12, decode_transfer_witness_v20,
+        encode_shielded_ics20_withdrawal_witness_v12,
         translate_shielded_ics20_withdrawal_proof_result, translate_transfer_proof_result,
     },
     ShieldedIcs20WithdrawalFamilyId,
@@ -167,7 +167,7 @@ fn build_action_proof_request_inner(
                 // Host withdrawals deliberately reuse the canonical shielded
                 // withdrawal circuit and prover artifact.
                 family: "shielded_ics20_withdrawal",
-                witness: encode_shielded_ics20_withdrawal_witness_v11(&public, &private)?,
+                witness: encode_shielded_ics20_withdrawal_witness_v12(&public, &private)?,
             }
         }
         other => {
@@ -229,7 +229,7 @@ fn build_action_with_proof_result_inner(
                 recent_position_floor,
             )?;
             let expected = Fq::from_le_bytes_mod_order(
-                &decode_transfer_witness_v19(&expected_witness)?.claimed_statement_hash,
+                &decode_transfer_witness_v20(&expected_witness)?.claimed_statement_hash,
             );
             let (claimed, proof) = translate_transfer_proof_result(proof_result)?;
             if claimed != expected {
@@ -256,7 +256,7 @@ fn build_action_with_proof_result_inner(
                 recent_position_floor,
             )?;
             let expected = Fq::from_le_bytes_mod_order(
-                &decode_shielded_ics20_withdrawal_witness_v11(&expected_witness)?
+                &decode_shielded_ics20_withdrawal_witness_v12(&expected_witness)?
                     .claimed_statement_hash,
             );
             let (claimed, proof) = translate_shielded_ics20_withdrawal_proof_result(
@@ -288,9 +288,9 @@ fn build_action_with_proof_result_inner(
                 anchor,
                 recent_position_floor,
             )?;
-            let expected_witness = encode_shielded_ics20_withdrawal_witness_v11(&public, &private)?;
+            let expected_witness = encode_shielded_ics20_withdrawal_witness_v12(&public, &private)?;
             let expected = Fq::from_le_bytes_mod_order(
-                &decode_shielded_ics20_withdrawal_witness_v11(&expected_witness)?
+                &decode_shielded_ics20_withdrawal_witness_v12(&expected_witness)?
                     .claimed_statement_hash,
             );
             let (claimed, proof) = translate_shielded_ics20_withdrawal_proof_result(
